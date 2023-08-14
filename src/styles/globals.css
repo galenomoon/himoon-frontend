@@ -2,26 +2,55 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+@font-face {
+  font-family: 'Satoshi-Light';
+  src: url('./fonts/Satoshi/Satoshi-Light.ttf') format('truetype');
+  font-weight: 300
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+@font-face {
+  font-family: 'Satoshi';
+  src: url('./fonts/Satoshi/Satoshi-Regular.ttf') format('truetype');
+
+}
+
+@font-face {
+  font-family: 'Satoshi-Bold';
+  src: url('./fonts/Satoshi/Satoshi-Bold.ttf') format('truetype');
+  font-weight: 700
+}
+
+@font-face {
+  font-family: 'Satoshi-Medium';
+  src: url('./fonts/Satoshi/Satoshi-Medium.ttf') format('truetype');
+  font-weight: 500
+}
+
+@font-face {
+  font-family: 'Satoshi-Black';
+  src: url('./fonts/Satoshi/Satoshi-Black.ttf') format('truetype');
+  font-weight: 900
+}
+
+@font-face {
+  font-family: 'Satoshi-Variable';
+  src: url('./fonts/Satoshi/Satoshi-Variable.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+@font-face {
+  font-family: 'Windsor';
+  src: url('./fonts/Windsor/Windsor.otf') format('opentype');
+  font-weight: 800
+
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  font-family: 'Satoshi-Variable', sans-serif;
+}
+
+.font-windsor {
+  font-family: 'Windsor', sans-serif;
 }
