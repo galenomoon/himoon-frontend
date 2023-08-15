@@ -22,22 +22,22 @@ export default function Header() {
     },
     {
       name: 'Produtos',
-      path: '/produtos'
+      path: '#'
     },
     {
       name: 'Contato',
-      path: '/contato'
+      path: '#'
     }
   ]
 
   return (
     <header className='flex items-center fixed top-0 justify-center w-full max-w-[1300px] py-6'>
-      <nav className='flex items-center gap-8 w-full'>
+      <nav className='flex items-center justify-between w-full'>
         {routes.map((route, index) =>
           <Link
             key={index}
             href={route.path}
-            className={`flex items-center justify-center px-12 py-3 rounded-full ${currentPath === route.path ? 'text-typography-secondary bg-typography-primary' : ''}`}
+            className={`flex items-center w-[142px] justify-center py-3 hover:text-typography-primary hover:bg-typography-primary/20 duration-200 rounded-full ${currentPath === route.path ? 'text-typography-secondary bg-typography-primary' : ''}`}
           >
             <p>{route.name}</p>
           </Link>
@@ -52,13 +52,13 @@ export default function Header() {
         />
       </nav>
       <nav className='flex items-center text-3xl justify-end gap-6 w-full'>
-        <Link href='/'>
+        <Link href={process.env.NEXT_PUBLIC_INSTAGRAM_URL || ''}>
           <FaInstagram />
         </Link>
-        <Link href='/'>
+        <Link href={process.env.NEXT_PUBLIC_WHATSAPP_URL || ''}>
           <FaWhatsapp />
         </Link>
-        <Link href='/'>
+        <Link href={process.env.NEXT_PUBLIC_SHOPEE_URL || ''}>
           <SiShopee />
         </Link>
       </nav>

@@ -44,7 +44,6 @@
   font-family: 'Windsor';
   src: url('./fonts/Windsor/Windsor.otf') format('opentype');
   font-weight: 800
-
 }
 
 body {
@@ -53,4 +52,11 @@ body {
 
 .font-windsor {
   font-family: 'Windsor', sans-serif;
+}
+
+.dashed-border {
+  background-image: linear-gradient(to right, #fff 45%, transparent 0);
+  background-repeat: repeat-x;
+  background-size: 60px 4px;
+  background-position: bottom, left;
 }
