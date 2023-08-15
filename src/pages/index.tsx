@@ -1,4 +1,5 @@
 //components
+import Footer from "@/components/Footer"
 import Header from "@/components/Header"
 import Separator from "@/components/Separator"
 import HeaderSection from "@/components/HeaderSection"
@@ -14,6 +15,7 @@ export default function LandingPage() {
         description='Os produtos mais vendidos da loja'
       />
       <ProductsSection />
+      <Footer />
     </main>
   )
 }

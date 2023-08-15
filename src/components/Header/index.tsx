@@ -8,9 +8,8 @@ import Link from 'next/link'
 //assets
 import horizontalLogo from '@/assets/horizontal_logo.png'
 
-//styles
-import { FaInstagram, FaWhatsapp } from 'react-icons/fa'
-import { SiShopee } from 'react-icons/si'
+//mocks
+import contacts from '@/mocks/contacts'
 
 export default function Header() {
   const { pathname: currentPath } = useRouter()
@@ -53,15 +52,11 @@ export default function Header() {
           />
         </nav>
         <nav className='flex items-center text-3xl justify-end gap-6 w-full'>
-          <Link href={process.env.NEXT_PUBLIC_INSTAGRAM_URL || ''}>
-            <FaInstagram />
-          </Link>
-          <Link href={process.env.NEXT_PUBLIC_WHATSAPP_URL || ''}>
-            <FaWhatsapp />
-          </Link>
-          <Link href={process.env.NEXT_PUBLIC_SHOPEE_URL || ''}>
-            <SiShopee />
-          </Link>
+          {contacts.map((contact: any, index: number) =>
+            <Link href={contact.url} key={index} className='h-[30px] w-[30px] flex justify-center items-center'>
+              <contact.Icon />
+            </Link>
+          )}
         </nav>
       </div>
     </header >
