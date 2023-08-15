@@ -84,11 +84,11 @@ export default function Header() {
                   </motion.a>
                 )}
               </motion.div>
-              <motion.div variants={container} className='flex w-full h-fit absolute bottom-0 text-white bg-typography-primary items-center justify-between py-8 px-4'>
+              <motion.div variants={container} className='flex w-full h-fit absolute bottom-0 text-white bg-typography-primary items-center justify-between py-12 px-4'>
                 <motion.p variants={item} className='text-md'>
                   Fale conosco:
                 </motion.p>
-                <motion.div variants={container} className='flex items-center gap-2'>
+                <motion.div variants={container} className='flex items-center gap-4 justify-center'>
                   {contacts.map((contact: any, index: number) =>
                     <motion.a href={contact.url || '#'} key={index} target='_blank'>
                       <contact.Icon size={32} />
@@ -102,35 +102,33 @@ export default function Header() {
       </motion.header>
 
       {/* Desktop Header */}
-      <header className='md:flex sm:hidden bg-background-primary flex flex-col items-center justify-center w-screen fixed top-0'>
-        <div className='flex items-center justify-center w-full max-w-[1300px] py-6'>
-          <nav className='flex items-center justify-between w-full'>
-            {routes.map((route, index) =>
-              <Link
-                key={index}
-                href={route.path}
-                className={`flex items-center w-[142px] justify-center py-3 hover:text-typography-primary hover:bg-typography-primary/20 duration-200 rounded-full ${currentPath === route.path ? 'text-typography-secondary bg-typography-primary' : ''}`}
-              >
-                <p>{route.name}</p>
-              </Link>
-            )}
-          </nav>
-          <nav className='flex items-center justify-center w-full'>
-            <Image
-              src={horizontalLogo}
-              alt="logo"
-              width={128}
-              height={128}
-            />
-          </nav>
-          <nav className='flex items-center text-3xl justify-end gap-6 w-full'>
-            {contacts.map((contact: any, index: number) =>
-              <Link href={contact.url} key={index} className='h-[30px] w-[30px] flex justify-center items-center'>
-                <contact.Icon />
-              </Link>
-            )}
-          </nav>
-        </div>
+      <header className='flex items-center justify-center w-full max-w-[94rem] py-6 md:flex sm:hidden bg-background-primary md:px-24 absolute top-0'>
+        <nav className='flex items-center justify-between w-full'>
+          {routes.map((route, index) =>
+            <Link
+              key={index}
+              href={route.path}
+              className={`flex items-center w-[142px] justify-center py-3 hover:text-typography-primary hover:bg-typography-primary/20 duration-200 rounded-full ${currentPath === route.path ? 'text-typography-secondary bg-typography-primary' : ''}`}
+            >
+              <p>{route.name}</p>
+            </Link>
+          )}
+        </nav>
+        <nav className='flex items-center justify-center w-full'>
+          <Image
+            src={horizontalLogo}
+            alt="logo"
+            width={128}
+            height={128}
+          />
+        </nav>
+        <nav className='flex items-center text-3xl justify-end gap-6 w-full'>
+          {contacts.map((contact: any, index: number) =>
+            <Link href={contact.url} key={index} className='h-[30px] w-[30px] flex justify-center items-center'>
+              <contact.Icon />
+            </Link>
+          )}
+        </nav>
       </header >
     </>
   )

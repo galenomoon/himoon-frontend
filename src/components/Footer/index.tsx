@@ -47,7 +47,7 @@ export default function Footer() {
       {/* Desktop Footer */}
       <footer className='md:flex sm:hidden w-screen py-2 text-white bg-background-secondary flex flex-col justify-center text-center'>
         <span className='dashed-border h-1' />
-        <article className='flex w-full pt-14 pb-24 text-typography-primary h-full items-center self-center max-w-[1300px]'>
+        <article className='flex w-full pt-14 px-10 pb-24 text-typography-primary h-full self-center max-w-[1300px]'>
           <nav className='flex flex-col w-full gap-4 text-start'>
             <Link href="/">
               Início
@@ -80,17 +80,18 @@ export default function Footer() {
               </Link>
             )}
           </nav>
-          <aside className='flex flex-col w-full gap-3 items-end'>
+          <aside className='flex flex-col w-full whitespace-nowrap text-end items-end'>
             <p>
               © {year} - Todos os direitos reservados
             </p>
             <p>
-              Desenvolvido por <a href="https://www.galenomoon.com" target="_blank" rel="noopener noreferrer" className='text-primary'>Guilherme Galeno</a>
+              Desenvolvido por <a href="https://www.galenomoon.com" target="_blank" rel="noopener noreferrer">Guilherme Galeno</a>
             </p>
             <Image
-              src={galenomoon_logo}
-              height={40}
               alt='Logo'
+              height={40}
+              className='mt-6'
+              src={galenomoon_logo}
             />
           </aside>
         </article>
