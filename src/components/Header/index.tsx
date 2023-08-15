@@ -31,37 +31,39 @@ export default function Header() {
   ]
 
   return (
-    <header className='flex items-center fixed top-0 justify-center w-full max-w-[1300px] py-6'>
-      <nav className='flex items-center justify-between w-full'>
-        {routes.map((route, index) =>
-          <Link
-            key={index}
-            href={route.path}
-            className={`flex items-center w-[142px] justify-center py-3 hover:text-typography-primary hover:bg-typography-primary/20 duration-200 rounded-full ${currentPath === route.path ? 'text-typography-secondary bg-typography-primary' : ''}`}
-          >
-            <p>{route.name}</p>
+    <header className='bg-background-primary flex flex-col items-center justify-center w-screen fixed top-0'>
+      <div className='flex items-center justify-center w-full max-w-[1300px] py-6'>
+        <nav className='flex items-center justify-between w-full'>
+          {routes.map((route, index) =>
+            <Link
+              key={index}
+              href={route.path}
+              className={`flex items-center w-[142px] justify-center py-3 hover:text-typography-primary hover:bg-typography-primary/20 duration-200 rounded-full ${currentPath === route.path ? 'text-typography-secondary bg-typography-primary' : ''}`}
+            >
+              <p>{route.name}</p>
+            </Link>
+          )}
+        </nav>
+        <nav className='flex items-center justify-center w-full'>
+          <Image
+            src={horizontalLogo}
+            alt="logo"
+            width={128}
+            height={128}
+          />
+        </nav>
+        <nav className='flex items-center text-3xl justify-end gap-6 w-full'>
+          <Link href={process.env.NEXT_PUBLIC_INSTAGRAM_URL || ''}>
+            <FaInstagram />
           </Link>
-        )}
-      </nav>
-      <nav className='flex items-center justify-center w-full'>
-        <Image
-          src={horizontalLogo}
-          alt="logo"
-          width={128}
-          height={128}
-        />
-      </nav>
-      <nav className='flex items-center text-3xl justify-end gap-6 w-full'>
-        <Link href={process.env.NEXT_PUBLIC_INSTAGRAM_URL || ''}>
-          <FaInstagram />
-        </Link>
-        <Link href={process.env.NEXT_PUBLIC_WHATSAPP_URL || ''}>
-          <FaWhatsapp />
-        </Link>
-        <Link href={process.env.NEXT_PUBLIC_SHOPEE_URL || ''}>
-          <SiShopee />
-        </Link>
-      </nav>
-    </header>
+          <Link href={process.env.NEXT_PUBLIC_WHATSAPP_URL || ''}>
+            <FaWhatsapp />
+          </Link>
+          <Link href={process.env.NEXT_PUBLIC_SHOPEE_URL || ''}>
+            <SiShopee />
+          </Link>
+        </nav>
+      </div>
+    </header >
   )
 }

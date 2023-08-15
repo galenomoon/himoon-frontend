@@ -2,6 +2,7 @@
 import Header from "@/components/Header"
 import Separator from "@/components/Separator"
 import HeaderSection from "@/components/HeaderSection"
+import ProductsSection from "@/components/ProductsSection"
 
 export default function LandingPage() {
   return (
@@ -12,6 +13,7 @@ export default function LandingPage() {
         title='Produtos em destaque'
         description='Os produtos mais vendidos da loja'
       />
+      <ProductsSection />
     </main>
   )
 }
