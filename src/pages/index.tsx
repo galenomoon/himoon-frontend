@@ -7,7 +7,7 @@ import ProductsSection from "@/components/ProductsSection"
 
 export default function LandingPage() {
   return (
-    <main className='flex min-h-screen flex-col text-typography-primary bg-background-primary justify-center items-center px-24'>
+    <main className='flex min-h-screen flex-col text-typography-primary bg-background-primary justify-center items-center sm:px-4 md:px-24'>
       <Header />
       <HeaderSection />
       <Separator
