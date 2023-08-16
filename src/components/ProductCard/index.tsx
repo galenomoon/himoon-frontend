@@ -34,6 +34,8 @@ export function ProductCard({ product }: ProductCardProps) {
           </h1>
           <a
             href={whatsappLink()}
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center sm:text-xl md:text-[18px] gap-2 justify-center bg-typography-primary hover:bg-opacity-90 duration-200 text-white font-satoshi-regular whitespace-nowrap rounded-full w-[320px] py-2"
           >
             <FaWhatsapp className="inline-block" />
