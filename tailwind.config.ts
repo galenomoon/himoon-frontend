@@ -19,7 +19,8 @@ const config: Config = {
         },
         background: {
           primary: '#FBF8C9',
-          secondary: '#D9B2C7'
+          secondary: '#D9B2C7',
+          light: '#EFEAFF'
         }
       },
     },

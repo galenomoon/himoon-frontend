@@ -50,6 +50,22 @@ body {
   font-family: 'Satoshi-Variable', sans-serif;
 }
 
+.font-satoshi-bold {
+  font-family: 'Satoshi-Bold', sans-serif;
+}
+
+.font-satoshi-black {
+  font-family: 'Satoshi-Black', sans-serif;
+}
+
+.font-satoshi-regular {
+  font-family: 'Satoshi', sans-serif;
+}
+
+.font-satoshi-light {
+  font-family: 'Satoshi-Light', sans-serif;
+}
+
 .font-windsor {
   font-family: 'Windsor', sans-serif;
 }
