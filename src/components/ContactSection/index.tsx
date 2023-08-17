@@ -25,7 +25,7 @@ export default function ContactSection() {
           <p className='font-satoshi-bold sm:text-3xl md:text-4xl text-center'>
             Nossas redes sociais:
           </p>
-          <article className='font-satoshi-regular text-xl flex gap-2 flex-wrap items-center justify-center'>
+          <article className='font-satoshi-regular text-xl flex gap-2 md:flex-nowrap sm:flex-wrap items-center justify-center'>
             {contacts.map((contact: any, index: number) => (
               <Link href={contact.url} key={index} className='flex items-center  justify-center gap-3 px-6 py-3 hover:text-typography-primary hover:bg-typography-primary/20 duration-200 rounded-full'>
                 <contact.Icon size={26} className="flex-shrink-0" />
