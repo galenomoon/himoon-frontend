@@ -21,7 +21,7 @@ export default function ContactSection() {
             style={{ height: '100%', width: "100%", borderRadius: '3px', border: "1px solid rgb(219, 219, 219)" }}
           />
         </aside>
-        <aside className='flex flex-col justify-center sm:gap-6 md:gap-12 p-6 items-center sm:w-full md:w-fit'>
+        <aside className='flex flex-col md:justify-start sm:justify-center sm:gap-6 md:gap-12 p-6 items-center sm:w-full md:w-fit'>
           <p className='font-satoshi-bold text-4xl'>
             Nossas redes sociais:
           </p>
