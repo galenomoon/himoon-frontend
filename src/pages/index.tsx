@@ -3,6 +3,7 @@ import Footer from "@/components/Footer"
 import Header from "@/components/Header"
 import Separator from "@/components/Separator"
 import HeaderSection from "@/components/HeaderSection"
+import ContactSection from "@/components/ContactSection"
 import ProductsSection from "@/components/ProductsSection"
 
 export default function LandingPage() {
@@ -15,6 +16,11 @@ export default function LandingPage() {
         description='Os produtos mais vendidos da loja'
       />
       <ProductsSection />
+      <Separator
+        title='Contato'
+        description='Entre em contato conosco para mais informações'
+      />
+      <ContactSection />
       <Footer />
     </main>
   )

@@ -102,34 +102,36 @@ export default function Header() {
       </motion.header>
 
       {/* Desktop Header */}
-      <header className='flex items-center justify-center w-full max-w-[94rem] py-6 md:flex sm:hidden bg-background-primary md:px-24 absolute top-0'>
-        <nav className='flex items-center justify-between w-full'>
-          {routes.map((route, index) =>
-            <Link
-              key={index}
-              href={route.path}
-              className={`flex items-center w-[142px] justify-center py-3 hover:text-typography-primary hover:bg-typography-primary/20 duration-200 rounded-full ${currentPath === route.path ? 'text-typography-secondary bg-typography-primary' : ''}`}
-            >
-              <p>{route.name}</p>
-            </Link>
-          )}
-        </nav>
-        <nav className='flex items-center justify-center w-full'>
-          <Image
-            src={horizontalLogo}
-            alt="logo"
-            width={128}
-            height={128}
-          />
-        </nav>
-        <nav className='flex items-center text-3xl justify-end gap-6 w-full'>
-          {contacts.map((contact: any, index: number) =>
-            <Link href={contact.url} key={index} className='h-[30px] w-[30px] flex justify-center items-center'>
-              <contact.Icon />
-            </Link>
-          )}
-        </nav>
-      </header >
+      <header className='flex bg-background-primary items-center justify-center w-screen py-6 md:flex sm:hidden  md:px-24 fixed top-0'>
+        <section className='flex max-w-[94rem] w-full'>
+          <nav className='flex items-center justify-between w-full'>
+            {routes.map((route, index) =>
+              <Link
+                key={index}
+                href={route.path}
+                className={`flex items-center w-[142px] justify-center py-3 hover:text-typography-primary hover:bg-typography-primary/20 duration-200 rounded-full ${currentPath === route.path ? 'text-typography-secondary bg-typography-primary' : ''}`}
+              >
+                <p>{route.name}</p>
+              </Link>
+            )}
+          </nav>
+          <nav className='flex items-center justify-center w-full'>
+            <Image
+              src={horizontalLogo}
+              alt="logo"
+              width={128}
+              height={128}
+            />
+          </nav>
+          <nav className='flex items-center text-3xl justify-end gap-6 w-full'>
+            {contacts.map((contact: any, index: number) =>
+              <Link href={contact.url} key={index} className='h-[30px] w-[30px] flex justify-center items-center'>
+                <contact.Icon />
+              </Link>
+            )}
+          </nav>
+        </section>
+      </header>
     </>
   )
 }
