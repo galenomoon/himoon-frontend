@@ -22,7 +22,7 @@ export default function ContactSection() {
           />
         </aside>
         <aside className='flex flex-col md:justify-start sm:justify-center sm:gap-6 md:gap-12 p-6 items-center sm:w-full md:w-fit'>
-          <p className='font-satoshi-bold text-4xl'>
+          <p className='font-satoshi-bold sm:text-3xl md:text-4xl text-center'>
             Nossas redes sociais:
           </p>
           <article className='font-satoshi-regular text-xl flex gap-2 flex-wrap items-center justify-center'>
