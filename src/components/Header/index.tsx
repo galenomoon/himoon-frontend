@@ -119,8 +119,9 @@ export default function Header() {
             <Image
               src={horizontalLogo}
               alt="logo"
-              width={128}
-              height={128}
+              width={1000}
+              height={1000}
+              className='w-[120px]'
             />
           </nav>
           <nav className='flex items-center text-3xl justify-end gap-6 w-full'>
