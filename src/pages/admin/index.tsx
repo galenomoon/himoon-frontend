@@ -45,7 +45,7 @@ export default function Login() {
         </div>
       </Link>
 
-      <nav className='relative flex flex-col md:w-[400px] sm:w-[96vw] gap-4 bg-white rounded-2xl md:shadow-xl md:p-10 sm:py-10 sm:px-4'>
+      <nav className='relative flex flex-col md:w-[400px] sm:w-[96vw] gap-4 bg-white rounded-[52px] md:shadow-xl md:p-10 sm:py-10 sm:px-4'>
         <section className='flex flex-col gap-2'>
           <h1 className='text-3xl text-center font-satoshi-bold'>Login</h1>
           <span className='text-sm  opacity-60 text-center'>
@@ -62,7 +62,7 @@ export default function Login() {
               type='email'
               onChange={e => setUser({ ...user, email: e.target.value })}
               placeholder="Digite seu email"
-              className='border border-gray-300 rounded-lg px-3 py-2 outline-none'
+              className='border border-gray-300 rounded-full px-6 py-2 outline-none'
             />
           </section>
           <section className='flex flex-col gap-1'>
@@ -74,7 +74,7 @@ export default function Login() {
                 placeholder='********'
                 onChange={e => setUser({ ...user, password: e.target.value })}
                 type={isHidden ? 'password' : 'text'}
-                className='border border-gray-300 rounded-lg px-3 py-2 outline-none w-full'
+                className='border border-gray-300 rounded-full px-6 py-2 outline-none w-full'
               />
               <button
                 type='button'
