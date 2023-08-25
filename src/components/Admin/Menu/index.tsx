@@ -2,12 +2,13 @@ import React from 'react'
 
 //next
 import Link from 'next/link'
+import { useRouter } from 'next/router';
 
 //styles
 import { Basket, SquaresFour, Link as LinkIcon, Gauge, SignOut } from "@phosphor-icons/react";
 
 export default function Menu() {
-  const [active, setActive] = React.useState(0)
+  const { query } = useRouter()
 
   const options = [
     {
@@ -16,29 +17,29 @@ export default function Menu() {
         {
           Icon: Basket,
           title: 'Meus Produtos',
-          href: '#'
+          href: '/admin/dashboard/meus-produtos'
         },
         {
           Icon: SquaresFour,
           title: 'Categorias',
-          href: '#'
+          href: '/admin/dashboard/categorias'
         },
         {
           Icon: LinkIcon,
           title: 'Redes Sociais',
-          href: '#'
+          href: '/admin/dashboard/redes-sociais'
         },
         {
           Icon: Gauge,
           title: 'Estatísticas',
-          href: '#'
+          href: '/admin/dashboard/estatisticas'
         }
       ]
     },
   ]
 
   return (
-    <nav className='h-screen w-[324px] bg-white shadow-lg flex flex-col'>
+    <nav className='h-screen flex-shrink-0 w-[324px] bg-white shadow-lg flex flex-col'>
       <div className='flex px-8 w-full items-center justify-center pt-12 pb-6'>
         <p className='font-satoshi-medium text-3xl'>
           👋 Seja bem-vindo
@@ -55,8 +56,7 @@ export default function Menu() {
               <Link
                 key={route_index}
                 href={route.href}
-                onClick={() => setActive(route_index)}
-                className={`text-xl px-8 py-3 ${active === route_index ? "text-blue-800 border-blue-800 bg-blue-800/10" : "opacity-60 border-transparent hover:bg-[#eee] duration-300"} border-r-4 flex items-center gap-5 font-satoshi-medium`}
+                className={`text-xl px-8 py-3 ${route.href === `/admin/dashboard/${query.option}` ? "text-blue-800 border-blue-800 bg-blue-800/10" : "opacity-60 border-transparent hover:bg-[#eee] duration-300"} border-r-4 flex items-center gap-5 font-satoshi-medium`}
               >
                 <route.Icon size={26} weight="duotone" />
                 <p>

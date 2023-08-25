@@ -1,11 +1,8 @@
 
 //components
-import Menu from '@/components/Menu'
-
+import Welcome from '@/pages/admin/dashboard/[option]'
 export default function Dashboard() {
   return (
-    <main className='relative flex min-h-screen flex-col font-satoshi-regular sm:bg-white md:bg-[#eee]'>
-      <Menu />
-    </main>
+    <Welcome/>
   )
 }

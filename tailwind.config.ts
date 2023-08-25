@@ -22,7 +22,20 @@ const config: Config = {
           secondary: '#D9B2C7',
           light: '#EFEAFF'
         }
+      }, keyframes: {
+        "fade-in": {
+          "0%": { opacity: '0' },
+          "100%": { opacity: '1' },
+        },
+        "slide-in": {
+          "0%": { transform: "translateY(100%)" },
+          "100%": { transform: "translateY(0)" },
+        },
       },
+      animation: {
+        "fade-in": "fade-in 0.5s cubic-bezier(0.230, 1.000, 0.320, 1.000) both",
+        "slide-in": "slide-in 0.8s cubic-bezier(0.230, 1.000, 0.320, 1.000) both",
+      }
     },
   },
   plugins: [],
