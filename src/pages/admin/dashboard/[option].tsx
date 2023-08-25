@@ -7,6 +7,9 @@ import Categories from '@/components/Admin/Categories'
 //next
 import { useRouter } from 'next/router'
 
+//styles
+import { Toaster } from 'react-hot-toast'
+
 export default function Dashboard() {
   const { query } = useRouter()
   const currentOption = query.option
@@ -18,6 +21,7 @@ export default function Dashboard() {
       <section className='flex flex-col p-12 w-full h-screen'>
         {currentOption === 'categorias' && <Categories />}
       </section>
+      <Toaster position='top-right' />
     </main>
   )
 }
