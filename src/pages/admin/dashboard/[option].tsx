@@ -2,6 +2,7 @@
 //components
 import Menu from '@/components/Admin/Menu'
 import NextHeader from '@/components/NextHeader'
+import Products from '@/components/Admin/Products'
 import Categories from '@/components/Admin/Categories'
 
 //next
@@ -20,6 +21,7 @@ export default function Dashboard() {
       <Menu />
       <section className='flex flex-col p-12 w-full h-screen'>
         {currentOption === 'categorias' && <Categories />}
+        {currentOption === 'produtos' && <Products/>}
       </section>
       <Toaster position='top-right' />
     </main>

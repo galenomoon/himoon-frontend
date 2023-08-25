@@ -17,7 +17,7 @@ export default function Menu() {
         {
           Icon: Basket,
           title: 'Meus Produtos',
-          href: '/admin/dashboard/meus-produtos'
+          href: '/admin/dashboard/produtos'
         },
         {
           Icon: SquaresFour,

@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 //config
 import api_client from '@/config/api_client'
 
 //styles
-import { NotePencil, Trash } from '@phosphor-icons/react'
+import { Basket, NotePencil, Trash } from '@phosphor-icons/react'
 
 //components
 import Modal from '../Modal'
@@ -15,10 +15,10 @@ import CategoryForm from '../CategoryForm'
 import { Category } from '@/interfaces/category'
 
 export default function Categories() {
-  const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false)
-  const [isAlertOpen, setIsAlertOpen] = React.useState<boolean>(false)
-  const [selectedCategory, setSelectedCategory] = React.useState<Category>()
-  const [categories, setCategories] = React.useState<Category[]>([])
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+  const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false)
+  const [selectedCategory, setSelectedCategory] = useState<Category>()
+  const [categories, setCategories] = useState<Category[]>([])
 
   useEffect(() => {
     getCategories()
@@ -69,10 +69,11 @@ export default function Categories() {
               <table className="table-auto w-full text-left font-satoshi-regular h-full text-sm">
                 <thead className="h-12 font-satoshi-medium sticky top-0 z-10 bg-white shadow-sm">
                   <tr>
+                    <th className='p-4 whitespace-nowrap opacity-40'>#</th>
                     <th className='p-4 whitespace-nowrap'>Nome</th>
                     <th className='p-4 whitespace-nowrap'>Criado em</th>
                     <th className='p-4 whitespace-nowrap'>Atualizado em</th>
-                    <th className='p-4 whitespace-nowrap flex justify-center'>#</th>
+                    <th className='p-4 whitespace-nowrap flex justify-end'></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -84,15 +85,28 @@ export default function Categories() {
 
                     return (
                       <tr key={index} className="w-full border-y text-sm font-satoshi-normal border-background-gray/20 hover:cursor-pointer duration-200 ease-in-out hover:bg-blue-400/5">
+                        <td className='p-4 whitespace-nowrap opacity-40'>{category.id}</td>
                         <td className='p-4 whitespace-nowrap'>{category.name}</td>
                         <td className='p-4 whitespace-nowrap'>{createdAt?.toLocaleString('pt-BR')}</td>
                         <td className='p-4 whitespace-nowrap'>{updatedAt?.toLocaleString('pt-BR')}</td>
-                        <td className='p-4 flex gap-2 justify-center'>
+                        <td className='p-4 flex gap-2 justify-end'>
                           <button onClick={() => openEditModal(category)} className='flex gap-2 items-center text-blue-800 bg-blue-400/20 border-2 border-blue-800/20 hover:opacity-60 duration-200 rounded-lg p-1 justify-center'>
                             <NotePencil size={28} weight="duotone" />
+                            <p className='font-satoshi-medium pr-1'>
+                              Editar
+                            </p>
                           </button>
                           <button onClick={() => openDeleteAlert(category)} className='flex gap-2 items-center text-red-800 bg-red-400/20 border-2 border-red-800/20 hover:opacity-60 duration-200 rounded-lg p-1 justify-center'>
                             <Trash size={28} weight="duotone" />
+                            <p className='font-satoshi-medium pr-1'>
+                              Excluir
+                            </p>
+                          </button>
+                          <button onClick={() => openDeleteAlert(category)} className='flex gap-2 items-center text-green-800 bg-green-400/20 border-2 border-green-800/20 hover:opacity-60 duration-200 rounded-lg p-1 justify-center'>
+                            <Basket size={28} weight="duotone" />
+                            <p className='font-satoshi-medium pr-1'>
+                              Produtos
+                            </p>
                           </button>
                         </td>
                       </tr>
