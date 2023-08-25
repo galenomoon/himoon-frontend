@@ -1,12 +1,11 @@
-import React from 'react'
+
+//components
+import Menu from '@/components/Menu'
 
 export default function Dashboard() {
-
   return (
-    <main className='flex min-h-screen flex-col font-satoshi-regular bg-[#eee] justify-center items-center sm:px-4 relative md:px-24'>
-      <p className='text-4xl'>
-        ⌛️👨🏽‍💻 Em Desenvolvimento...
-      </p>
+    <main className='relative flex min-h-screen flex-col font-satoshi-regular sm:bg-white md:bg-[#eee]'>
+      <Menu />
     </main>
   )
 }

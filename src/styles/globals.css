@@ -62,6 +62,10 @@ body {
   font-family: 'Satoshi', sans-serif;
 }
 
+.font-satoshi-medium {
+  font-family: 'Satoshi-Medium', sans-serif;
+}
+
 .font-satoshi-light {
   font-family: 'Satoshi-Light', sans-serif;
 }
