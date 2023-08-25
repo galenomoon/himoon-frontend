@@ -16,7 +16,7 @@ export default function Dashboard() {
       <NextHeader title='Administração - Hi, Moon Store | Dashboard' />
       <Menu />
       <section className='flex flex-col p-12 w-full h-screen'>
-        {currentOption === 'meus-produtos' && <Categories />}
+        {currentOption === 'categorias' && <Categories />}
       </section>
     </main>
   )

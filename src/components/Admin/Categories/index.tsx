@@ -8,14 +8,27 @@ import Alert from '../Alert'
 
 //interfaces
 import { Category } from '@/interfaces/category'
+import Modal from '../Modal'
+import CategoryForm from '../CategoryForm'
 
 export default function Categories() {
+  const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false)
+  const [isAlertOpen, setIsAlertOpen] = React.useState<boolean>(false)
   const [selectedCategory, setSelectedCategory] = React.useState<Category>()
 
   const categories = [
     { id: 1, name: 'Cadernos', createdAt: '10/10/2021', updatedAt: '10/10/2021' },
   ]
 
+  function openDeleteAlert(category: Category) {
+    setSelectedCategory(category)
+    setIsAlertOpen(true)
+  }
+
+  function openEditModal(category: Category) {
+    setSelectedCategory(category)
+    setIsModalOpen(true)
+  }
   return (
     <>
       <main className='flex flex-col h-full gap-6'>
@@ -29,7 +42,7 @@ export default function Categories() {
                 Gerenicar Categorias
               </p>
               <br />
-              <button className='bg-blue-800 text-white px-4 py-2 rounded-lg font-satoshi-medium'>
+              <button onClick={() => setIsModalOpen(true)} className='bg-blue-800 text-white px-4 py-2 rounded-lg font-satoshi-medium'>
                 Adicionar Categoria
               </button>
             </header>
@@ -50,10 +63,10 @@ export default function Categories() {
                       <td className='p-4 whitespace-nowrap'>{category.createdAt}</td>
                       <td className='p-4 whitespace-nowrap'>{category.updatedAt}</td>
                       <td className='p-4 flex gap-2 justify-center'>
-                        <button className='flex gap-2 items-center text-blue-800 bg-blue-400/20 border-2 border-blue-800/20 hover:opacity-60 duration-200 rounded-lg p-1 justify-center'>
+                        <button onClick={() => openEditModal(category)} className='flex gap-2 items-center text-blue-800 bg-blue-400/20 border-2 border-blue-800/20 hover:opacity-60 duration-200 rounded-lg p-1 justify-center'>
                           <NotePencil size={28} weight="duotone" />
                         </button>
-                        <button onClick={() => setSelectedCategory(category)} className='flex gap-2 items-center text-red-800 bg-red-400/20 border-2 border-red-800/20 hover:opacity-60 duration-200 rounded-lg p-1 justify-center'>
+                        <button onClick={() => openDeleteAlert(category)} className='flex gap-2 items-center text-red-800 bg-red-400/20 border-2 border-red-800/20 hover:opacity-60 duration-200 rounded-lg p-1 justify-center'>
                           <Trash size={28} weight="duotone" />
                         </button>
                       </td>
@@ -67,11 +80,28 @@ export default function Categories() {
       </main>
       <Alert
         onConfirm={() => { }}
-        isOpen={!!selectedCategory}
-        close={() => setSelectedCategory(undefined)}
+        isOpen={!!selectedCategory && isAlertOpen}
+        close={() => {
+          setIsAlertOpen(false)
+          setSelectedCategory(undefined)
+        }}
         title={`Excluir categoria "${selectedCategory?.name}"`}
         message='Tem certeza que deseja excluir esta categoria?'
       />
+      <Modal
+        isOpen={isModalOpen}
+        close={() => {
+          setIsModalOpen(false)
+          setSelectedCategory(undefined)
+        }}
+        title={selectedCategory?.id ? 'Editar categoria' : 'Adicionar categoria'}
+      >
+        <CategoryForm
+          close={() => setIsModalOpen(false)}
+          category={selectedCategory || { id: 0, name: '', createdAt: '', updatedAt: '' }}
+        />
+      </Modal>
+
     </>
   )
 }

@@ -23,13 +23,13 @@ export default function Alert({ onConfirm, close, message, isOpen, title }: Aler
         <div className='flex gap-4'>
           <button
             onClick={onConfirm}
-            className='bg-blue-800 text-white w-[128px] py-2 rounded-lg font-satoshi-medium'
+            className='bg-red-600 hover:opacity-80 duration-200 text-white w-[128px] py-2 rounded-lg font-satoshi-medium'
           >
             Confirmar
           </button>
           <button
             onClick={close}
-            className='bg-red-800 text-white w-[128px] py-2 rounded-lg font-satoshi-medium'
+            className='bg-gray-200 hover:opacity-80 duration-200 w-[128px] py-2 rounded-lg font-satoshi-medium'
           >
             Cancelar
           </button>
