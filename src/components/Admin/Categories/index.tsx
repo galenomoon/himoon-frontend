@@ -124,7 +124,10 @@ export default function Categories() {
       >
         <CategoryForm
           getCategories={getCategories}
-          close={() => setIsModalOpen(false)}
+          close={() => {
+            setIsModalOpen(false)
+            setSelectedCategory(undefined)
+          }}
           category={selectedCategory || { id: 0, name: '' }}
         />
       </Modal>
