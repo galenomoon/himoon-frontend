@@ -32,7 +32,12 @@ export default function Products() {
   }
 
   async function getProducts() {
-    return await api_client.get(`/products/category/${currentCategory?.id}?q=${productName}`)
+
+    const endpoint = currentCategory?.id
+      ? `/products/category/${currentCategory?.id}?q=${productName}`
+      : `/products/search/name?q=${productName}`;
+
+    return await api_client.get(endpoint)
       .then(({ data }) => setProducts(data))
       .catch(error => console.error(error))
   }
