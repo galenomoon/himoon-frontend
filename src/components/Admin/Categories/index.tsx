@@ -127,6 +127,7 @@ export default function Categories() {
         }}
         title={`Excluir categoria "${selectedCategory?.name}"`}
         message='Tem certeza que deseja excluir esta categoria?'
+        warning='Todos os produtos desta categoria serão excluídos também.'
       />
       <Modal
         isOpen={isModalOpen}
