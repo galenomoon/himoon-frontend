@@ -3,7 +3,13 @@ import React from 'react'
 //interfaces
 import { Product } from '@/interfaces/product'
 
-export default function ProductList({ products, isGrid }: { products: Product[], isGrid: boolean }) {
+interface ProductListProps {
+  products: Product[],
+  isGrid: boolean
+  openEditModal: (product: Product) => void
+}
+
+export default function ProductList({ products, isGrid, openEditModal }: ProductListProps) {
   return (
     <section className={`flex ${isGrid ? "flex-wrap" : "flex-col"} gap-4 p-4`}>
       {products?.map((product) => {
@@ -28,7 +34,7 @@ export default function ProductList({ products, isGrid }: { products: Product[],
               </p>
               <section className="flex items-center justify-between gap-6 mt-2">
                 <h1 className="md:text-xl sm:text-3xl font-satoshi-black">
-                  R${(product.price).toFixed(2).replace('.', ',')}
+                  R${(Number(product.price)).toFixed(2).replace('.', ',')}
                 </h1>
               </section>
             </footer>
@@ -55,7 +61,7 @@ export default function ProductList({ products, isGrid }: { products: Product[],
               </p>
               <section className="flex items-center justify-between gap-6 mt-2">
                 <h1 className="md:text-xl sm:text-3xl font-satoshi-black">
-                  R${(product.price).toFixed(2).replace('.', ',')}
+                  R${(Number(product.price)).toFixed(2).replace('.', ',')}
                 </h1>
               </section>
             </footer>

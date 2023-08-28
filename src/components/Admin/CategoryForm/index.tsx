@@ -47,7 +47,7 @@ export default function CategoryForm({ category, close, getCategories }: Categor
           Nome:
         </span>
         <input
-          // required
+          required
           type="text"
           value={name}
           placeholder='Nome da categoria'
@@ -58,7 +58,6 @@ export default function CategoryForm({ category, close, getCategories }: Categor
       <div className='flex  gap-2'>
         <button className='bg-blue-800 flex items-center justify-center hover:opacity-80 text-white w-full px-4 h-12 rounded-lg font-satoshi-medium'>
           {isLoaded ? "Salvar" : <Spinner size={32} className='animate-spin' />}
-
         </button>
         <button onClick={close} type='button' className='bg-gray-200 hover:opacity-80 w-full text-typography-main px-4 py-2 rounded-lg font-satoshi-medium'>
           Cancelar
