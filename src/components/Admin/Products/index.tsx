@@ -139,7 +139,7 @@ export default function Products() {
             setIsModalOpen(false)
             setSelectedProduct(undefined)
           }}
-          product={{ ...selectedProduct, category_id: currentCategory?.id } as Product}
+          product={{ ...selectedProduct, category_id: selectedProduct?.category_id || currentCategory?.id } as Product}
         />
       </Modal>
     </>

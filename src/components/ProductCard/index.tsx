@@ -30,7 +30,7 @@ export function ProductCard({ product }: ProductCardProps) {
         </p>
         <section className="flex items-center justify-between gap-6 mt-5">
           <h1 className="md:text-2xl sm:text-3xl font-satoshi-black">
-            R${(product.price).toFixed(2).replace('.', ',')}
+            R${(Number(product.price)).toFixed(2).replace('.', ',')}
           </h1>
           <a
             href={whatsappLink()}
