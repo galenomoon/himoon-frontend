@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react'
 
+//next
+import { useRouter } from 'next/router'
+
 //interfaces
 import { Product } from '@/interfaces/product'
 import { Category } from '@/interfaces/category'
@@ -16,12 +19,16 @@ import ProductForm from '../ProductForm'
 //styles
 import { toast } from 'react-hot-toast'
 import { MagnifyingGlass, Rows, SquaresFour } from '@phosphor-icons/react'
+
+//hooks
 import { useDebounce } from '@/hooks/useDebounce'
 
 
 export default function Products() {
+  const { query: { category } } = useRouter()
+
   const [categories, setCategories] = useState<Category[]>([])
-  const [currentCategory, setCurrentCategory] = useState<Category>()
+  const [currentCategory, setCurrentCategory] = useState<Category>({ id: Number(category) } as Category)
   const [products, setProducts] = useState<Product[]>([])
   const [selectedProduct, setSelectedProduct] = useState<Product>()
   const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false)

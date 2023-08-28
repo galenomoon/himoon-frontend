@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import Link from 'next/link'
 
 //config
 import api_client from '@/config/api_client'
@@ -118,12 +119,15 @@ export default function Categories() {
                               Excluir
                             </p>
                           </button>
-                          <button onClick={() => openDeleteAlert(category)} className='flex gap-2 items-center text-green-800 bg-green-400/20 border-2 border-green-800/20 hover:opacity-60 duration-200 rounded-lg p-1 justify-center'>
+                          <Link
+                            href={`/admin/produtos?category=${category.id}`}
+                            className='flex gap-2 items-center text-green-800 bg-green-400/20 border-2 border-green-800/20 hover:opacity-60 duration-200 rounded-lg p-1 justify-center'
+                          >
                             <Basket size={28} weight="duotone" />
                             <p className='font-satoshi-medium pr-1'>
                               Produtos
                             </p>
-                          </button>
+                          </Link>
                         </td>
                       </tr>
                     )

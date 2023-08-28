@@ -17,22 +17,22 @@ export default function Menu() {
         {
           Icon: Basket,
           title: 'Meus Produtos',
-          href: '/admin/dashboard/produtos'
+          href: '/admin/produtos'
         },
         {
           Icon: SquaresFour,
           title: 'Categorias',
-          href: '/admin/dashboard/categorias'
+          href: '/admin/categorias'
         },
         {
           Icon: LinkIcon,
           title: 'Redes Sociais',
-          href: '/admin/dashboard/redes-sociais'
+          href: '/admin/redes-sociais'
         },
         {
           Icon: Gauge,
           title: 'Estatísticas',
-          href: '/admin/dashboard/estatisticas'
+          href: '/admin/estatisticas'
         }
       ]
     },
@@ -68,12 +68,15 @@ export default function Menu() {
         ))}
       </nav>
       <span className='w-[80%] self-center h-[2px] bg-black/10' />
-      <div className='flex px-8 gap-2 text-red-600 w-full items-center justify-center py-6 pb-12'>
+      <Link
+        href='login'
+        className='flex px-8 gap-2 text-red-600 w-full items-center justify-center py-6 pb-12'
+      >
         <SignOut size={22} weight="duotone" />
         <p>
           Sair
         </p>
-      </div>
+      </Link>
     </nav>
   )
 }
