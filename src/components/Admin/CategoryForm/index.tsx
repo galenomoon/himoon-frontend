@@ -36,7 +36,11 @@ export default function CategoryForm({ category, close, getCategories }: Categor
         toast.success('Categoria salva com sucesso!')
         close()
       })
-      .catch(error => console.log(error))
+      .catch(error => {
+        console.error(error)
+        if (error.response.status === 409) return toast.error('Já existe uma categoria com esse nome')
+        return toast.error('Erro ao salvar categoria')
+      })
       .finally(() => setIsLoaded(true))
   }
 
