@@ -31,11 +31,11 @@ export default function ProductForm({ categories, product: productByProp, close,
       ...product,
       price: Number(String(product.price).replace(/\D/g, ''))/100,
     }
-
-    if (!product.name) return toast.error('Preencha o nome do produto')
-    if (!product.description) return toast.error('Preencha a descrição do produto')
-    if (!product.price) return toast.error('Preencha o preço do produto')
-    if (!product.category_id) return toast.error('Selecione uma categoria')
+    
+    if (!payload.name) return toast.error('Preencha o nome do produto')
+    if (!payload.description) return toast.error('Preencha a descrição do produto')
+    if (!payload.price) return toast.error('Preencha o preço do produto')
+    if (!payload.category_id) return toast.error('Selecione uma categoria')
 
     setIsLoaded(false)
 
@@ -93,7 +93,7 @@ export default function ProductForm({ categories, product: productByProp, close,
         <input
           type="text"
           required
-          value={product.price ? currencyFormat(String(product.price)) : ''}
+          value={product.price ? currencyFormat(String(product.price)) : currencyFormat('')}
           placeholder='Preço do produto'
           onChange={e => setProduct(product => ({ ...product, price: currencyFormat(e.target.value) }))}
           className='border border-background-gray/20 rounded-lg px-4 py-2'
@@ -105,7 +105,7 @@ export default function ProductForm({ categories, product: productByProp, close,
         </span>
         <select
           required
-          value={product.category_id}
+          value={product.category_id || ''}
           onChange={e => setProduct(product => ({ ...product, category_id: Number(e.target.value) }))}
           className='border border-background-gray/20 bg-white rounded-lg px-4 py-2'
         >
