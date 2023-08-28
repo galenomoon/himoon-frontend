@@ -75,14 +75,18 @@ export default function Products() {
         console.error(error)
         toast.error('Erro ao excluir produto')
       })
-      .finally(() => close())
+      .finally(() => getAll())
   }
 
   function close() {
     setIsAlertOpen(false)
     setIsModalOpen(false)
+  }
+
+  async function getAll() {
     setSelectedProduct(undefined)
-    getProducts()
+    await getProducts()
+    await getCategories()
   }
 
   return (
@@ -176,7 +180,7 @@ export default function Products() {
       >
         <ProductForm
           categories={categories}
-          getProducts={getProducts}
+          getAll={getAll}
           close={() => close()}
           product={{ ...selectedProduct, category_id: selectedProduct?.category_id || currentCategory?.id } as Product}
         />

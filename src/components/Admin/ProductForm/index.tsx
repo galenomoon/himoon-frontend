@@ -14,11 +14,11 @@ import { Spinner } from '@phosphor-icons/react'
 interface ProductFormProps {
   product: Product,
   close: () => void,
-  getProducts: () => void
+  getAll: () => void
   categories: Category[]
 }
 
-export default function ProductForm({ categories, product: productByProp, close, getProducts }: ProductFormProps) {
+export default function ProductForm({ categories, product: productByProp, close, getAll }: ProductFormProps) {
   const [product, setProduct] = React.useState<Product>({...productByProp, images: []})
   const [isLoaded, setIsLoaded] = React.useState<boolean>(true)
 
@@ -42,7 +42,7 @@ export default function ProductForm({ categories, product: productByProp, close,
 
     await api_client[method](endpoint, payload)
       .then(() => {
-        getProducts()
+        getAll()
         toast.success('Produto salvo com sucesso!')
         close()
       })
@@ -67,7 +67,7 @@ export default function ProductForm({ categories, product: productByProp, close,
         <input
           type="text"
           required
-          value={product.name}
+          value={product.name || ''}
           placeholder='Nome do produto'
           onChange={e => setProduct(product => ({ ...product, name: e.target.value }))}
           className='border border-background-gray/20 rounded-lg px-4 py-2'
@@ -93,7 +93,7 @@ export default function ProductForm({ categories, product: productByProp, close,
         <input
           type="text"
           required
-          value={product.price}
+          value={product.price ? currencyFormat(String(product.price)) : ''}
           placeholder='Preço do produto'
           onChange={e => setProduct(product => ({ ...product, price: currencyFormat(e.target.value) }))}
           className='border border-background-gray/20 rounded-lg px-4 py-2'
