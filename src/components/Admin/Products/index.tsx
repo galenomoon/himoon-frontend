@@ -64,7 +64,7 @@ export default function Products() {
         <div className="flex flex-col h-full text-typography-main relative overflow-hidden w-full bg-white shadow-lg rounded-xl pb-2">
           <header className='h-[68px] bg-white w-full flex items-center justify-between p-4'>
             <p className='text-typography-main font-satoshi-semibold text-xl'>
-              Gerenicar Produtos
+              Gerenciar Produtos
             </p>
             <br />
             <button
@@ -139,7 +139,7 @@ export default function Products() {
             setIsModalOpen(false)
             setSelectedProduct(undefined)
           }}
-          product={{...selectedProduct, category_id: currentCategory?.id} as Product}
+          product={{ ...selectedProduct, category_id: currentCategory?.id } as Product}
         />
       </Modal>
     </>

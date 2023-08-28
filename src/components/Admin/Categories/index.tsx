@@ -58,7 +58,7 @@ export default function Categories() {
           <div className="flex flex-col h-full text-typography-main relative overflow-hidden w-full bg-white shadow-lg rounded-xl pb-2">
             <header className='h-[68px] bg-white w-full flex items-center justify-between p-4'>
               <p className='text-typography-main font-satoshi-semibold text-xl'>
-                Gerenicar Categorias
+                Gerenciar Categorias
               </p>
               <br />
               <button onClick={() => setIsModalOpen(true)} className='bg-blue-800 text-white px-4 py-2 rounded-lg font-satoshi-medium'>
