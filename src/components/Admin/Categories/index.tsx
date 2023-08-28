@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import api_client from '@/config/api_client'
 
 //styles
+import { toast } from 'react-hot-toast'
 import { Basket, NotePencil, Trash } from '@phosphor-icons/react'
 
 //components
@@ -34,8 +35,11 @@ export default function Categories() {
     if (!selectedCategory) return
     await api_client.delete(`/categories/${selectedCategory.id}`)
       .then(({ data }) => setCategories(data))
-      .catch(error => console.log(error))
-      .finally(() => setIsAlertOpen(false))
+      .catch(error => {
+        console.error(error)
+        toast.error('Erro ao excluir categoria')
+      })
+      .finally(() => close())
   }
 
   function openDeleteAlert(category: Category) {
@@ -46,6 +50,12 @@ export default function Categories() {
   function openEditModal(category: Category) {
     setSelectedCategory(category)
     setIsModalOpen(true)
+  }
+
+  function close() {
+    setIsAlertOpen(false)
+    setIsModalOpen(false)
+    setSelectedCategory(undefined)
   }
 
   return (
@@ -121,28 +131,19 @@ export default function Categories() {
       <Alert
         onConfirm={() => deleteCategory()}
         isOpen={!!selectedCategory && isAlertOpen}
-        close={() => {
-          setIsAlertOpen(false)
-          setSelectedCategory(undefined)
-        }}
+        close={() => close()}
         title={`Excluir categoria "${selectedCategory?.name}"`}
         message='Tem certeza que deseja excluir esta categoria?'
         warning='Todos os produtos desta categoria serão excluídos também.'
       />
       <Modal
         isOpen={isModalOpen}
-        close={() => {
-          setIsModalOpen(false)
-          setSelectedCategory(undefined)
-        }}
+        close={() => close()}
         title={selectedCategory?.id ? 'Editar categoria' : 'Adicionar categoria'}
       >
         <CategoryForm
           getCategories={getCategories}
-          close={() => {
-            setIsModalOpen(false)
-            setSelectedCategory(undefined)
-          }}
+          close={() => close()}
           category={selectedCategory || { id: 0, name: '' }}
         />
       </Modal>

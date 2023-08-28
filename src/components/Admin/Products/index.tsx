@@ -9,10 +9,12 @@ import api_client from '@/config/api_client'
 
 //components
 import Modal from '../Modal'
+import Alert from '../Alert'
 import ProductList from '../ProductList'
 import ProductForm from '../ProductForm'
 
 //styles
+import { toast } from 'react-hot-toast'
 import { MagnifyingGlass, Rows, SquaresFour } from '@phosphor-icons/react'
 
 
@@ -21,6 +23,7 @@ export default function Products() {
   const [currentCategory, setCurrentCategory] = useState<Category>()
   const [products, setProducts] = useState<Product[]>([])
   const [selectedProduct, setSelectedProduct] = useState<Product>()
+  const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false)
   const [productName, setProductName] = useState<string>('')
   const [isGrid, setIsGrid] = useState<boolean>(true)
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
@@ -53,6 +56,28 @@ export default function Products() {
   function openEditModal(product: Product) {
     setSelectedProduct(product)
     setIsModalOpen(true)
+  }
+
+  function openDeleteAlert(product: Product) {
+    setSelectedProduct(product)
+    setIsAlertOpen(true)
+  }
+
+  function deleteProduct() {
+    if (!selectedProduct) return
+    api_client.delete(`/products/${selectedProduct.id}`)
+      .then(({ data }) => setProducts(data))
+      .catch(error => {
+        console.error(error)
+        toast.error('Erro ao excluir produto')
+      })
+      .finally(() => close())
+  }
+
+  function close() {
+    setIsAlertOpen(false)
+    setIsModalOpen(false)
+    setSelectedProduct(undefined)
   }
 
   return (
@@ -120,25 +145,32 @@ export default function Products() {
                 </div>
               </header>
             </nav>
-            <ProductList openEditModal={openEditModal} products={products} isGrid={isGrid} />
+            <ProductList
+              isGrid={isGrid}
+              products={products}
+              openEditModal={openEditModal}
+              openDeleteAlert={openDeleteAlert}
+            />
           </section>
         </div>
       </main>
+      <Alert
+        onConfirm={() => deleteProduct()}
+        isOpen={!!selectedProduct && isAlertOpen}
+        close={() => close()}
+        title={`Excluir produto "${selectedProduct?.name}"`}
+        message='Tem certeza que deseja excluir este produto?'
+        warning='Esta ação não poderá ser desfeita.'
+      />
       <Modal
         isOpen={isModalOpen}
-        close={() => {
-          setIsModalOpen(false)
-          setSelectedProduct(undefined)
-        }}
+        close={() => close()}
         title={selectedProduct?.id ? 'Editar produto' : 'Adicionar produto'}
       >
         <ProductForm
           categories={categories}
           getProducts={getProducts}
-          close={() => {
-            setIsModalOpen(false)
-            setSelectedProduct(undefined)
-          }}
+          close={() => close()}
           product={{ ...selectedProduct, category_id: selectedProduct?.category_id || currentCategory?.id } as Product}
         />
       </Modal>
