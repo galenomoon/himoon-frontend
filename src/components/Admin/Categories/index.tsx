@@ -65,7 +65,7 @@ export default function Categories() {
           Categorias
         </h1>
         <section className='flex flex-col gap-6 h-full'>
-          <div className="flex flex-col h-full text-typography-main relative overflow-hidden w-full bg-white shadow-lg rounded-xl pb-2">
+          <div className="flex flex-col h-[85vh] text-typography-main relative overflow-hidden w-full bg-white shadow-lg rounded-xl pb-2">
             <header className='h-[68px] bg-white w-full flex items-center justify-between p-4'>
               <p className='text-typography-main font-satoshi-semibold text-xl'>
                 Gerenciar Categorias
@@ -75,7 +75,7 @@ export default function Categories() {
                 Adicionar Categoria
               </button>
             </header>
-            <section className='overflow-auto w-full'>
+            <section className='overflow-auto scrollbar-hide w-full'>
               <table className="table-auto w-full text-left font-satoshi-regular h-full text-sm">
                 <thead className="h-12 font-satoshi-medium sticky top-0 z-10 bg-white shadow-sm">
                   <tr>
@@ -94,7 +94,7 @@ export default function Categories() {
                     const updatedAt = new Date(category.updatedAt)
 
                     return (
-                      <tr key={index} className="w-full border-y text-sm font-satoshi-normal border-background-gray/20 hover:cursor-pointer duration-200 ease-in-out hover:bg-blue-400/5">
+                      <tr key={index} className="w-full border-y last:border-b-0 text-sm font-satoshi-normal border-background-gray/20 hover:cursor-pointer duration-200 ease-in-out hover:bg-blue-400/5">
                         <td className='p-4 whitespace-nowrap opacity-40'>{category.id}</td>
                         <td className='p-4 whitespace-nowrap'>{category.name}</td>
                         <td className='p-4 whitespace-nowrap'>{createdAt?.toLocaleString('pt-BR')}</td>

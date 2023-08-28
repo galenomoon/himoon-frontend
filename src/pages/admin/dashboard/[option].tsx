@@ -16,10 +16,10 @@ export default function Dashboard() {
   const currentOption = query.option
 
   return (
-    <main className='relative flex min-h-screen font-satoshi-regular sm:bg-white md:bg-[#eee]'>
+    <main className='relative flex min-h-screen w-fit font-satoshi-regular sm:bg-white md:bg-[#eee]'>
       <NextHeader title='Administração - Hi, Moon Store | Dashboard' />
       <Menu />
-      <section className='flex flex-col p-12 w-full h-screen'>
+      <section className='flex flex-col px-12 pt-12 w-[calc(100vw-324px)]'>
         {currentOption === 'categorias' && <Categories />}
         {currentOption === 'produtos' && <Products/>}
       </section>

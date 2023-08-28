@@ -16,6 +16,7 @@ import ProductForm from '../ProductForm'
 //styles
 import { toast } from 'react-hot-toast'
 import { MagnifyingGlass, Rows, SquaresFour } from '@phosphor-icons/react'
+import { useDebounce } from '@/hooks/useDebounce'
 
 
 export default function Products() {
@@ -28,13 +29,16 @@ export default function Products() {
   const [isGrid, setIsGrid] = useState<boolean>(true)
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
+  const debouncedSearch = useDebounce(productName)
+
+
   useEffect(() => {
     getCategories()
   }, [])
 
   useEffect(() => {
-    getProducts()
-  }, [currentCategory, productName])
+    getProducts(debouncedSearch)
+  }, [currentCategory, debouncedSearch])
 
   async function getCategories() {
     return await api_client.get('/categories')
@@ -42,11 +46,11 @@ export default function Products() {
       .catch(error => console.error(error))
   }
 
-  async function getProducts() {
+  async function getProducts(productName?: string) {
 
     const endpoint = currentCategory?.id
-      ? `/products/category/${currentCategory?.id}?q=${productName}`
-      : `/products/search/name?q=${productName}`;
+      ? `/products/category/${currentCategory?.id}?q=${productName || ''}`
+      : `/products/search/name?q=${productName || ''}`;
 
     return await api_client.get(endpoint)
       .then(({ data }) => setProducts(data))
@@ -78,30 +82,33 @@ export default function Products() {
     setIsAlertOpen(false)
     setIsModalOpen(false)
     setSelectedProduct(undefined)
+    getProducts()
   }
 
   return (
     <>
-      <main className='flex flex-col h-full gap-6'>
+      <main className='flex flex-col h-full gap-6 w-full'>
         <h1 className='text-3xl font-satoshi-medium'>
           Produtos
         </h1>
-        <div className="flex flex-col h-full text-typography-main relative overflow-hidden w-full bg-white shadow-lg rounded-xl pb-2">
+        <div className="flex flex-col h-[85vh] text-typography-main relative overflow-hidden max-w-full bg-white shadow-lg rounded-xl pb-2">
           <header className='h-[68px] bg-white w-full flex items-center justify-between p-4'>
             <p className='text-typography-main font-satoshi-semibold text-xl'>
               Gerenciar Produtos
             </p>
             <br />
             <button
+              disabled={!categories.length}
               onClick={() => setIsModalOpen(true)}
-              className='bg-blue-800 text-white px-4 py-2 rounded-lg font-satoshi-medium'
+              title={!categories.length ? 'Cadastre uma categoria antes de cadastrar um produto' : undefined}
+              className='bg-blue-800 disabled:opacity-40 text-white px-4 py-2 rounded-lg font-satoshi-medium'
             >
               Cadastrar Produto
             </button>
           </header>
-          <section className='overflow-auto w-full'>
-            <nav className="font-satoshi-medium flex flex-col sticky top-0 z-10 bg-white shadow-sm">
-              <div className='flex'>
+          <section className='overflow-y-auto w-full scrollbar-hide'>
+            <nav className="font-satoshi-medium flex flex-col sticky top-0 z-20 bg-white shadow-sm">
+              <div className='flex overflow-x-auto scrollbar-hide'>
                 <button
                   onClick={() => setCurrentCategory(undefined)}
                   className={`border-b-4 whitespace-nowrap ${!currentCategory ? "text-blue-800 border-blue-800" : "border-gray-100"} hover:bg-[#eee]/60 duration-300 rounded-t-lg w-fit px-6 py-3`}

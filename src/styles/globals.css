@@ -80,3 +80,7 @@ body {
   background-size: 60px 4px;
   background-position: bottom, left;
 }
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
