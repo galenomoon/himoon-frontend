@@ -81,6 +81,7 @@ export default function Categories() {
                   <tr>
                     <th className='p-4 whitespace-nowrap opacity-40'>#</th>
                     <th className='p-4 whitespace-nowrap'>Nome</th>
+                    <th className='p-4 whitespace-nowrap'>Produtos cadastrados</th>
                     <th className='p-4 whitespace-nowrap'>Criado em</th>
                     <th className='p-4 whitespace-nowrap'>Atualizado em</th>
                     <th className='p-4 whitespace-nowrap flex justify-end'></th>
@@ -97,6 +98,11 @@ export default function Categories() {
                       <tr key={index} className="w-full border-y last:border-b-0 text-sm font-satoshi-normal border-background-gray/20 hover:cursor-pointer duration-200 ease-in-out hover:bg-blue-400/5">
                         <td className='p-4 whitespace-nowrap opacity-40'>{category.id}</td>
                         <td className='p-4 whitespace-nowrap'>{category.name}</td>
+                        <td className='p-4 whitespace-nowrap'>
+                          <p className={`text-sm font-satoshi-medium ${category.quantityProducts === 0 ? 'text-red-600' : 'text-green-600'}`}>
+                            {category.quantityProducts}
+                          </p>
+                        </td>
                         <td className='p-4 whitespace-nowrap'>{createdAt?.toLocaleString('pt-BR')}</td>
                         <td className='p-4 whitespace-nowrap'>{updatedAt?.toLocaleString('pt-BR')}</td>
                         <td className='p-4 flex gap-2 justify-end'>
