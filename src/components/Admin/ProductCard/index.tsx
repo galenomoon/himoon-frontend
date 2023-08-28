@@ -29,15 +29,10 @@ export default function ProductCard({ product, openEditModal, openDeleteAlert, i
         : <img src={product.images[0]} alt={product.name} className={`${isGrid ? "w-full h-[220px]" : "w-[124px] h-[124px]"} flex-shrink-0 rounded-xl object-cover`} />
       }
       <footer className="flex flex-col w-full">
-        <h1 className='font-semibold text-lg truncate'>
+        <h1 className='font-semibold text-lg truncate '>
           {product.name}
         </h1>
-        <span className="flex items-center gap-2 my-2">
-          <p className="text-blue-800 rounded-full bg-blue-200 px-2 text-xs">
-            unidade
-          </p>
-        </span>
-        <p className="font-satoshi-regular opacity-60 text-sm line-clamp-2">
+        <p className="font-satoshi-regular opacity-60 text-sm line-clamp-1">
           {product.description.trim() || 'Sem descrição'}
         </p>
         <section className="flex items-center justify-between gap-6 mt-2">

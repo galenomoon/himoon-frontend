@@ -122,7 +122,7 @@ export default function Products() {
               <div className='flex overflow-x-auto scrollbar-hide'>
                 <button
                   onClick={() => setCurrentCategory(undefined as any)}
-                  className={`border-b-4 whitespace-nowrap ${!currentCategory ? "text-blue-800 border-blue-800" : "border-gray-100"} hover:bg-[#eee]/60 duration-300 rounded-t-lg w-fit px-6 py-3`}
+                  className={`border-b-4 whitespace-nowrap ${!currentCategory?.id ? "text-blue-800 border-blue-800" : "border-gray-100"} hover:bg-[#eee]/60 duration-300 rounded-t-lg w-fit px-6 py-3`}
                 >
                   Todos
                 </button>
