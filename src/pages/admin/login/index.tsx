@@ -39,17 +39,12 @@ export default function Login() {
       })
       .catch(err => {
         console.error(err)
-
         if (err.response.status === 401) {
           return toast.error('Email ou senha incorretos')
-        }
-        if (err.response.status === 404) {
-          return toast.error('Email não encontrado')
         }
         if (err.response.status === 500) {
           return toast.error('Algo deu errado, tente novamente mais tarde')
         }
-
       })
       .finally(() => setIsLoaded(true))
   }
