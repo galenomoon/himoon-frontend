@@ -7,7 +7,7 @@ import Image from 'next/image'
 import Button from '../Button'
 
 //assets
-import empty_state from '@/assets/thinking.png'
+import empty_state from '@/assets/thinking.svg'
 
 interface EmptyStateProps {
   title: string
@@ -29,7 +29,7 @@ export default function EmptyState({ title, description, onClick, buttonLabel }:
           />
         </figure>
         <h1 className="text-3xl font-satoshi-medium">{title}</h1>
-        {description && <p className="text-typography-main text-center">{description}</p>}
+        {description && <p className="opacity-40 text-center">{description}</p>}
       </div>
       {onClick &&
         <Button
