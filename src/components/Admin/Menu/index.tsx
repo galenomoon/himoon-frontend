@@ -56,7 +56,7 @@ export default function Menu() {
               <Link
                 key={route_index}
                 href={route.href}
-                className={`text-xl px-8 py-3 ${route.href === `/admin/dashboard/${query.option}` ? "text-blue-800 border-blue-800 bg-blue-800/10" : "opacity-60 border-transparent hover:bg-[#eee] duration-300"} border-r-4 flex items-center gap-5 font-satoshi-medium`}
+                className={`text-xl px-8 py-3 ${route.href === `/admin/${query.option}` ? "text-blue-800 border-blue-800 bg-blue-800/10" : "opacity-60 border-transparent hover:bg-[#eee] duration-300"} border-r-4 flex items-center gap-5 font-satoshi-medium`}
               >
                 <route.Icon size={26} weight="duotone" />
                 <p>

@@ -57,7 +57,7 @@ export default function Products() {
 
     const endpoint = currentCategory?.id
       ? `/products/category/${currentCategory?.id}?q=${productName || ''}`
-      : `/products/search/name?q=${productName || ''}`;
+      : `/products?q=${productName || ''}`;
 
     return await api_client.get(endpoint)
       .then(({ data }) => setProducts(data))
