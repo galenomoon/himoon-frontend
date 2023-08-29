@@ -24,7 +24,6 @@ export default function Login() {
   const date = new Date()
   const year = date.getFullYear()
 
-
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault()
     push('/admin/')
@@ -96,7 +95,7 @@ export default function Login() {
           © {year} - Todos os direitos reservados
         </p>
       </nav>
-      <Toaster />
+      <Toaster position='top-right' />
     </main>
   )
 }

@@ -13,6 +13,7 @@ import api_client from '@/config/api_client'
 //components
 import Modal from '../Modal'
 import Alert from '../Alert'
+import Button from '../Button'
 import ProductList from '../ProductList'
 import ProductForm from '../ProductForm'
 
@@ -37,7 +38,6 @@ export default function Products() {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
   const debouncedSearch = useDebounce(productName)
-
 
   useEffect(() => {
     getCategories()
@@ -108,16 +108,14 @@ export default function Products() {
               Gerenciar Produtos
             </p>
             <br />
-            <button
+            <Button
               disabled={!categories.length}
               onClick={() => setIsModalOpen(true)}
-              title={!categories.length ? 'Cadastre uma categoria antes de cadastrar um produto' : undefined}
-              className='bg-blue-800 disabled:opacity-40 text-white px-4 py-2 rounded-lg font-satoshi-medium'
             >
               Cadastrar Produto
-            </button>
+            </Button>
           </header>
-          <section className='overflow-y-auto w-full scrollbar-hide'>
+          <section className='overflow-y-auto h-full w-full scrollbar-hide'>
             <nav className="font-satoshi-medium flex flex-col sticky top-0 z-20 bg-white shadow-sm">
               <div className='flex overflow-x-auto scrollbar-hide'>
                 <button
@@ -168,6 +166,7 @@ export default function Products() {
               products={products}
               openEditModal={openEditModal}
               openDeleteAlert={openDeleteAlert}
+              openCreateModal={() => setIsModalOpen(true)}
             />
           </section>
         </div>
