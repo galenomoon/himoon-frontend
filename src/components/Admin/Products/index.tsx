@@ -36,6 +36,7 @@ export default function Products() {
   const [productName, setProductName] = useState<string>('')
   const [isGrid, setIsGrid] = useState<boolean>(true)
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+  const [isLoaded, setIsLoaded] = useState<boolean>(false)
 
   const debouncedSearch = useDebounce(productName)
 
@@ -48,13 +49,14 @@ export default function Products() {
   }, [currentCategory, debouncedSearch])
 
   async function getCategories() {
+    setIsLoaded(false)
     return await api_client.get('/categories')
       .then(({ data }) => setCategories(data))
       .catch(error => console.error(error))
+      .finally(() => setIsLoaded(true))
   }
 
   async function getProducts(productName?: string) {
-
     const endpoint = currentCategory?.id
       ? `/products/category/${currentCategory?.id}?q=${productName || ''}`
       : `/products?q=${productName || ''}`;
@@ -164,6 +166,7 @@ export default function Products() {
             <ProductList
               isGrid={isGrid}
               products={products}
+              isLoaded={isLoaded}
               openEditModal={openEditModal}
               openDeleteAlert={openDeleteAlert}
               openCreateModal={() => setIsModalOpen(true)}

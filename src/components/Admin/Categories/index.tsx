@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import Link from 'next/link'
 
 //config
 import api_client from '@/config/api_client'
 
 //styles
 import { toast } from 'react-hot-toast'
-import { Basket, NotePencil, Trash } from '@phosphor-icons/react'
 
 //components
 import Modal from '../Modal'
 import Alert from '../Alert'
 import Button from '../Button'
-import EmptyState from '../EmptyState'
 import CategoryForm from '../CategoryForm'
+import CategoriesList from '../CategoriesList'
 
 //interfaces
 import { Category } from '@/interfaces/category'
@@ -23,15 +21,18 @@ export default function Categories() {
   const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false)
   const [selectedCategory, setSelectedCategory] = useState<Category>()
   const [categories, setCategories] = useState<Category[]>([])
+  const [isLoaded, setIsLoaded] = useState<boolean>(false)
 
   useEffect(() => {
     getCategories()
   }, [])
 
   async function getCategories() {
+    setIsLoaded(false)
     return await api_client.get('/categories')
       .then(({ data }) => setCategories(data))
       .catch(error => console.error(error))
+      .finally(() => setIsLoaded(true))
   }
 
   async function deleteCategory() {
@@ -78,76 +79,13 @@ export default function Categories() {
                 Adicionar Categoria
               </Button>
             </header>
-            {categories.length === 0 ?
-              <div className='flex flex-col items-center justify-center h-full w-full'>
-                <EmptyState
-                  title='Nenhuma categoria cadastrada'
-                  description='Clique no botão abaixo para criar uma nova categoria'
-                  buttonLabel='Adicionar categoria'
-                  onClick={() => setIsModalOpen(true)}
-                />
-              </div>
-              :
-              <section className='overflow-auto scrollbar-hide w-full'>
-                <table className="table-auto w-full text-left font-satoshi-regular h-full text-sm">
-                  <thead className="h-12 font-satoshi-medium sticky top-0 z-10 bg-white shadow-sm">
-                    <tr>
-                      <th className='p-4 whitespace-nowrap opacity-40'>#</th>
-                      <th className='p-4 whitespace-nowrap'>Nome</th>
-                      <th className='p-4 whitespace-nowrap'>Produtos cadastrados</th>
-                      <th className='p-4 whitespace-nowrap'>Criado em</th>
-                      <th className='p-4 whitespace-nowrap'>Atualizado em</th>
-                      <th className='p-4 whitespace-nowrap flex justify-end'></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {categories.map((category, index) => {
-                      if (!category.createdAt || !category.updatedAt) return null
-
-                      const createdAt = new Date(category.createdAt)
-                      const updatedAt = new Date(category.updatedAt)
-
-                      return (
-                        <tr key={index} className="w-full border-y last:border-b-0 text-sm font-satoshi-normal border-background-gray/20 hover:cursor-pointer duration-200 ease-in-out hover:bg-blue-400/5">
-                          <td className='p-4 whitespace-nowrap opacity-40'>{category.id}</td>
-                          <td className='p-4 whitespace-nowrap'>{category.name}</td>
-                          <td className='p-4 whitespace-nowrap'>
-                            <p className={`text-sm font-satoshi-medium ${category.quantityProducts === 0 ? 'text-red-600' : 'text-green-600'}`}>
-                              {category.quantityProducts}
-                            </p>
-                          </td>
-                          <td className='p-4 whitespace-nowrap'>{createdAt?.toLocaleString('pt-BR')}</td>
-                          <td className='p-4 whitespace-nowrap'>{updatedAt?.toLocaleString('pt-BR')}</td>
-                          <td className='p-4 flex gap-2 justify-end'>
-                            <button onClick={() => openEditModal(category)} className='flex gap-2 items-center text-blue-800 bg-blue-400/20 border-2 border-blue-800/20 hover:opacity-60 duration-200 rounded-lg p-1 justify-center'>
-                              <NotePencil size={28} weight="duotone" />
-                              <p className='font-satoshi-medium pr-1'>
-                                Editar
-                              </p>
-                            </button>
-                            <button onClick={() => openDeleteAlert(category)} className='flex gap-2 items-center text-red-800 bg-red-400/20 border-2 border-red-800/20 hover:opacity-60 duration-200 rounded-lg p-1 justify-center'>
-                              <Trash size={28} weight="duotone" />
-                              <p className='font-satoshi-medium pr-1'>
-                                Excluir
-                              </p>
-                            </button>
-                            <Link
-                              href={`/admin/produtos?category=${category.id}`}
-                              className='flex gap-2 items-center text-green-800 bg-green-400/20 border-2 border-green-800/20 hover:opacity-60 duration-200 rounded-lg p-1 justify-center'
-                            >
-                              <Basket size={28} weight="duotone" />
-                              <p className='font-satoshi-medium pr-1'>
-                                Produtos
-                              </p>
-                            </Link>
-                          </td>
-                        </tr>
-                      )
-                    })}
-                  </tbody>
-                </table>
-              </section>
-            }
+            <CategoriesList
+              isLoaded={isLoaded}
+              categories={categories}
+              openEditModal={openEditModal}
+              setIsModalOpen={setIsModalOpen}
+              openDeleteAlert={openDeleteAlert}
+            />
           </div>
         </section>
       </main>
@@ -170,7 +108,6 @@ export default function Categories() {
           category={selectedCategory || { id: 0, name: '' }}
         />
       </Modal>
-
     </>
   )
 }

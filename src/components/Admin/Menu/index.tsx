@@ -7,8 +7,11 @@ import { useRouter } from 'next/router';
 //styles
 import { Basket, SquaresFour, Link as LinkIcon, Gauge, SignOut } from "@phosphor-icons/react";
 
+//config
+import { destroyCookie } from 'nookies';
+
 export default function Menu() {
-  const { query } = useRouter()
+  const { query, push } = useRouter()
 
   const options = [
     {
@@ -37,6 +40,11 @@ export default function Menu() {
       ]
     },
   ]
+
+  async function handleSignOut() {
+    destroyCookie(undefined, 'token')
+    return push('/admin/login')
+  }
 
   return (
     <nav className='h-screen flex-shrink-0 w-[324px] bg-white shadow-lg flex flex-col'>
@@ -68,15 +76,15 @@ export default function Menu() {
         ))}
       </nav>
       <span className='w-[80%] self-center h-[2px] bg-black/10' />
-      <Link
-        href='login'
+      <button
+        onClick={handleSignOut}
         className='flex px-8 gap-2 text-red-600 w-full items-center justify-center py-6 pb-12'
       >
         <SignOut size={22} weight="duotone" />
         <p>
           Sair
         </p>
-      </Link>
+      </button>
     </nav>
   )
 }
