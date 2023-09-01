@@ -4,7 +4,7 @@ import React from 'react'
 import Link from 'next/link'
 
 //interfaces
-import { Category } from '@/interfaces/category'
+import { ICategory } from '@/interfaces/category'
 
 //components
 import EmptyState from '../EmptyState'
@@ -14,11 +14,11 @@ import { Basket, NotePencil, Spinner, Trash } from '@phosphor-icons/react'
 
 
 interface CategoriesListProps {
-  categories: Category[]
+  categories: ICategory[]
   isLoaded: boolean
   setIsModalOpen: (value: boolean) => void
-  openEditModal: (category: Category) => void
-  openDeleteAlert: (category: Category) => void
+  openEditModal: (category: ICategory) => void
+  openDeleteAlert: (category: ICategory) => void
 }
 
 export default function CategoriesList({ categories, isLoaded, setIsModalOpen, openEditModal, openDeleteAlert }: CategoriesListProps) {

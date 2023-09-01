@@ -4,8 +4,8 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
 //interfaces
-import { Product } from '@/interfaces/product'
-import { Category } from '@/interfaces/category'
+import { IProduct } from '@/interfaces/product'
+import { ICategory } from '@/interfaces/category'
 
 //config
 import api_client from '@/config/api_client'
@@ -28,10 +28,10 @@ import { useDebounce } from '@/hooks/useDebounce'
 export default function Products() {
   const { query: { category } } = useRouter()
 
-  const [categories, setCategories] = useState<Category[]>([])
-  const [currentCategory, setCurrentCategory] = useState<Category>({ id: Number(category) } as Category)
-  const [products, setProducts] = useState<Product[]>([])
-  const [selectedProduct, setSelectedProduct] = useState<Product>()
+  const [categories, setCategories] = useState<ICategory[]>([])
+  const [currentCategory, setCurrentCategory] = useState<ICategory>({ id: Number(category) } as ICategory)
+  const [products, setProducts] = useState<IProduct[]>([])
+  const [selectedProduct, setSelectedProduct] = useState<IProduct>()
   const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false)
   const [productName, setProductName] = useState<string>('')
   const [isGrid, setIsGrid] = useState<boolean>(true)
@@ -66,12 +66,12 @@ export default function Products() {
       .catch(error => console.error(error))
   }
 
-  function openEditModal(product: Product) {
+  function openEditModal(product: IProduct) {
     setSelectedProduct(product)
     setIsModalOpen(true)
   }
 
-  function openDeleteAlert(product: Product) {
+  function openDeleteAlert(product: IProduct) {
     setSelectedProduct(product)
     setIsAlertOpen(true)
   }
@@ -191,7 +191,7 @@ export default function Products() {
           categories={categories}
           getAll={getAll}
           close={() => close()}
-          product={{ ...selectedProduct, category_id: selectedProduct?.category_id || currentCategory?.id } as Product}
+          product={{ ...selectedProduct, category_id: selectedProduct?.category_id || currentCategory?.id } as IProduct}
         />
       </Modal>
     </>

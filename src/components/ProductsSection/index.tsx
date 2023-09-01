@@ -13,10 +13,10 @@ export default function ProductsSection() {
   const { asPath } = useRouter()
 
   useEffect(() => {
-    scrollToContact(asPath)
+    scrollToProductsSection(asPath)
   }, [asPath])
 
-  function scrollToContact(currentPath: string) {
+  function scrollToProductsSection(currentPath: string) {
     if (currentPath !== '/#produtos') return
     return currentSectionRef.current?.scrollIntoView({ behavior: 'smooth' })
   }

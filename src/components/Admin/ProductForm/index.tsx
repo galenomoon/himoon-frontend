@@ -1,8 +1,8 @@
 import React from 'react'
 
 //interfaces
-import { Product } from '@/interfaces/product'
-import { Category } from '@/interfaces/category'
+import { IProduct } from '@/interfaces/product'
+import { ICategory } from '@/interfaces/category'
 
 //config
 import api_client from '@/config/api_client'
@@ -12,14 +12,14 @@ import { toast } from 'react-hot-toast'
 import { Spinner } from '@phosphor-icons/react'
 
 interface ProductFormProps {
-  product: Product,
+  product: IProduct,
   close: () => void,
   getAll: () => void
-  categories: Category[]
+  categories: ICategory[]
 }
 
 export default function ProductForm({ categories, product: productByProp, close, getAll }: ProductFormProps) {
-  const [product, setProduct] = React.useState<Product>({...productByProp, images: []})
+  const [product, setProduct] = React.useState<IProduct>({...productByProp, images: []})
   const [isLoaded, setIsLoaded] = React.useState<boolean>(true)
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {

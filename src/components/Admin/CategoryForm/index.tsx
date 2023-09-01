@@ -1,7 +1,7 @@
 import React from 'react'
 
 //interfaces
-import { Category } from '@/interfaces/category'
+import { ICategory } from '@/interfaces/category'
 
 //config
 import api_client from '@/config/api_client'
@@ -11,7 +11,7 @@ import { toast } from 'react-hot-toast'
 import { Spinner } from '@phosphor-icons/react'
 
 interface CategoryFormProps {
-  category: Category,
+  category: ICategory,
   close: () => void,
   getCategories: () => void
 }

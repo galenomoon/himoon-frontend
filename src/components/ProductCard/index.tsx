@@ -1,8 +1,8 @@
-import { Product } from "@/interfaces/product"
+import { IProduct } from "@/interfaces/product"
 import { FaWhatsapp } from "react-icons/fa"
 
 interface ProductCardProps {
-  product: Product
+  product: IProduct
 }
 
 export function ProductCard({ product }: ProductCardProps) {
@@ -15,7 +15,7 @@ export function ProductCard({ product }: ProductCardProps) {
 
   return (
     <div key={product.id} className='flex gap-3 duration-200 flex-col sm:w-full md:w-[305px] h-fit p-4 rounded-2xl bg-background-light'>
-      <img src={product.images[0]} alt={product.name} className='w-full h-72 rounded-xl object-cover' />
+      <img src={product.images[0] || 'https://ae01.alicdn.com/kf/HTB1auYkbjLuK1Rjy0Fhq6xpdFXaS.jpg_640x640Q90.jpg_.webp'} alt={product.name} className='w-full h-72 rounded-xl object-cover' />
       <footer className="flex flex-col w-full">
         <h1 className='font-semibold text-xl truncate'>
           {product.name}

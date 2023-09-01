@@ -15,7 +15,7 @@ import horizontalLogo from '@/assets/horizontal_logo.png'
 //mocks
 import contacts from '@/mocks/contacts'
 
-export default function Header() {
+export default function Header({ fixed = false }) {
 
   const routes = [
     {
@@ -100,7 +100,7 @@ export default function Header() {
       </motion.header>
 
       {/* Desktop Header */}
-      <header className='flex bg-background-primary items-center justify-center w-screen py-6 md:flex sm:hidden  md:px-24 fixed top-0'>
+      <header className={`flex bg-background-primary items-center justify-center w-screen py-6 md:flex sm:hidden md:px-24 ${fixed ? fixed : ""} top-0`}>
         <section className='flex max-w-[94rem] w-full'>
           <nav className='flex items-center justify-between w-full'>
             {routes.map((route, index) =>

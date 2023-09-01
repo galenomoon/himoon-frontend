@@ -1,7 +1,7 @@
 import React from 'react'
 
 //interfaces
-import { Product } from '@/interfaces/product'
+import { IProduct } from '@/interfaces/product'
 
 //components
 import EmptyState from '../EmptyState'
@@ -11,12 +11,12 @@ import ProductCard from '../ProductCard'
 import { Spinner } from '@phosphor-icons/react'
 
 interface ProductListProps {
-  products: Product[]
+  products: IProduct[]
   isGrid: boolean
   isLoaded: boolean
   openCreateModal: () => void
-  openEditModal: (product: Product) => void,
-  openDeleteAlert: (product: Product) => void
+  openEditModal: (product: IProduct) => void,
+  openDeleteAlert: (product: IProduct) => void
 }
 
 export default function ProductList({ products, isGrid, isLoaded, openEditModal, openDeleteAlert, openCreateModal }: ProductListProps) {

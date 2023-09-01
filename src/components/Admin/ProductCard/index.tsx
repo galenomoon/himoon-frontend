@@ -1,16 +1,16 @@
 import React from 'react'
 
 //interfaces
-import { Product } from '@/interfaces/product'
+import { IProduct } from '@/interfaces/product'
 
 //styles
 import { NotePencil, Trash } from '@phosphor-icons/react'
 
 interface ProductCardProps {
-  product: Product
-  openEditModal: (product: Product) => void
+  product: IProduct
+  openEditModal: (product: IProduct) => void
   isGrid: boolean
-  openDeleteAlert: (product: Product) => void
+  openDeleteAlert: (product: IProduct) => void
 }
 
 export default function ProductCard({ product, openEditModal, openDeleteAlert, isGrid }: ProductCardProps) {

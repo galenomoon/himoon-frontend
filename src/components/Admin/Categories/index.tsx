@@ -14,13 +14,13 @@ import CategoryForm from '../CategoryForm'
 import CategoriesList from '../CategoriesList'
 
 //interfaces
-import { Category } from '@/interfaces/category'
+import { ICategory } from '@/interfaces/category'
 
 export default function Categories() {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false)
-  const [selectedCategory, setSelectedCategory] = useState<Category>()
-  const [categories, setCategories] = useState<Category[]>([])
+  const [selectedCategory, setSelectedCategory] = useState<ICategory>()
+  const [categories, setCategories] = useState<ICategory[]>([])
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
 
   useEffect(() => {
@@ -46,12 +46,12 @@ export default function Categories() {
       .finally(() => close())
   }
 
-  function openDeleteAlert(category: Category) {
+  function openDeleteAlert(category: ICategory) {
     setSelectedCategory(category)
     setIsAlertOpen(true)
   }
 
-  function openEditModal(category: Category) {
+  function openEditModal(category: ICategory) {
     setSelectedCategory(category)
     setIsModalOpen(true)
   }

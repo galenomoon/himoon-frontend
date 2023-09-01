@@ -6,16 +6,17 @@ import logo from '@/assets/complete_logo.png'
 
 //next
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 export default function HeaderSection() {
   const currentSectionRef = useRef<HTMLDivElement>(null)
   const { asPath } = useRouter()
 
   useEffect(() => {
-    scrollToContact(asPath)
+    scrollToTop(asPath)
   }, [asPath])
 
-  function scrollToContact(currentPath: string) {
+  function scrollToTop(currentPath: string) {
     if (currentPath !== '/') return
     return currentSectionRef.current?.scrollIntoView({ behavior: 'smooth' })
   }
@@ -30,11 +31,12 @@ export default function HeaderSection() {
         <p className="text-lg">
           Encontre os melhores produtos de artigo de papelaria<br />aqui na Hi, Moon! Juntamos o útil ao adorável
         </p>
-        <button
+        <Link
+          href='/produtos'
           className='bg-typography-primary flex-shrink-0 my-4 md:w-fit md:px-12 sm:px-0 sm:w-[90%] md:self-start sm:self-center text-white font-bold py-3 px-6 rounded-full hover:bg-background-secondary transition duration-300 ease-in-out'
         >
-          Saiba mais!
-        </button>
+          Ver produtos
+        </Link>
       </article>
       <aside className='flex flex-col sm:w-auto sm:justify-end md:justify-center items-center md:h-full sm:h-[24rem]'>
         <Image
