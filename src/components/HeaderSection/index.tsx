@@ -1,12 +1,27 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import Image from 'next/image'
 
 //assets
 import logo from '@/assets/complete_logo.png'
 
+//next
+import { useRouter } from 'next/router'
+
 export default function HeaderSection() {
+  const currentSectionRef = useRef<HTMLDivElement>(null)
+  const { asPath } = useRouter()
+
+  useEffect(() => {
+    scrollToContact(asPath)
+  }, [asPath])
+
+  function scrollToContact(currentPath: string) {
+    if (currentPath !== '/') return
+    return currentSectionRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }
+
   return (
-    <section className='flex sm:flex-col-reverse md:gap-0 sm:gap-4 md:flex-row max-w-[1300px] items-center justify-between w-full h-screen'>
+    <section ref={currentSectionRef} className='flex sm:flex-col-reverse md:gap-0 sm:gap-4 md:flex-row max-w-[1300px] items-center justify-between w-full h-screen'>
       <article className='flex flex-col md:text-start sm:text-center h-full gap-3 sm:justify-start md:justify-center'>
         <h1 className="font-windsor sm:text-5xl md:text-7xl">
           A sua papelaria <br className='sm:hidden md:block' />

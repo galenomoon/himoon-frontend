@@ -1,16 +1,31 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 
 //mocks
 import contacts from '@/mocks/contacts'
 
-//next
-import Link from 'next/link'
+
+//components
 import SectionTitle from '../SectionTitle'
 
+//next
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+
 export default function ContactSection() {
+  const currentSectionRef = useRef<HTMLDivElement>(null)
+  const { asPath } = useRouter()
+
+  useEffect(() => {
+    scrollToContact(asPath)
+  }, [asPath])
+
+  function scrollToContact(currentPath: string) {
+    if (currentPath !== '/#contato') return
+    return currentSectionRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }
 
   return (
-    <section className='flex flex-col max-w-[1300px] gap-16 items-center py-24 w-full h-fit min-h-screen'>
+    <section ref={currentSectionRef} className='flex flex-col max-w-[1300px] gap-16 items-center py-24 w-full h-fit min-h-screen'>
       <SectionTitle>
         Nos acompanhe no Instagram
       </SectionTitle>

@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
 //next
-import { useRouter } from 'next/router'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -17,7 +16,6 @@ import horizontalLogo from '@/assets/horizontal_logo.png'
 import contacts from '@/mocks/contacts'
 
 export default function Header() {
-  const { pathname: currentPath } = useRouter()
 
   const routes = [
     {
@@ -26,11 +24,11 @@ export default function Header() {
     },
     {
       name: 'Produtos',
-      path: '#'
+      path: '#produtos'
     },
     {
       name: 'Contato',
-      path: '#'
+      path: '#contato'
     }
   ]
 
@@ -109,7 +107,7 @@ export default function Header() {
               <Link
                 key={index}
                 href={route.path}
-                className={`flex items-center w-[142px] justify-center py-3 hover:text-typography-primary hover:bg-typography-primary/20 duration-200 rounded-full ${currentPath === route.path ? 'text-typography-secondary bg-typography-primary' : ''}`}
+                className='flex items-center w-[142px] justify-center py-3 hover:text-typography-primary hover:bg-typography-primary/20 duration-200 rounded-full'
               >
                 <p>{route.name}</p>
               </Link>
