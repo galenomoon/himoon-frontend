@@ -7,9 +7,12 @@ import { Spinner } from '@phosphor-icons/react'
 //components
 import Button from '../Button'
 
+//interfaces
+import { User } from '@/interfaces/user'
+
 interface AuthFormProps {
-  user: { email: string, password: string }
-  setUser: React.Dispatch<React.SetStateAction<{ email: string, password: string }>>
+  user: User
+  setUser: React.Dispatch<React.SetStateAction<User>>
   handleAuth: (e: React.FormEvent) => Promise<void>
   isLoaded: boolean
 }

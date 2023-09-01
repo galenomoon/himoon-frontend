@@ -8,11 +8,13 @@ import Categories from '@/components/Admin/Categories'
 
 //next
 import { useRouter } from 'next/router'
+import { GetServerSidePropsContext } from 'next'
 
 //styles
 import { Toaster } from 'react-hot-toast'
+import authMiddleware from '@/middlewares/authMiddleware'
 
-export default function Dashboard() {
+export default function AdminSide() {
   const { query } = useRouter()
   const currentOption = query.option || 'welcome'
 
@@ -28,4 +30,8 @@ export default function Dashboard() {
       <Toaster position='top-right' />
     </main>
   )
+}
+
+export function getServerSideProps(ctx: GetServerSidePropsContext) {
+  return authMiddleware(ctx)
 }

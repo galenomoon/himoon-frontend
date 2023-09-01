@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 
 //next
 import Link from 'next/link'
@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 
 //styles
 import { IoIosArrowRoundBack } from 'react-icons/io'
-import { Toaster, toast } from 'react-hot-toast'
+import { Toaster } from 'react-hot-toast'
 
 //interfaces
 import { User } from '@/interfaces/user'
@@ -15,13 +15,13 @@ import { User } from '@/interfaces/user'
 import NextHeader from '@/components/NextHeader'
 import AuthForm from '@/components/Admin/AuthForm'
 
-//config
-import { setCookie } from 'nookies'
-import api_client from '@/config/api_client'
+//contexts
+import { UserContext } from '@/contexts/UserContext'
 
 export default function Login() {
   const [user, setUser] = useState<User>({ email: '', password: '' })
   const [isLoaded, setIsLoaded] = useState(true)
+  const { login } = useContext(UserContext)
 
   const { push } = useRouter()
 
@@ -32,21 +32,13 @@ export default function Login() {
     e.preventDefault()
 
     setIsLoaded(false)
-    await api_client.post('/auth/login', user)
-      .then(({ data }) => {
-        setCookie(undefined, 'token', data.token)
-        push('/admin/')
-      })
-      .catch(err => {
-        console.error(err)
-        if (err.response.status === 401) {
-          return toast.error('Email ou senha incorretos')
-        }
-        if (err.response.status === 500) {
-          return toast.error('Algo deu errado, tente novamente mais tarde')
-        }
-      })
-      .finally(() => setIsLoaded(true))
+    try {
+      login(user, () => push('/admin/'))
+    } catch (error) {
+      console.error(error)
+    } finally {
+      setIsLoaded(true)
+    }
   }
 
   return (
