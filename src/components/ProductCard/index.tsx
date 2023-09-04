@@ -16,7 +16,7 @@ export function ProductCard({ product }: ProductCardProps) {
   return (
     <button
       key={product.id}
-      className='flex hover:shadow-md hover:scale-[1.02] gap-3 duration-200 flex-col sm:w-full md:w-[264px] h-fit p-3 rounded-2xl bg-background-light'
+      className='flex hover:shadow-lg shadow-md flex-shrink-0 hover:scale-[1.02] gap-3 duration-200 flex-col sm:w-full md:w-[264px] h-fit p-3 rounded-2xl bg-background-light'
     >
       <img
         alt={product.name}
@@ -28,7 +28,7 @@ export function ProductCard({ product }: ProductCardProps) {
           {product.name}
         </h1>
         <span className="flex items-center gap-2">
-          <h1 className="md:text-2xl sm:text-3xl font-satoshi-black text-[#19171A]/90 whitespace-nowrap">
+          <h1 className="md:text-2xl sm:text-3xl font-satoshi-black text-typography-black whitespace-nowrap">
             R$ {(Number(product.price)).toFixed(2).replace('.', ',')}
           </h1>
         </span>
@@ -39,11 +39,11 @@ export function ProductCard({ product }: ProductCardProps) {
           href={whatsappLink()}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center mt-4 flex-shrink-0 sm:text-xl md:text-base gap-2 justify-center bg-typography-primary hover:bg-opacity-90 duration-200 text-white font-satoshi-regular whitespace-nowrap rounded-full w-full px-6 pt-1 pb-2"
+          className="flex items-center mt-4 flex-shrink-0 sm:text-xl md:text-base gap-2 justify-center bg-typography-primary hover:bg-opacity-90 duration-200 text-white font-satoshi-regular whitespace-nowrap rounded-full w-full px-6 py-2"
         >
-          <FaWhatsapp className="mt-1" size={16} />
+          <FaWhatsapp size={16} />
           <p>
-            ver mais
+            Fazer pedido
           </p>
         </a>
       </footer>
