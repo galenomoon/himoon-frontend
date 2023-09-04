@@ -91,41 +91,34 @@ export default function ProductsPage() {
             </select>
           </div>
         </header>
-        <section className="flex gap-4 min-h-screen">
-          <CategoriesList
-            categoryId={categoryId}
-            setCategory={setCategoryId}
-            categories={categories}
-          />
-          <div className="flex flex-col gap-4 w-full">
-            <header className="flex justify-between items-center gap-4">
-              <Pagination />
-              <SearchBar text={productName} setText={setProductName} />
-              <div className="flex gap-2">
-                <button
-                  onClick={() => setIsGrid(true)}
-                  className={`${
-                    isGrid
-                      ? "bg-typography-primary text-white border-typography"
-                      : "bg-white hover:bg-gray-100"
-                  } border-2 duration-200 flex-shrink-0 flex items-center justify-center w-[40px] h-[40px] rounded-lg font-satoshi-medium`}
-                >
-                  <SquaresFour size={20} />
-                </button>
-                <button
-                  onClick={() => setIsGrid(false)}
-                  className={`${
-                    !isGrid
-                      ? "bg-typography-primary text-white border-typography"
-                      : "bg-white hover:bg-gray-100"
-                  } border-2 duration-200 flex-shrink-0 flex items-center justify-center w-[40px] h-[40px] rounded-lg font-satoshi-medium`}
-                >
-                  <Rows size={20} />
-                </button>
-              </div>
-            </header>
-            <ProductGrid products={products} className="!justify-end !gap-3" />
-          </div>
+        <section className="flex flex-col gap-6 min-h-screen">
+          <header className="flex justify-between items-center gap-4">
+            <Pagination />
+            <SearchBar text={productName} setText={setProductName} />
+            <div className="flex gap-2">
+              <button
+                onClick={() => setIsGrid(true)}
+                className={`${
+                  isGrid
+                    ? "bg-typography-primary text-white border-typography"
+                    : "bg-white hover:bg-gray-100"
+                } border-2 duration-200 flex-shrink-0 flex items-center justify-center w-[40px] h-[40px] rounded-lg font-satoshi-medium`}
+              >
+                <SquaresFour size={20} />
+              </button>
+              <button
+                onClick={() => setIsGrid(false)}
+                className={`${
+                  !isGrid
+                    ? "bg-typography-primary text-white border-typography"
+                    : "bg-white hover:bg-gray-100"
+                } border-2 duration-200 flex-shrink-0 flex items-center justify-center w-[40px] h-[40px] rounded-lg font-satoshi-medium`}
+              >
+                <Rows size={20} />
+              </button>
+            </div>
+          </header>
+          <ProductGrid products={products} className="!gap-3" />
         </section>
       </section>
       <Footer />
