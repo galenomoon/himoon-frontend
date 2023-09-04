@@ -22,7 +22,7 @@ export default function Footer() {
         <article className='flex flex-col w-full pt-12 pb-16 text-typography-primary h-full items-center justify-center self-center max-w-[1300px]'>
           <nav className='flex w-full gap-4 items-center justify-center'>
             {contacts.map((contact: any, index: number) =>
-              <Link href={contact.url} key={index}>
+              <Link href={contact.url || '#'} key={index}>
                 <contact.Icon size={28} />
               </Link>
             )}

@@ -13,10 +13,10 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product }: ProductCardProps) {
-  function whatsappLink() {
+  function openWhatsApp() {
     const message = `Olá, gostaria de saber mais sobre o produto ${product.name}`;
     const link = `https://api.whatsapp.com/send?phone=${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}&text=${message}`;
-    return link;
+    return window.open(link, "_blank");
   }
 
   return (
@@ -36,7 +36,7 @@ export function ProductCard({ product }: ProductCardProps) {
       ) : (
         <div className="w-full h-56 rounded-xl bg-gradient-to-br to-white from-gray-100 animate-pulse flex items-center justify-center" />
       )}
-      <footer className="flex items-start text-start flex-col w-full">
+      <div className="flex items-start text-start flex-col w-full">
         <h1 className="font-satoshi-medium text-lg truncate w-full">
           {product.name}
         </h1>
@@ -48,16 +48,14 @@ export function ProductCard({ product }: ProductCardProps) {
         <p className="font-satoshi-regular opacity-80 text-sm line-clamp-2 ">
           {product.description}
         </p>
-        <a
-          href={whatsappLink()}
-          target="_blank"
-          rel="noopener noreferrer"
+        <button
+          onClick={openWhatsApp}
           className="flex items-center mt-4 flex-shrink-0 sm:text-xl md:text-base gap-2 justify-center bg-typography-primary hover:bg-opacity-90 duration-200 text-white font-satoshi-regular whitespace-nowrap rounded-full w-full px-6 py-2"
         >
           <FaWhatsapp size={16} />
           <p>Fazer pedido</p>
-        </a>
-      </footer>
+        </button>
+      </div>
     </Link>
   );
 }
