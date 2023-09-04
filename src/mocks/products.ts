@@ -1,4 +1,4 @@
-import { Product } from "@/interfaces/product";
+import { IProduct } from "@/interfaces/product";
 
 const product_1 = {
   id: 1,
@@ -31,7 +31,7 @@ const product_3 = {
 }
 
 
-const products: Product[] = [
+const products: IProduct[] = [
   product_1,
   product_2,
   product_3,
