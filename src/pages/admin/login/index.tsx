@@ -9,7 +9,7 @@ import { IoIosArrowRoundBack } from 'react-icons/io'
 import { Toaster, toast } from 'react-hot-toast'
 
 //interfaces
-import { User } from '@/interfaces/user'
+import { IUser } from '@/interfaces/user'
 
 //components
 import NextHeader from '@/components/NextHeader'
@@ -20,7 +20,7 @@ import { setCookie } from 'nookies'
 import api_client from '@/config/api_client'
 
 export default function Login() {
-  const [user, setUser] = useState<User>({ email: '', password: '' })
+  const [user, setUser] = useState<IUser>({ email: '', password: '' })
   const [isLoaded, setIsLoaded] = useState(true)
 
   const { push } = useRouter()
