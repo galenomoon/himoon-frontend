@@ -11,7 +11,7 @@ export default function LandingPage() {
   return (
     <main className='flex min-h-screen flex-col text-typography-primary bg-background-primary justify-center items-center sm:px-4 relative md:px-24'>
       <NextHeader />
-      <Header />
+      <Header fixed />
       <HeaderSection />
       <Separator
         title='Produtos em destaque'

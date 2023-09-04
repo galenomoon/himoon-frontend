@@ -8,6 +8,7 @@ import Footer from "@/components/Footer"
 import Header from "@/components/Header"
 import NextHeader from "@/components/NextHeader"
 import ProductGrid from "@/components/ProductGrid"
+import { HeaderSeparator } from "@/components/Separator"
 import CategoriesList from "@/components/CategoriesList"
 
 //interfaces
@@ -38,8 +39,11 @@ export default function ProductsPage() {
   return (
     <main className='flex min-h-screen flex-col text-typography-primary bg-background-primary items-center sm:px-4 relative'>
       <NextHeader />
-      <Header fixed />
-
+      <Header />
+      <HeaderSeparator
+        title='Todos os Produtos'
+        description='Descubra uma ampla seleção de produtos de papelaria de alta qualidade, perfeitos para suas necessidades criativas, educacionais e profissionais.'
+      />
       <section className='flex md:px-24 gap-6  rounded-xl flex-col w-full h-full'>
         <header className="flex w-full justify-between items-center rounded-xl p-6 bg-background-light ">
           <p className='text-xl font-satoshi-medium'>

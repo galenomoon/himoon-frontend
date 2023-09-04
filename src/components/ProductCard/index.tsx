@@ -16,19 +16,19 @@ export function ProductCard({ product }: ProductCardProps) {
   return (
     <button
       key={product.id}
-      className='flex hover:shadow-md hover:scale-[1.02] gap-3 duration-200 flex-col sm:w-full md:w-[264px] h-fit p-4 rounded-2xl bg-background-light'
+      className='flex hover:shadow-md hover:scale-[1.02] gap-3 duration-200 flex-col sm:w-full md:w-[264px] h-fit p-3 rounded-2xl bg-background-light'
     >
       <img
         alt={product.name}
         className='w-full h-56 rounded-xl object-cover'
         src={product.images[0] || 'https://ae01.alicdn.com/kf/HTB1auYkbjLuK1Rjy0Fhq6xpdFXaS.jpg_640x640Q90.jpg_.webp'}
       />
-      <footer className="flex items-start text-start flex-col w-full gap-1">
+      <footer className="flex items-start text-start flex-col w-full">
         <h1 className='font-satoshi-medium text-lg truncate w-full'>
           {product.name}
         </h1>
         <span className="flex items-center gap-2">
-          <h1 className="md:text-2xl sm:text-3xl font-satoshi-bold text-[#19171A]/90 whitespace-nowrap">
+          <h1 className="md:text-2xl sm:text-3xl font-satoshi-black text-[#19171A]/90 whitespace-nowrap">
             R$ {(Number(product.price)).toFixed(2).replace('.', ',')}
           </h1>
         </span>
