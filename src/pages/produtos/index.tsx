@@ -28,6 +28,7 @@ export default function ProductsPage() {
   const [productName, setProductName] = useState<string>('')
   const [products, setProducts] = useState<IProduct[]>([])
   const [categories, setCategories] = useState<ICategory[]>([])
+  const [categoryId, setCategoryId] = useState<number | null>(null)
   const debouncedSearch = useDebounce(productName)
 
   useEffect(() => {
@@ -37,10 +38,14 @@ export default function ProductsPage() {
 
   useEffect(() => {
     getProducts()
-  }, [debouncedSearch])
+  }, [debouncedSearch, categoryId])
 
   async function getProducts() {
-    return await api_client.get(`/products?q=${productName}`)
+    const endpoint = categoryId
+    ? `/products/category/${categoryId}?q=${productName || ''}`
+    : `/products?q=${productName || ''}`;
+
+    return await api_client.get(endpoint)
       .then(({ data }) => setProducts(data))
       .catch(console.error)
   }
@@ -84,7 +89,11 @@ export default function ProductsPage() {
           </div>
         </header>
         <section className="flex gap-4 min-h-screen">
-          <CategoriesList categories={categories} />
+          <CategoriesList
+            categoryId={categoryId}
+            setCategory={setCategoryId}
+            categories={categories}
+          />
           <div className="flex flex-col gap-4 w-full">
             <header className="flex justify-between items-center gap-4">
               <SearchBar text={productName} setText={setProductName} />
