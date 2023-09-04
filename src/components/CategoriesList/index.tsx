@@ -14,7 +14,7 @@ export default function CategoriesList({ categoryId, categories, setCategory = (
 
   return (
     <section className='flex flex-col w- h-full rounded-xl bg-background-light py-9 px-2'>
-      <h2 className='text-2xl font-bold px-6'>Categorias:</h2>
+      <h2 className='text-2xl font-bold '>Categorias:</h2>
       <span className='w-full my-4 h-[2px] bg-black/5' />
       <ul className='flex flex-col items-center justify-center gap-3'>
         <button
