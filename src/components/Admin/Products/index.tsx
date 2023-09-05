@@ -191,7 +191,7 @@ export default function Products() {
           categories={categories}
           getAll={getAll}
           close={() => close()}
-          product={{ ...selectedProduct, category_id: selectedProduct?.category_id || currentCategory?.id } as IProduct}
+          product={{ ...selectedProduct, categoryId: selectedProduct?.categoryId || currentCategory?.id } as IProduct}
         />
       </Modal>
     </>

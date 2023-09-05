@@ -9,9 +9,9 @@ import Header from "@/components/Header";
 import SearchBar from "@/components/SearchBar";
 import NextHeader from "@/components/NextHeader";
 import Breadcrump from "@/components/Breadcrump";
+import Pagination from "@/components/Pagination";
 import ProductGrid from "@/components/ProductGrid";
 import { HeaderSeparator } from "@/components/Separator";
-import CategoriesList from "@/components/CategoriesList";
 
 //interfaces
 import { IProduct } from "@/interfaces/product";
@@ -22,30 +22,30 @@ import { Rows, SquaresFour } from "@phosphor-icons/react";
 
 //hooks
 import { useDebounce } from "@/hooks/useDebounce";
-import Pagination from "@/components/Pagination";
+import { useRouter } from "next/router";
 
 export default function ProductsPage() {
+  const { query } = useRouter();
+  const { category: categorySlug } = query;
   const [isGrid, setIsGrid] = useState<boolean>(true);
   const [productName, setProductName] = useState<string>("");
   const [products, setProducts] = useState<IProduct[]>([]);
-  const [categories, setCategories] = useState<ICategory[]>([]);
-  const [categoryId, setCategoryId] = useState<number | null>(null);
+  const [category, setCategory] = useState<ICategory>();
   const debouncedSearch = useDebounce(productName);
 
   useEffect(() => {
-    getProducts();
-    getCategories();
+    getCategory();
     //eslint-disable-next-line
-  }, []);
+  }, [categorySlug]);
 
   useEffect(() => {
     getProducts();
     //eslint-disable-next-line
-  }, [debouncedSearch, categoryId]);
+  }, [debouncedSearch, category?.id]);
 
   async function getProducts() {
-    const endpoint = categoryId
-      ? `/products/category/${categoryId}?q=${productName || ""}`
+    const endpoint = category?.id
+      ? `/products/category/${category?.id}?q=${productName || ""}`
       : `/products?q=${productName || ""}`;
 
     return await api_client
@@ -54,17 +54,17 @@ export default function ProductsPage() {
       .catch(console.error);
   }
 
-  async function getCategories() {
+  async function getCategory() {
     return await api_client
-      .get("/categories")
-      .then(({ data }) => setCategories(data))
+      .get(`/categories?slug=${categorySlug}`)
+      .then(({ data }) => setCategory(data))
       .catch(console.error);
   }
 
   return (
     <main className="flex min-h-screen flex-col text-typography-primary bg-background-primary items-center sm:px-4 relative">
       <NextHeader
-        title="Produtos | Hi, Moon Store 🌙💖"
+        title={`Produtos em ${category?.name || "Todas as Categorias"} | Hi, Moon Store 🌙💖`}
         description="Descubra uma ampla seleção de produtos de papelaria de alta qualidade, perfeitos para suas necessidades criativas, educacionais e profissionais."
       />
       <Header />
@@ -118,7 +118,7 @@ export default function ProductsPage() {
               </button>
             </div>
           </header>
-          <ProductGrid products={products} className="!gap-3" />
+          <ProductGrid products={products} />
         </section>
       </section>
       <Footer />

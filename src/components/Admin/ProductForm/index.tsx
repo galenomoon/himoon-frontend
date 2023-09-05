@@ -35,7 +35,7 @@ export default function ProductForm({ categories, product: productByProp, close,
     if (!payload.name) return toast.error('Preencha o nome do produto')
     if (!payload.description) return toast.error('Preencha a descrição do produto')
     if (!payload.price) return toast.error('Preencha o preço do produto')
-    if (!payload.category_id) return toast.error('Selecione uma categoria')
+    if (!payload.categoryId) return toast.error('Selecione uma categoria')
 
     setIsLoaded(false)
 
@@ -105,8 +105,8 @@ export default function ProductForm({ categories, product: productByProp, close,
         </span>
         <select
           required
-          value={product.category_id || ''}
-          onChange={e => setProduct(product => ({ ...product, category_id: Number(e.target.value) }))}
+          value={product.categoryId || ''}
+          onChange={e => setProduct(product => ({ ...product, categoryId: Number(e.target.value) }))}
           className='border border-background-gray/20 bg-white rounded-lg px-4 py-2'
         >
           <option value={undefined}>Selecione uma categoria</option>
