@@ -17,12 +17,12 @@ export default function Breadcrump() {
         Produtos
       </Link>
       {Object.keys(query).map((key, index) => (
-        <>
+        <React.Fragment key={index}>
           <CaretRight size={18} weight="bold" />
           <Link href={`/produtos?${key}=${query[key]}`} className="capitalize">
             {`${query?.[key]}`.replace(/-/g, " ")}
           </Link>
-        </>
+        </React.Fragment>
       ))}
     </section>
   );

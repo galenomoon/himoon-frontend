@@ -22,7 +22,7 @@ export function ProductCard({ product }: ProductCardProps) {
   return (
     <Link
       key={product.id}
-      href={`/produtos/${product.id}`}
+      href={`/produtos/${product?.category?.slug}/${product.id}`}
       className="flex hover:shadow-lg shadow-md flex-shrink-0 hover:scale-[1.02] gap-3 duration-200 flex-col sm:w-full md:w-[264px] h-fit p-3 rounded-2xl bg-background-light"
     >
       {product.images.length > 1 ? (

@@ -42,7 +42,7 @@ export default function ProductsPage() {
       />
       <Header />
       <section className="flex flex-col w-full h-screen max-w-screen-xl px-4 sm:px-6 lg:px-8 mt-8 mb-16">
-        <Breadcrump product={product} />
+        <Breadcrump />
         <div className="flex flex-col sm:flex-row gap-6 mt-8 rounded-xl bg-white h-[80vh]"></div>
       </section>
       <Footer />

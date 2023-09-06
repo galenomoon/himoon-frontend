@@ -3,6 +3,9 @@ import { useEffect, useState } from "react";
 //config
 import api_client from "@/config/api_client";
 
+//next
+import { useRouter } from "next/router";
+
 //components
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
@@ -22,11 +25,10 @@ import { Rows, SquaresFour } from "@phosphor-icons/react";
 
 //hooks
 import { useDebounce } from "@/hooks/useDebounce";
-import { useRouter } from "next/router";
 
 export default function ProductsPage() {
   const { query } = useRouter();
-  const { category: categorySlug } = query;
+  const { category_slug: categorySlug } = query;
   const [isGrid, setIsGrid] = useState<boolean>(true);
   const [productName, setProductName] = useState<string>("");
   const [products, setProducts] = useState<IProduct[]>([]);
@@ -64,7 +66,9 @@ export default function ProductsPage() {
   return (
     <main className="flex min-h-screen flex-col text-typography-primary bg-background-primary items-center sm:px-4 relative">
       <NextHeader
-        title={`Produtos em ${category?.name || "Todas as Categorias"} | Hi, Moon Store 🌙💖`}
+        title={`Produtos em ${
+          category?.name || "Todas as Categorias"
+        } | Hi, Moon Store 🌙💖`}
         description="Descubra uma ampla seleção de produtos de papelaria de alta qualidade, perfeitos para suas necessidades criativas, educacionais e profissionais."
       />
       <Header />
@@ -80,9 +84,7 @@ export default function ProductsPage() {
           </p>
           <div className="flex gap-4 items-center">
             <p className="text-lg">ORDENAR POR:</p>
-            <select
-              className={`bg-transparent outline-none text-black font-satoshi-light text-md w-[128px] px-2`}
-            >
+            <select className="bg-transparent outline-none text-black font-satoshi-light text-md w-[128px] px-2">
               <option value="name" selected>
                 Nome
               </option>

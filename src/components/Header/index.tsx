@@ -36,11 +36,11 @@ export default function Header({ fixed = false }) {
     },
     {
       name: "Produtos",
-      path: "#produtos",
+      path: "/#produtos",
     },
     {
       name: "Contato",
-      path: "#contato",
+      path: "/#contato",
     },
   ];
 
@@ -188,7 +188,7 @@ export default function Header({ fixed = false }) {
                 {categories.map((category, index) => (
                   <Link
                     key={index}
-                    href={`/produtos?category=${category.slug}`}
+                    href={`/produtos/${category.slug}`}
                     className="w-fit flex items-center justify-center py-2 px-8 m-2 rounded-full hover:bg-white hover:text-typography-primary text-white whitespace-nowrap uppercase duration-200"
                   >
                     <p>{category.name}</p>
