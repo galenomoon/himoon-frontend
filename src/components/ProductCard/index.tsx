@@ -8,6 +8,9 @@ import { IProduct } from "@/interfaces/product";
 //styles
 import { FaWhatsapp } from "react-icons/fa";
 
+//assets
+import productNotFound from "@/assets/image-not-found.jpg";
+
 interface ProductCardProps {
   product: IProduct;
 }
@@ -25,17 +28,13 @@ export function ProductCard({ product }: ProductCardProps) {
       href={`/produtos/${product.category?.slug}/${product.slug}`}
       className="flex hover:shadow-lg shadow-md flex-shrink-0 hover:scale-[1.02] gap-3 duration-200 flex-col sm:w-full md:w-[264px] h-fit p-3 rounded-2xl bg-background-light"
     >
-      {product.images.length > 1 ? (
-        <Image
-          alt={product.name}
-          width={264}
-          height={264}
-          className="w-full h-56 rounded-xl object-cover"
-          src={product.images[0]}
-        />
-      ) : (
-        <div className="w-full h-56 rounded-xl bg-gradient-to-br to-white from-gray-100 animate-pulse flex items-center justify-center" />
-      )}
+      <Image
+        alt={product.name}
+        width={264}
+        height={264}
+        className="w-full h-56 rounded-xl object-cover"
+        src={product.images?.[0] || productNotFound}
+      />
       <div className="flex items-start text-start flex-col w-full">
         <h1 className="font-satoshi-medium text-lg truncate w-full">
           {product.name}
