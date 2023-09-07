@@ -15,21 +15,21 @@ import Breadcrump from "@/components/Breadcrump";
 //interfaces
 import { IProduct } from "@/interfaces/product";
 
-export default function ProductsPage() {
+export default function ProductPage() {
   const { query } = useRouter();
-  const { product_id } = query;
+  const { product_slug } = query;
   const [product, setProduct] = useState<IProduct>();
 
   useEffect(() => {
     getProduct();
     //eslint-disable-next-line
-  }, [product_id]);
+  }, [product_slug]);
 
   async function getProduct() {
-    if (!product_id) return;
+    if (!product_slug) return;
 
     return await api_client
-      .get(`/products/${product_id}`)
+      .get(`/products?slug=${product_slug}`)
       .then(({ data }) => setProduct(data))
       .catch(console.error);
   }

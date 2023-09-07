@@ -18,7 +18,6 @@ import { HeaderSeparator } from "@/components/Separator";
 
 //interfaces
 import { IProduct } from "@/interfaces/product";
-import { ICategory } from "@/interfaces/category";
 
 //styles
 import { Rows, SquaresFour } from "@phosphor-icons/react";
@@ -32,22 +31,16 @@ export default function ProductsPage() {
   const [isGrid, setIsGrid] = useState<boolean>(true);
   const [productName, setProductName] = useState<string>("");
   const [products, setProducts] = useState<IProduct[]>([]);
-  const [category, setCategory] = useState<ICategory>();
   const debouncedSearch = useDebounce(productName);
-
-  useEffect(() => {
-    getCategory();
-    //eslint-disable-next-line
-  }, [categorySlug]);
 
   useEffect(() => {
     getProducts();
     //eslint-disable-next-line
-  }, [debouncedSearch, category?.id]);
+  }, [debouncedSearch, categorySlug]);
 
   async function getProducts() {
-    const endpoint = category?.id
-      ? `/products/category/${category?.id}?q=${productName || ""}`
+    const endpoint = categorySlug
+      ? `/products/category/${categorySlug}?q=${productName || ""}`
       : `/products?q=${productName || ""}`;
 
     return await api_client
@@ -56,24 +49,15 @@ export default function ProductsPage() {
       .catch(console.error);
   }
 
-  async function getCategory() {
-    return await api_client
-      .get(`/categories?slug=${categorySlug}`)
-      .then(({ data }) => setCategory(data))
-      .catch(console.error);
-  }
-
   return (
     <main className="flex min-h-screen flex-col text-typography-primary bg-background-primary items-center sm:px-4 relative">
       <NextHeader
-        title={`Produtos em ${
-          category?.name || "Todas as Categorias"
-        } | Hi, Moon Store 🌙💖`}
+        title={`Produtos | Hi, Moon Store 🌙💖`}
         description="Descubra uma ampla seleção de produtos de papelaria de alta qualidade, perfeitos para suas necessidades criativas, educacionais e profissionais."
       />
       <Header />
       <HeaderSeparator
-        title="Todos os Produtos"
+        title="Produtos"
         description="Descubra uma ampla seleção de produtos de papelaria de alta qualidade, perfeitos para suas necessidades criativas, educacionais e profissionais."
       />
       <section className="flex md:px-52 gap-6 rounded-xl flex-col w-full h-full">
