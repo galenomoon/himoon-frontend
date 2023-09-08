@@ -66,11 +66,11 @@ export default function Products() {
   }
 
   async function getProducts(page = 1) {
-    const nameQuery = debouncedSearch ? `?q=${debouncedSearch}` : "";
+    const nameQuery = debouncedSearch ? `q=${debouncedSearch}` : "";
 
     const endpoint = currentCategory?.id
-      ? `/products/category/${currentCategory?.id}${nameQuery}`
-      : `/products${nameQuery}?page=${page}`;
+      ? `/products/category/${currentCategory?.id}&${nameQuery}`
+      : `/products?page=${page}&${nameQuery}`;
 
     return await api_client
       .get(endpoint)
