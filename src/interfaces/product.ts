@@ -10,3 +10,10 @@ export interface IProduct {
   category?: ICategory;
   images: string[];
 }
+
+export interface IProductPaginated {
+  totalPages: number;
+  totalItems: number;
+  currentPage: number;
+  results: IProduct[];
+}
