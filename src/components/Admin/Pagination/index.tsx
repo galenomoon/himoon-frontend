@@ -17,13 +17,15 @@ export default function Pagination({
   previousPage,
 }: IPaginationProps) {
   return (
-    <section className="flex items-center justify-center rounded-full p-2 gap-1 bg-gray-200 !w-[228px]">
+    <section className="flex items-center justify-center rounded-full p-2 gap-1 bg-gray-200 !w-[220px]">
       <p className="whitespace-nowrap w-[70px] gap-1 flex items-center justify-center">
         <span className="font-satoshi-bold">
           {currentPage < 10 ? `0${currentPage}` : currentPage}
         </span>
         <span className="font-satoshi-light"> de </span>
-        <span className="font-satoshi-medium opacity-80">{totalPages}</span>
+        <span className="font-satoshi-medium opacity-80">
+          {totalPages < 10 ? `0${totalPages}` : totalPages}
+        </span>
       </p>
       <aside className="flex gap-2">
         <button

@@ -1,24 +1,49 @@
-import React from 'react'
+import React from "react";
 
 //styles
-import { CaretLeft, CaretRight } from '@phosphor-icons/react'
+import { CaretLeft, CaretRight } from "@phosphor-icons/react";
 
-export default function Pagination() {
+interface IPaginationProps {
+  totalPages: number;
+  currentPage: number;
+  nextPage: (page: number) => void;
+  previousPage: (page: number) => void;
+}
+
+export default function Pagination({
+  totalPages = 1,
+  currentPage = 1,
+  nextPage,
+  previousPage,
+}: IPaginationProps) {
   return (
-    <section className='flex rounded-full gap-2 py-2 bg-background-light'>
-      <p className='whitespace-nowrap pl-5'>
-        <span className='font-satoshi-bold'>1</span> 
-        <span className='font-satoshi-light'> de </span>
-        <span className='font-satoshi-medium opacity-80'>10</span>
+    <section className="flex items-center justify-center rounded-full p-2 gap-1 bg-background-light !w-[220px]">
+      <p className="whitespace-nowrap w-[70px] gap-1 flex items-center justify-center">
+        <span className="font-satoshi-bold">
+          {currentPage < 10 ? `0${currentPage}` : currentPage}
+        </span>
+        <span className="font-satoshi-light"> de </span>
+        <span className="font-satoshi-medium opacity-80">
+          {totalPages < 10 ? `0${totalPages}` : totalPages}
+        </span>
       </p>
-      <aside className='flex gap-2 pr-3'>
-        <button>
-          <CaretLeft size={20} weight='bold' />
+      <aside className="flex gap-2">
+        <button
+          onClick={() => previousPage(currentPage - 1)}
+          disabled={currentPage === 1}
+          className="disabled:opacity-20 rounded-full w-6 h-6 flex items-center justify-center duration-200 hover:bg-black/10"
+        >
+          <CaretLeft size={18} weight="bold" />
         </button>
-        <button>
-          <CaretRight size={20} weight='bold' />
+        <button
+          onClick={() => nextPage(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          className="disabled:opacity-20 rounded-full w-6 h-6 flex items-center justify-center duration-200 hover:bg-black/10"
+        >
+          <CaretRight size={18} weight="bold" />
         </button>
       </aside>
     </section>
-  )
+  );
 }
+

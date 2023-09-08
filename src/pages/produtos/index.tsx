@@ -17,7 +17,7 @@ import ProductGrid from "@/components/ProductGrid";
 import { HeaderSeparator } from "@/components/Separator";
 
 //interfaces
-import { IProduct } from "@/interfaces/product";
+import { IProductPaginated } from "@/interfaces/product";
 
 //styles
 import { Rows, SquaresFour } from "@phosphor-icons/react";
@@ -30,7 +30,7 @@ export default function ProductsPage() {
   const { category_slug: categorySlug } = query;
   const [isGrid, setIsGrid] = useState<boolean>(true);
   const [productName, setProductName] = useState<string>("");
-  const [products, setProducts] = useState<IProduct[]>([]);
+  const [products, setProducts] = useState<IProductPaginated>({} as IProductPaginated);
   const debouncedSearch = useDebounce(productName);
 
   useEffect(() => {
@@ -38,10 +38,12 @@ export default function ProductsPage() {
     //eslint-disable-next-line
   }, [debouncedSearch, categorySlug]);
 
-  async function getProducts() {
+  async function getProducts(page = 1) {
+    const nameQuery = debouncedSearch ? `&q=${debouncedSearch}` : "";
+
     const endpoint = categorySlug
-      ? `/products/category/${categorySlug}?q=${productName || ""}`
-      : `/products?q=${productName || ""}`;
+      ? `/products/category/${categorySlug}?page=${page}${nameQuery}`
+      : `/products?page=${page}${nameQuery}`;
 
     return await api_client
       .get(endpoint)
@@ -60,11 +62,11 @@ export default function ProductsPage() {
         title="Produtos"
         description="Descubra uma ampla seleção de produtos de papelaria de alta qualidade, perfeitos para suas necessidades criativas, educacionais e profissionais."
       />
-      <section className="flex md:px-52 gap-6 rounded-xl flex-col w-full h-full">
+      <section className="flex md:px-52 gap-6 rounded-xl flex-col w-full h-full pb-64">
         <Breadcrump />
         <header className="flex w-full justify-between items-center">
           <p className="text-lg font-satoshi-medium">
-            Resultados ({products.length})
+            Resultados ({products.totalItems})
           </p>
           <div className="flex sm:gap-0 md:gap-4 items-center">
             <p className="md:text-lg">ORDENAR POR:</p>
@@ -79,7 +81,12 @@ export default function ProductsPage() {
         </header>
         <section className="flex flex-col gap-6 min-h-screen">
           <header className="flex justify-between items-center gap-4">
-            <Pagination />
+            <Pagination 
+              totalPages={products.totalPages}
+              currentPage={products.currentPage}
+              nextPage={getProducts}
+              previousPage={getProducts}
+            />
             <div className="sm:hidden md:flex gap-2 w-full">
               <SearchBar text={productName} setText={setProductName} />
             </div>
@@ -109,7 +116,7 @@ export default function ProductsPage() {
           <div className="sm:block md:hidden gap-2 w-full">
             <SearchBar text={productName} setText={setProductName} />
           </div>
-          <ProductGrid products={products} />
+          <ProductGrid products={products.results} />
         </section>
       </section>
       <Footer />

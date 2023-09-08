@@ -12,7 +12,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 //interfaces
-import { IProduct } from "@/interfaces/product";
+import { IProductPaginated } from "@/interfaces/product";
 
 //styles
 import { Basket } from "@phosphor-icons/react";
@@ -20,7 +20,7 @@ import { Basket } from "@phosphor-icons/react";
 export default function ProductsSection() {
   const { asPath } = useRouter();
   const currentSectionRef = useRef<HTMLDivElement>(null);
-  const [products, setProducts] = useState<IProduct[]>([]);
+  const [products, setProducts] = useState<IProductPaginated>({} as IProductPaginated);
 
   useEffect(() => {
     scrollToProductsSection(asPath);
@@ -48,7 +48,7 @@ export default function ProductsSection() {
       className="flex flex-col max-w-[1300px] gap-12 items-center py-24 w-full h-fit min-h-screen"
     >
       <SectionTitle>Produtos em destaque</SectionTitle>
-      <ProductGrid products={products} />
+      <ProductGrid products={products.results} />
       <Link
         href="/produtos"
         className="flex gap-3 items-center text-center justify-center shadow-lg text-xl bg-typography-primary uppercase flex-shrink-0 my-4 md:w-fit md:px-12 sm:px-0 sm:w-[90%] self-center text-white font-bold py-4 px-6 rounded-full hover:bg-opacity-80 transition duration-300 ease-in-out"
