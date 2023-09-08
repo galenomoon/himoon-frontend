@@ -42,6 +42,9 @@ export default function Login() {
         if (err.response.status === 401) {
           return toast.error('Email ou senha incorretos')
         }
+        if (err.response.status === 404) {
+          return toast.error('Usuário não encontrado')
+        }
         if (err.response.status === 500) {
           return toast.error('Algo deu errado, tente novamente mais tarde')
         }
