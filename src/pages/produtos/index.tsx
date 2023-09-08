@@ -66,9 +66,9 @@ export default function ProductsPage() {
           <p className="text-lg font-satoshi-medium">
             Resultados ({products.length})
           </p>
-          <div className="flex gap-4 items-center">
-            <p className="text-lg">ORDENAR POR:</p>
-            <select className="bg-transparent outline-none text-black font-satoshi-light text-md w-[128px] px-2">
+          <div className="flex sm:gap-0 md:gap-4 items-center">
+            <p className="md:text-lg">ORDENAR POR:</p>
+            <select className="bg-transparent outline-none text-black font-satoshi-light text-md md:w-[128px] px-2">
               <option value="name" selected>
                 Nome
               </option>
@@ -80,7 +80,9 @@ export default function ProductsPage() {
         <section className="flex flex-col gap-6 min-h-screen">
           <header className="flex justify-between items-center gap-4">
             <Pagination />
-            <SearchBar text={productName} setText={setProductName} />
+            <div className="sm:hidden md:flex gap-2 w-full">
+              <SearchBar text={productName} setText={setProductName} />
+            </div>
             <div className="flex gap-2">
               <button
                 onClick={() => setIsGrid(true)}
@@ -104,6 +106,9 @@ export default function ProductsPage() {
               </button>
             </div>
           </header>
+          <div className="sm:block md:hidden gap-2 w-full">
+            <SearchBar text={productName} setText={setProductName} />
+          </div>
           <ProductGrid products={products} />
         </section>
       </section>

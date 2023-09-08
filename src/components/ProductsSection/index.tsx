@@ -51,7 +51,7 @@ export default function ProductsSection() {
       <ProductGrid products={products} />
       <Link
         href="/produtos"
-        className="flex gap-3 items-center shadow-lg text-xl bg-typography-primary uppercase flex-shrink-0 my-4 md:w-fit md:px-12 sm:px-0 sm:w-[90%] self-center text-white font-bold py-4 px-6 rounded-full hover:bg-opacity-80 transition duration-300 ease-in-out"
+        className="flex gap-3 items-center text-center justify-center shadow-lg text-xl bg-typography-primary uppercase flex-shrink-0 my-4 md:w-fit md:px-12 sm:px-0 sm:w-[90%] self-center text-white font-bold py-4 px-6 rounded-full hover:bg-opacity-80 transition duration-300 ease-in-out"
       >
         <Basket size={28} />
         <p>Ver todos os produtos</p>

@@ -71,8 +71,8 @@ export default function ProductPage() {
       <section className="flex flex-col w-full pb-28 max-w-screen-xl px-4 sm:px-6 lg:px-8">
         <Breadcrump />
         <div className="flex flex-col mt-8 rounded-xl bg-white text-typography-black h-fit shadow-lg">
-          <section className="flex">
-            <figure className="flex flex-col flex-shrink-0 justify-center items-center gap-2 p-2 w-[400px]">
+          <section className="flex md:flex-row sm:flex-col">
+            <figure className="flex flex-col flex-shrink-0 justify-center items-center gap-2 p-2 md:w-[400px]">
               <Image
                 src={imageNotFound}
                 alt={product?.name || ""}
@@ -131,7 +131,7 @@ export default function ProductPage() {
                 </div>
                 <button
                   onClick={() => openWhatsApp(product as IProduct)}
-                  className="flex items-center flex-shrink-0 sm:text-xl md:text-base gap-2 justify-center bg-typography-primary hover:bg-opacity-90 duration-200 text-white font-satoshi-regular whitespace-nowrap rounded-full w-80 px-6 py-3"
+                  className="flex items-center flex-shrink-0 sm:text-xl md:text-base gap-2 justify-center bg-typography-primary hover:bg-opacity-90 duration-200 text-white font-satoshi-regular whitespace-nowrap rounded-full md:w-80 sm:w-full px-6 py-3"
                 >
                   <FaWhatsapp size={16} />
                   <p>Fazer pedido</p>
@@ -146,7 +146,7 @@ export default function ProductPage() {
               Produtos relacionados
             </h2>
             <span className="bg-typography-black/5 w-full mb-2 my-4 h-[1.2px]" />
-            <div className="flex w-full overflow-x-auto max-w-screen-xl py-4 scrollbar-hide gap-6">
+            <div className="flex sm:flex-col md:flex-row w-full md:overflow-x-auto max-w-screen-xl py-4 scrollbar-hide gap-6">
               {productsByCategory?.map((product, index) => (
                 <ProductCard key={index} product={product} />
               ))}
