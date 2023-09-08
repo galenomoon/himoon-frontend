@@ -41,7 +41,7 @@ export default function ProductPage() {
     if (!product_slug) return;
 
     return await api_client
-      .get(`/products?slug=${product_slug}`)
+      .get(`/products/${product_slug}`)
       .then(({ data }) => setProduct(data))
       .catch(console.error);
   }
@@ -56,7 +56,7 @@ export default function ProductPage() {
   }
 
   function openWhatsApp(product: IProduct) {
-    const message = `Olá, eu gostaria de ${quantity} unidade(s) do produto ${product.name}`;
+    const message = `Hi, Moon! Eu gostaria de ${quantity} unidade(s) do produto ${product.name}`;
     const link = `https://api.whatsapp.com/send?phone=${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}&text=${message}`;
     return window.open(link, "_blank");
   }

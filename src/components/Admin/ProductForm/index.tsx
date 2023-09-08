@@ -110,8 +110,8 @@ export default function ProductForm({ categories, product: productByProp, close,
           className='border border-background-gray/20 bg-white rounded-lg px-4 py-2'
         >
           <option value={undefined}>Selecione uma categoria</option>
-          {categories?.map((category, index) => (
-            <option key={category.id} value={index}>{category.name}</option>
+          {categories?.map((category) => (
+            <option key={category.id} value={category.id}>{category.name}</option>
           ))}
         </select>
       </label>

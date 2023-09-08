@@ -92,7 +92,10 @@ export default function Products() {
     if (!selectedProduct) return;
     api_client
       .delete(`/products/${selectedProduct.id}`)
-      .then(({ data }) => setProducts(data))
+      .then(({ data }) => {
+        setProducts(data);
+        toast.success("Produto excluído com sucesso");
+      })
       .catch((error) => {
         console.error(error);
         toast.error("Erro ao excluir produto");

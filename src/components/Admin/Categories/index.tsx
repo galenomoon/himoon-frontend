@@ -38,7 +38,10 @@ export default function Categories() {
   async function deleteCategory() {
     if (!selectedCategory) return
     await api_client.delete(`/categories/${selectedCategory.id}`)
-      .then(({ data }) => setCategories(data))
+      .then(({ data }) => {
+        setCategories(data)
+        toast.success("Categoria excluída com sucesso");
+      })
       .catch(error => {
         console.error(error)
         toast.error('Erro ao excluir categoria')

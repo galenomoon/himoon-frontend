@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 //next
+import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -22,7 +23,9 @@ import contacts from "@/mocks/contacts";
 import { ICategory } from "@/interfaces/category";
 
 export default function Header({ fixed = false }) {
+  const { pathname } = useRouter();
   const [isOpen, setIsOpen] = useState(false);
+  const isHomePage = pathname === "/";
   const [categories, setCategories] = useState<ICategory[]>([]);
 
   useEffect(() => {
@@ -142,7 +145,7 @@ export default function Header({ fixed = false }) {
       {/* Desktop Header */}
       <header
         className={`flex flex-col bg-background-primary items-center justify-center w-screen md:flex sm:hidden ${
-          fixed ? "fixed" : ""
+          fixed ? (isHomePage ? "fixed" : "sticky") : ""
         } z-[999] top-0`}
       >
         <section className="flex max-w-[94rem] w-full md:px-24 py-4">

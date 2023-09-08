@@ -57,7 +57,7 @@ export default function ProductsPage() {
         title={`Produtos | Hi, Moon Store 🌙💖`}
         description="Descubra uma ampla seleção de produtos de papelaria de alta qualidade, perfeitos para suas necessidades criativas, educacionais e profissionais."
       />
-      <Header />
+      <Header fixed />
       <HeaderSeparator
         title="Produtos"
         description="Descubra uma ampla seleção de produtos de papelaria de alta qualidade, perfeitos para suas necessidades criativas, educacionais e profissionais."
