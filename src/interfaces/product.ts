@@ -1,4 +1,5 @@
 import { ICategory } from "./category";
+import { IImage } from "./image";
 
 export interface IProduct {
   id?: number;
@@ -16,11 +17,4 @@ export interface IProductPaginated {
   totalItems: number;
   currentPage: number;
   results: IProduct[];
-}
-
-export interface IImage {
-  id?: number;
-  url: string;
-  productId?: number;
-  product?: IProduct;
 }
