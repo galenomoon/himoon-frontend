@@ -52,6 +52,8 @@ export default function ProductCard({
       <Image
         src={product.images?.[0] || imageNotFound}
         alt={product.name}
+        width={isGrid ? 305 : 124}
+        height={isGrid ? 220 : 124}
         className={`${
           isGrid ? "w-full h-[220px]" : "w-[124px] h-[124px]"
         } flex-shrink-0 rounded-xl object-cover`}
