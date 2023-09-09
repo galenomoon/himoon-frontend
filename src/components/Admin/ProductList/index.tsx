@@ -27,7 +27,6 @@ export default function ProductList({ products, isGrid, isLoaded, openEditModal,
     </div>
   )
 
-
   if (products?.length === 0) {
     return (
       <div className='flex flex-col items-center justify-center h-[80%] w-full'>

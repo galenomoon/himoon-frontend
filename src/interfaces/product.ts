@@ -8,7 +8,7 @@ export interface IProduct {
   description: string;
   categoryId?: number;
   category?: ICategory;
-  images: string[];
+  images: IImage[];
 }
 
 export interface IProductPaginated {
@@ -16,4 +16,11 @@ export interface IProductPaginated {
   totalItems: number;
   currentPage: number;
   results: IProduct[];
+}
+
+export interface IImage {
+  id?: number;
+  url: string;
+  productId?: number;
+  product?: IProduct;
 }

@@ -50,7 +50,7 @@ export default function ProductCard({
         </button>
       </section>
       <Image
-        src={product.images?.[0] || imageNotFound}
+        src={product.images?.[0]?.url || imageNotFound}
         alt={product.name}
         width={isGrid ? 305 : 124}
         height={isGrid ? 220 : 124}
