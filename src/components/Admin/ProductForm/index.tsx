@@ -40,7 +40,8 @@ export default function ProductForm({
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     try {
-      await submitProduct();
+      const product = await submitProduct();
+      await submitImages(product as IProduct);
       getAll();
       close();
       toast.success("Produto salvo com sucesso!");
@@ -50,7 +51,7 @@ export default function ProductForm({
     }
   }
 
-  async function submitProduct() {
+  async function submitProduct(): Promise<string | IProduct> {
     const endpoint = product.id ? `/products/${product.id}` : "/products";
     const method = product.id ? "put" : "post";
     const payload = {
@@ -58,25 +59,33 @@ export default function ProductForm({
       price: Number(String(product.price).replace(/\D/g, "")) / 100,
     };
 
-    if (!payload.name) return toast.error("Preencha o nome do produto");
-    if (!payload.description)
+    if (!payload.name) {
+      return toast.error("Preencha o nome do produto");
+    }
+    if (!payload.description) {
       return toast.error("Preencha a descrição do produto");
-    if (!payload.price) return toast.error("Preencha o preço do produto");
-    if (!payload.categoryId) return toast.error("Selecione uma categoria");
-    if (!images.length)
+    }
+    if (!payload.price) {
+      return toast.error("Preencha o preço do produto");
+    }
+    if (!payload.categoryId) {
+      return toast.error("Selecione uma categoria");
+    }
+    if (!images.length) {
       return toast.error("Adicione pelo menos uma imagem ao produto");
+    }
 
     setIsLoaded(false);
 
-    await api_client[method](endpoint, payload)
-      .then(async ({ data }) => {
-        await submitImages(data);
-      })
+    return await api_client[method](endpoint, payload)
+      .then(async ({ data }) => data)
       .catch(console.error)
       .finally(() => setIsLoaded(true));
   }
 
   async function submitImages(product: IProduct) {
+    if (!images.length) return;
+    if (!product.id) return;
     const requests = images.map(async (image) => {
       const formData = new FormData();
       formData.append("image", image as unknown as File);

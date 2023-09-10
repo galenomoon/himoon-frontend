@@ -33,7 +33,7 @@ export function ProductCard({ product }: ProductCardProps) {
         width={264}
         height={264}
         className="w-full h-56 rounded-xl object-cover"
-        src={product.images?.[0] || productNotFound}
+        src={product.images?.[0]?.url || productNotFound}
       />
       <div className="flex items-start text-start flex-col w-full">
         <h1 className="font-satoshi-medium text-lg truncate w-full">

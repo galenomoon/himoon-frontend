@@ -74,18 +74,18 @@ export default function ProductPage() {
           <section className="flex md:flex-row sm:flex-col">
             <figure className="flex flex-col flex-shrink-0 justify-center items-center gap-2 p-2 md:w-[400px]">
               <Image
-                src={imageNotFound}
+                src={product?.images?.[0]?.url || imageNotFound}
                 alt={product?.name || ""}
                 width={400}
                 height={400}
                 objectFit="contain"
                 className="rounded-lg flex-shrink-0"
               />
-              <aside className="flex gap-2 overflow-scroll w-full">
-                {Array.from({ length: 9 }).map((image, index) => (
+              <aside className="flex gap-2 justify-center overflow-scroll w-full">
+                {product?.images?.map(({ url }, index) => (
                   <Image
                     key={index}
-                    src={imageNotFound}
+                    src={url || imageNotFound}
                     alt={product?.name || ""}
                     width={80}
                     height={80}
