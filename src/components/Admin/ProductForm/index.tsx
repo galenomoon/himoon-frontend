@@ -39,7 +39,18 @@ export default function ProductForm({
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    try {
+      await submitProduct();
+      getAll();
+      close();
+      toast.success("Produto salvo com sucesso!");
+    } catch (error) {
+      console.error(error);
+      toast.error("Erro ao salvar produto");
+    }
+  }
 
+  async function submitProduct() {
     const endpoint = product.id ? `/products/${product.id}` : "/products";
     const method = product.id ? "put" : "post";
     const payload = {
@@ -58,16 +69,24 @@ export default function ProductForm({
     setIsLoaded(false);
 
     await api_client[method](endpoint, payload)
-      .then(() => {
-        getAll();
-        toast.success("Produto salvo com sucesso!");
-        close();
+      .then(async ({ data }) => {
+        await submitImages(data);
       })
-      .catch((error) => {
-        toast.error("Erro ao salvar produto");
-        console.error(error);
-      })
+      .catch(console.error)
       .finally(() => setIsLoaded(true));
+  }
+
+  async function submitImages(product: IProduct) {
+    const requests = images.map(async (image) => {
+      const formData = new FormData();
+      formData.append("image", image as unknown as File);
+      await api_client.post(`/images/${product.id}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+    });
+    return await Promise.all(requests).catch(console.error);
   }
 
   function currencyFormat(value: string) {
