@@ -106,6 +106,7 @@ export default function Products() {
   function close() {
     setIsAlertOpen(false);
     setIsModalOpen(false);
+    setSelectedProduct(undefined);
   }
 
   async function getAll() {

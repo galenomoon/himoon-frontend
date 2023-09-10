@@ -31,7 +31,9 @@ export default function ProductForm({
   getAll,
 }: ProductFormProps) {
   const input_ref = useRef<HTMLInputElement>(null);
-  const [images, setImages] = React.useState<IImage[]>([]);
+  const [images, setImages] = React.useState<IImage[]>(
+    productByProp.images || []
+  );
   const [product, setProduct] = React.useState<IProduct>({
     ...productByProp,
   });
@@ -39,6 +41,7 @@ export default function ProductForm({
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setIsLoaded(false);
     try {
       const product = await submitProduct();
       await submitImages(product as IProduct);
@@ -48,6 +51,8 @@ export default function ProductForm({
     } catch (error) {
       console.error(error);
       toast.error("Erro ao salvar produto");
+    } finally {
+      setIsLoaded(true);
     }
   }
 
@@ -75,12 +80,9 @@ export default function ProductForm({
       return toast.error("Adicione pelo menos uma imagem ao produto");
     }
 
-    setIsLoaded(false);
-
     return await api_client[method](endpoint, payload)
       .then(async ({ data }) => data)
-      .catch(console.error)
-      .finally(() => setIsLoaded(true));
+      .catch(console.error);
   }
 
   async function submitImages(product: IProduct) {
@@ -262,7 +264,11 @@ export default function ProductForm({
           </select>
         </label>
         <div className="flex  gap-2">
-          <button className="bg-blue-800 flex items-center justify-center hover:opacity-80 text-white w-full px-4 h-12 rounded-lg font-satoshi-medium">
+          <button
+            type="submit"
+            disabled={!isLoaded}
+            className="bg-blue-800 disabled:opacity-80 flex items-center justify-center hover:opacity-80 text-white w-full px-4 h-12 rounded-lg font-satoshi-medium"
+          >
             {isLoaded ? (
               "Salvar"
             ) : (
