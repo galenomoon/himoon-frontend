@@ -14,6 +14,8 @@ import api_client from "@/config/api_client";
 import Modal from "../Modal";
 import Alert from "../Alert";
 import Button from "../Button";
+import Pagination from "../Pagination";
+import EmptyState from "../EmptyState";
 import ProductList from "../ProductList";
 import ProductForm from "../ProductForm";
 
@@ -23,11 +25,11 @@ import { MagnifyingGlass, Rows, SquaresFour } from "@phosphor-icons/react";
 
 //hooks
 import { useDebounce } from "@/hooks/useDebounce";
-import Pagination from "../Pagination";
 
 export default function Products() {
   const {
     query: { category },
+    push,
   } = useRouter();
 
   const [categories, setCategories] = useState<ICategory[]>([]);
@@ -200,14 +202,40 @@ export default function Products() {
                 </div>
               </header>
             </nav>
-            <ProductList
-              isGrid={isGrid}
-              products={products.results}
-              isLoaded={isLoaded}
-              openEditModal={openEditModal}
-              openDeleteAlert={openDeleteAlert}
-              openCreateModal={() => setIsModalOpen(true)}
-            />
+            {products?.results?.length === 0 ? (
+              <div className="flex flex-col items-center justify-center h-[80%] w-full">
+                <EmptyState
+                  onClick={() =>
+                    categories.length
+                      ? setIsModalOpen(true)
+                      : push("/admin/categorias?cadastrar=true")
+                  }
+                  buttonLabel={
+                    categories.length
+                      ? "Criar novo produto"
+                      : "Criar nova categoria"
+                  }
+                  title={
+                    categories.length
+                      ? "Nenhum produto encontrado"
+                      : "Nenhuma categoria encontrada\n para criar um produto"
+                  }
+                  description={
+                    categories.length
+                      ? "Tente novamente com outros termos de busca, ou tente em outra categoria"
+                      : "Você precisa criar pelo menos uma categoria para poder criar um produto"
+                  }
+                />
+              </div>
+            ) : (
+              <ProductList
+                isGrid={isGrid}
+                products={products.results}
+                isLoaded={isLoaded}
+                openEditModal={openEditModal}
+                openDeleteAlert={openDeleteAlert}
+              />
+            )}
           </section>
         </div>
       </main>

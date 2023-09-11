@@ -35,7 +35,7 @@ export default function CategoriesList({ categories, isLoaded, setIsModalOpen, o
         <EmptyState
           title='Nenhuma categoria cadastrada'
           description='Clique no botão abaixo para criar uma nova categoria'
-          buttonLabel='Adicionar categoria'
+          buttonLabel='Cadastrar categoria'
           onClick={() => setIsModalOpen(true)}
         />
       </div>

@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react'
 
+//next
+import { useRouter } from 'next/router'
+
 //config
 import api_client from '@/config/api_client'
 
@@ -17,7 +20,9 @@ import CategoriesList from '../CategoriesList'
 import { ICategory } from '@/interfaces/category'
 
 export default function Categories() {
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+  const { query } = useRouter()
+  const openModal = eval(query?.cadastrar as string)
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(openModal)
   const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false)
   const [selectedCategory, setSelectedCategory] = useState<ICategory>()
   const [categories, setCategories] = useState<ICategory[]>([])
@@ -79,7 +84,7 @@ export default function Categories() {
               </p>
               <br />
               <Button onClick={() => setIsModalOpen(true)}>
-                Adicionar Categoria
+                Cadastrar Categoria
               </Button>
             </header>
             <CategoriesList
@@ -103,7 +108,7 @@ export default function Categories() {
       <Modal
         isOpen={isModalOpen}
         close={() => close()}
-        title={selectedCategory?.id ? 'Editar categoria' : 'Adicionar categoria'}
+        title={selectedCategory?.id ? 'Editar categoria' : 'Cadastrar categoria'}
       >
         <CategoryForm
           getCategories={getCategories}
