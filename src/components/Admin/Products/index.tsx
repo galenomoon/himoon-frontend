@@ -138,7 +138,9 @@ export default function Products() {
             <nav className="font-satoshi-medium flex flex-col sticky top-0 z-20 bg-white shadow-sm">
               <div className="flex overflow-x-auto scrollbar-hide">
                 <button
-                  onClick={() => setCurrentCategory(undefined as any)}
+                  onClick={() =>
+                    setCurrentCategory(undefined as unknown as ICategory)
+                  }
                   className={`border-b-4 whitespace-nowrap ${
                     !currentCategory?.id
                       ? "text-blue-800 border-blue-800"

@@ -149,7 +149,7 @@ export default function ProductForm({
                   <Image
                     src={
                       !image?.url
-                        ? URL.createObjectURL(image as any)
+                        ? URL.createObjectURL(image as unknown as Blob)
                         : image?.url
                     }
                     alt={product?.name || ""}

@@ -159,7 +159,12 @@ export default function ProductPage() {
   );
 }
 
-export function Counter({ quantity, setQuantity }: any) {
+interface ICounter {
+  quantity: number;
+  setQuantity: React.Dispatch<React.SetStateAction<number>>;
+}
+
+export function Counter({ quantity, setQuantity }: ICounter) {
   return (
     <section className="flex gap-2 rounded-sm border border-typography-black/20 px-2">
       <button
