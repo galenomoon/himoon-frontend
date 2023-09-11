@@ -24,7 +24,7 @@ export default function Pagination({
         </span>
         <span className="font-satoshi-light"> de </span>
         <span className="font-satoshi-medium opacity-80">
-          {totalPages < 10 ? `0${totalPages}` : totalPages}
+          {totalPages < 10 ? `0${totalPages || 1}` : totalPages}
         </span>
       </p>
       <aside className="flex gap-2">
@@ -37,7 +37,7 @@ export default function Pagination({
         </button>
         <button
           onClick={() => nextPage(currentPage + 1)}
-          disabled={currentPage === totalPages}
+          disabled={currentPage === totalPages || totalPages === 0}
           className="disabled:opacity-20 rounded-full w-6 h-6 flex items-center justify-center duration-200 hover:bg-gray-300"
         >
           <CaretRight size={18} weight="bold" />
