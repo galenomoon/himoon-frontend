@@ -31,6 +31,9 @@ export default function ProductForm({
   getAll,
 }: ProductFormProps) {
   const input_ref = useRef<HTMLInputElement>(null);
+  const [imagesToDelete, setImagesToDelete] = React.useState<IImage["id"][]>(
+    []
+  );
   const [images, setImages] = React.useState<IImage[]>(
     productByProp.images || []
   );
@@ -43,11 +46,7 @@ export default function ProductForm({
     event.preventDefault();
     setIsLoaded(false);
     try {
-      const product = await submitProduct();
-      await submitImages(product as IProduct);
-      getAll();
-      close();
-      toast.success("Produto salvo com sucesso!");
+      await submitProduct();
     } catch (error) {
       console.error(error);
       toast.error("Erro ao salvar produto");
@@ -56,7 +55,7 @@ export default function ProductForm({
     }
   }
 
-  async function submitProduct(): Promise<string | IProduct> {
+  async function submitProduct() {
     const endpoint = product.id ? `/products/${product.id}` : "/products";
     const method = product.id ? "put" : "post";
     const payload = {
@@ -81,14 +80,30 @@ export default function ProductForm({
     }
 
     return await api_client[method](endpoint, payload)
-      .then(async ({ data }) => data)
+      .then(async ({ data }) => {
+        try {
+          await handleImages(data as IProduct);
+        } catch (error) {
+          console.error(error);
+          toast.error("Erro ao salvar imagens");
+        } finally {
+          getAll();
+          toast.success("Produto salvo com sucesso!");
+          close();
+        }
+      })
       .catch(console.error);
   }
 
-  async function submitImages(product: IProduct) {
-    if (!images.length) return;
-    if (!product.id) return;
+  async function handleImages(product: IProduct) {
+    const hasNewImages = images?.some((image) => !image.id);
+    if (!hasNewImages) return await deleteImages();
+    await uploadImages(product);
+  }
+
+  async function uploadImages(product: IProduct) {
     const requests = images.map(async (image) => {
+      if (image.id) return;
       const formData = new FormData();
       formData.append("image", image as unknown as File);
       await api_client.post(`/images/${product.id}`, formData, {
@@ -100,14 +115,23 @@ export default function ProductForm({
     return await Promise.all(requests).catch(console.error);
   }
 
+  async function deleteImages() {
+    if (imagesToDelete.length) {
+      const deleteRequests = imagesToDelete.map(async (id) => {
+        return await api_client.delete(`/images/${id}`);
+      });
+      return await Promise.all(deleteRequests).catch(console.error);
+    }
+  }
+
   function currencyFormat(value: string) {
     const number = Number(value.replace(/\D/g, ""));
     return `R$ ${(number / 100).toFixed(2).replace(".", ",")}`;
   }
 
   function handleRemoveImage(index: number) {
-    if (product.id) {
-      return;
+    if (product.id && images[index]?.id) {
+      setImagesToDelete([...imagesToDelete, images[index].id]);
     }
     return setImages(images.filter((_, i) => i !== index));
   }
