@@ -31,6 +31,13 @@ export default function ProductCard({
           : "flex-row w-full h-fit"
       } p-4 rounded-2xl bg-gray-100`}
     >
+      <p
+        className={`absolute opacity-40 ${
+          isGrid ? "bottom-3 left-4" : "bottom-3 right-3"
+        } z-10 flex gap-1 text-sm items-center justify-center`}
+      >
+        <span className="font-semibold">ID:</span> {product.id}
+      </p>
       <section
         className={`absolute right-3 ${
           isGrid ? "bottom-3" : "top-3"

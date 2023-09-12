@@ -26,27 +26,35 @@ export function ProductCard({ product }: ProductCardProps) {
     <Link
       key={product.id}
       href={`/produtos/${product.category?.slug}/${product.slug}`}
-      className="flex hover:shadow-lg shadow-md flex-shrink-0 hover:scale-[1.02] gap-3 duration-200 flex-col sm:w-full md:w-[264px] h-fit p-3 rounded-2xl bg-background-light"
+      className="flex hover:shadow-lg shadow-md flex-shrink-0 hover:scale-[1.02] gap-3 duration-200 flex-col sm:w-full md:w-[264px] h-[420px] p-3 rounded-2xl bg-background-light"
     >
       <Image
         alt={product.name}
         width={264}
         height={264}
-        className="w-full h-56 rounded-xl object-cover"
+        className="w-full h-56 rounded-xl object-cover flex-shrink-0"
         src={product.images?.[0]?.url || productNotFound}
       />
-      <div className="flex items-start text-start flex-col w-full">
-        <h1 className="font-satoshi-medium text-lg truncate w-full">
-          {product.name}
-        </h1>
-        <span className="flex items-center gap-2">
-          <h1 className="md:text-2xl sm:text-3xl font-satoshi-black text-typography-black whitespace-nowrap">
-            R$ {Number(product.price).toFixed(2).replace(".", ",")}
+      <div className="flex items-start text-start justify-between h-full flex-col w-full">
+        <article className="flex flex-col w-full">
+          <h1
+            title={product.name}
+            className="font-satoshi-medium text-lg truncate w-full"
+          >
+            {product.name}
           </h1>
-        </span>
-        <p className="font-satoshi-regular opacity-80 text-sm line-clamp-2 ">
-          {product.description}
-        </p>
+          <span className="flex items-center gap-2">
+            <h1 className="md:text-2xl sm:text-3xl font-satoshi-black text-typography-black whitespace-nowrap">
+              R$ {Number(product.price).toFixed(2).replace(".", ",")}
+            </h1>
+          </span>
+          <p
+            title={product.description}
+            className="font-satoshi-regular opacity-80 text-sm line-clamp-2 "
+          >
+            {product.description}
+          </p>
+        </article>
         <button
           onClick={openWhatsApp}
           className="flex items-center mt-4 flex-shrink-0 sm:text-xl md:text-base gap-2 justify-center bg-typography-primary hover:bg-opacity-90 duration-200 text-white font-satoshi-regular whitespace-nowrap rounded-full w-full px-6 py-2"
