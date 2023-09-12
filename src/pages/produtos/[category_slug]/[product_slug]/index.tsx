@@ -15,7 +15,13 @@ import Breadcrump from "@/components/Breadcrump";
 import { ProductCard } from "@/components/ProductCard";
 
 //styles
-import { Minus, Plus, Star } from "@phosphor-icons/react";
+import {
+  CaretLeft,
+  CaretRight,
+  Minus,
+  Plus,
+  Star,
+} from "@phosphor-icons/react";
 import { FaWhatsapp } from "react-icons/fa";
 
 //interfaces
@@ -27,7 +33,10 @@ import imageNotFound from "@/assets/image-not-found.jpg";
 export default function ProductPage() {
   const { query } = useRouter();
   const { product_slug, category_slug } = query;
-  const [product, setProduct] = useState<IProduct>();
+  const [currentImage, setCurrentImage] = useState(0);
+  const [product, setProduct] = useState<IProduct>(
+    {} as unknown as IProduct
+  );
   const [quantity, setQuantity] = useState<number>(1);
   const [productsByCategory, setProductsByCategory] = useState<IProduct[]>();
 
@@ -64,7 +73,7 @@ export default function ProductPage() {
   return (
     <main className="flex min-h-screen flex-col text-typography-primary bg-background-primary items-center relative">
       <NextHeader
-        title={`${product?.name} | Hi, Moon Store 🌙💖`}
+        title={`${product?.name || "Produto"} | Hi, Moon Store 🌙💖`}
         description="Descubra uma ampla seleção de produtos de papelaria de alta qualidade, perfeitos para suas necessidades criativas, educacionais e profissionais."
       />
       <Header />
@@ -72,26 +81,57 @@ export default function ProductPage() {
         <Breadcrump />
         <div className="flex flex-col mt-8 rounded-xl bg-white text-typography-black h-fit shadow-lg">
           <section className="flex md:flex-row sm:flex-col">
-            <figure className="flex flex-col flex-shrink-0 justify-center items-center gap-2 p-2 md:w-[400px]">
-              <Image
-                src={product?.images?.[0]?.url || imageNotFound}
-                alt={product?.name || ""}
-                width={400}
-                height={400}
-                objectFit="contain"
-                className="rounded-lg flex-shrink-0"
-              />
-              <aside className="flex gap-2 justify-center overflow-scroll w-full">
+            <figure className="relative flex flex-col flex-shrink-0 justify-center items-center gap-2 p-2 md:w-[400px]">
+              <div className="relative flex h-[364px] flex-shrink-0">
+                <button
+                  onClick={(e) => {
+                    setCurrentImage(currentImage - 1);
+                    e.preventDefault();
+                  }}
+                  disabled={currentImage === 0}
+                  className="absolute disabled:bg-gray-400 self-center left-2 text-white h-8 w-8 flex items-center justify-center bg-purple-400 bg-opacity-80 duration-300 hover:bg-opacity-100 rounded-full p-2 z-[900]"
+                >
+                  <CaretLeft size={28} className="flex-shrink-0" />
+                </button>
+                <Image
+                  src={product?.images?.[currentImage]?.url || imageNotFound}
+                  alt={product?.name || ""}
+                  width={400}
+                  height={400}
+                  objectFit="cover"
+                  className="rounded-lg flex-shrink-0"
+                />
+                <button
+                  onClick={(e) => {
+                    setCurrentImage(currentImage + 1);
+                    e.preventDefault();
+                  }}
+                  disabled={currentImage === product?.images?.length - 1}
+                  className="absolute disabled:bg-gray-400 self-center right-2 text-white h-8 w-8 flex items-center justify-center bg-purple-400 bg-opacity-80 duration-300 hover:bg-opacity-100 rounded-full p-2 z-[900]"
+                >
+                  <CaretRight size={28} className="flex-shrink-0" />
+                </button>
+              </div>
+              <aside className="flex gap-2 items-center overflow-x-scroll h-24 overflow-y-visible w-full">
                 {product?.images?.map(({ url }, index) => (
-                  <Image
+                  <button
                     key={index}
-                    src={url || imageNotFound}
-                    alt={product?.name || ""}
-                    width={80}
-                    height={80}
-                    objectFit="contain"
-                    className="rounded-lg flex-shrink-0 scrollbar-hide"
-                  />
+                    onClick={() => setCurrentImage(index)}
+                    onMouseEnter={() => setCurrentImage(index)}
+                    className={`flex-shrink-0 ${
+                      index === currentImage &&
+                      "opacity-40 shadow-md rounded-xl h-fit"
+                    }`}
+                  >
+                    <Image
+                      src={url || imageNotFound}
+                      alt={product?.name || ""}
+                      width={80}
+                      height={80}
+                      objectFit="contain"
+                      className="rounded-lg flex-shrink-0 scrollbar-hide h-20 w-20"
+                    />
+                  </button>
                 ))}
               </aside>
             </figure>
