@@ -33,16 +33,18 @@ export function ProductCard({ product }: ProductCardProps) {
       className="flex hover:shadow-lg shadow-md flex-shrink-0 hover:scale-[1.02] gap-3 duration-200 flex-col sm:w-full md:w-[264px] h-[420px] p-3 rounded-2xl bg-background-light"
     >
       <figure className="flex items-center justify-center w-full flex-shrink-0 h-56 rounded-xl relative">
-        <button
-          onClick={(e) => {
-            setCurrentImage(currentImage - 1);
-            e.preventDefault();
-          }}
-          disabled={currentImage === 0}
-          className="absolute disabled:bg-gray-400 self-center left-2 text-white h-8 w-8 flex items-center justify-center bg-purple-400 bg-opacity-80 duration-300 hover:bg-opacity-100 rounded-full p-2 z-[900]"
-        >
-          <CaretLeft size={28} className="flex-shrink-0" />
-        </button>
+        {product.images?.length > 1 && (
+          <button
+            onClick={(e) => {
+              setCurrentImage(currentImage - 1);
+              e.preventDefault();
+            }}
+            disabled={currentImage === 0}
+            className="absolute disabled:bg-gray-400 self-center left-2 text-white h-8 w-8 flex items-center justify-center bg-purple-400 bg-opacity-80 duration-300 hover:bg-opacity-100 rounded-full p-2 z-[90]"
+          >
+            <CaretLeft size={28} className="flex-shrink-0" />
+          </button>
+        )}
         <Image
           alt={product.name}
           width={264}
@@ -50,16 +52,18 @@ export function ProductCard({ product }: ProductCardProps) {
           className="w-full h-56 rounded-xl object-cover flex-shrink-0"
           src={product.images?.[currentImage]?.url || productNotFound}
         />
-        <button
-          onClick={(e) => {
-            setCurrentImage(currentImage + 1);
-            e.preventDefault();
-          }}
-          disabled={currentImage === product.images?.length - 1}
-          className="absolute disabled:bg-gray-400 self-center right-2 text-white h-8 w-8 flex items-center justify-center bg-purple-400 bg-opacity-80 duration-300 hover:bg-opacity-100 rounded-full p-2 z-[900]"
-        >
-          <CaretRight size={28} className="flex-shrink-0" />
-        </button>
+        {product.images?.length > 1 && (
+          <button
+            onClick={(e) => {
+              setCurrentImage(currentImage + 1);
+              e.preventDefault();
+            }}
+            disabled={currentImage === product.images?.length - 1}
+            className="absolute disabled:bg-gray-400 self-center right-2 text-white h-8 w-8 flex items-center justify-center bg-purple-400 bg-opacity-80 duration-300 hover:bg-opacity-100 rounded-full p-2 z-[90]"
+          >
+            <CaretRight size={28} className="flex-shrink-0" />
+          </button>
+        )}
       </figure>
       <div className="flex items-start text-start justify-between h-full flex-col w-full">
         <article className="flex flex-col w-full">
