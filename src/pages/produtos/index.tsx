@@ -19,9 +19,6 @@ import { HeaderSeparator } from "@/components/Separator";
 //interfaces
 import { IProductPaginated } from "@/interfaces/product";
 
-//styles
-import { Rows, SquaresFour } from "@phosphor-icons/react";
-
 //hooks
 import { useDebounce } from "@/hooks/useDebounce";
 
@@ -81,7 +78,7 @@ export default function ProductsPage() {
         </header>
         <section className="flex flex-col gap-6 min-h-screen">
           <header className="flex justify-between items-center gap-4">
-            <Pagination 
+            <Pagination
               totalPages={products.totalPages}
               currentPage={products.currentPage}
               nextPage={getProducts}
@@ -89,28 +86,6 @@ export default function ProductsPage() {
             />
             <div className="sm:hidden md:flex gap-2 w-full">
               <SearchBar text={productName} setText={setProductName} />
-            </div>
-            <div className="flex gap-2">
-              <button
-                onClick={() => setIsGrid(true)}
-                className={`${
-                  isGrid
-                    ? "bg-typography-primary text-white border-typography"
-                    : "bg-white hover:bg-gray-100"
-                } border-2 duration-200 flex-shrink-0 flex items-center justify-center w-[40px] h-[40px] rounded-lg font-satoshi-medium`}
-              >
-                <SquaresFour size={20} />
-              </button>
-              <button
-                onClick={() => setIsGrid(false)}
-                className={`${
-                  !isGrid
-                    ? "bg-typography-primary text-white border-typography"
-                    : "bg-white hover:bg-gray-100"
-                } border-2 duration-200 flex-shrink-0 flex items-center justify-center w-[40px] h-[40px] rounded-lg font-satoshi-medium`}
-              >
-                <Rows size={20} />
-              </button>
             </div>
           </header>
           <div className="sm:block md:hidden gap-2 w-full">
