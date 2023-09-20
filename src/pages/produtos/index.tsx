@@ -25,7 +25,6 @@ import { useDebounce } from "@/hooks/useDebounce";
 export default function ProductsPage() {
   const { query } = useRouter();
   const { category_slug: categorySlug } = query;
-  const [isGrid, setIsGrid] = useState<boolean>(true);
   const [productName, setProductName] = useState<string>("");
   const [products, setProducts] = useState<IProductPaginated>({} as IProductPaginated);
   const debouncedSearch = useDebounce(productName);
