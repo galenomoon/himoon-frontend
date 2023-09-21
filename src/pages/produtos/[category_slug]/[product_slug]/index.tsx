@@ -13,7 +13,7 @@ import Header from "@/components/Header";
 import NextHeader from "@/components/NextHeader";
 import Breadcrump from "@/components/Breadcrump";
 import { ProductCard } from "@/components/ProductCard";
-import ProductImageCarousel from "@/components/Admin/ProductImagesCarousel";
+import ProductImageCarousel from "@/components/ProductImagesCarousel";
 
 //styles
 import {

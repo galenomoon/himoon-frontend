@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 
 //next
-import { useRouter } from "next/router";
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
+import { useRouter } from "next/router";
+
+//components
+import CategoriesBar from "../CategoriesBar";
 
 //styles
 import { motion } from "framer-motion";
+import { IoClose } from "react-icons/io5";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { IoChevronBack, IoChevronForward, IoClose } from "react-icons/io5";
 
 //config
 import api_client from "@/config/api_client";
@@ -68,11 +71,12 @@ export default function Header({ fixed = false }) {
   return (
     <>
       {/* Mobile Header */}
+      {fixed ? <CategoriesBar categories={categories} /> : null}
       <motion.header
         variants={container}
         initial="hidden"
         animate="visible"
-        className="w-full top-0 fixed sm:flex z-[300] md:hidden justify-between p-4 h-[90px] items-center"
+        className="w-full top-12 fixed sm:flex z-[300] md:hidden justify-between p-4 h-[90px] items-center"
       >
         <motion.button
           whileTap={{ scale: 0.8 }}
@@ -144,9 +148,8 @@ export default function Header({ fixed = false }) {
 
       {/* Desktop Header */}
       <header
-        className={`flex flex-col bg-background-primary items-center justify-center w-screen md:flex sm:hidden ${
-          fixed ? (isHomePage ? "fixed" : "sticky") : ""
-        } z-[999] top-0`}
+        className={`flex flex-col bg-background-primary items-center justify-center w-screen md:flex sm:hidden ${fixed ? (isHomePage ? "fixed" : "sticky") : ""
+          } z-[999] top-0`}
       >
         <section className="flex max-w-[94rem] w-full md:px-24 py-4">
           <nav className="flex items-center justify-between w-full">
@@ -181,29 +184,7 @@ export default function Header({ fixed = false }) {
             ))}
           </nav>
         </section>
-        {categories.length > 0 && (
-          <div className="flex relative items-center justify-center w-full animate-fade-in">
-            <div className="flex md:px-24 overflow-scroll scrollbar-hide bg-typography-primary items-center justify-center w-full">
-              <button className="absolute bg-gradient-to-r text-white from-typography-primary left-0 flex items-center justify-start px-6 h-full w-38">
-                <IoChevronBack size={32} />
-              </button>
-              <nav className="flex items-center w-full">
-                {categories.map((category, index) => (
-                  <Link
-                    key={index}
-                    href={`/produtos/${category.slug}`}
-                    className="w-fit flex items-center justify-center py-2 px-8 m-2 rounded-full hover:bg-white hover:text-typography-primary text-white whitespace-nowrap uppercase duration-200"
-                  >
-                    <p>{category.name}</p>
-                  </Link>
-                ))}
-              </nav>
-              <button className="absolute bg-gradient-to-l text-white from-typography-primary right-0 flex items-center justify-end px-6 h-full w-38">
-                <IoChevronForward size={32} />
-              </button>
-            </div>
-          </div>
-        )}
+        <CategoriesBar categories={categories} />
       </header>
     </>
   );
