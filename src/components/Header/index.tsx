@@ -1,39 +1,39 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react"
 
 //next
-import Link from "next/link";
-import Image from "next/image";
-import { useRouter } from "next/router";
+import Link from "next/link"
+import Image from "next/image"
+import { useRouter } from "next/router"
 
 //components
-import CategoriesBar from "../CategoriesBar";
+import CategoriesBar from "../CategoriesBar"
 
 //styles
-import { motion } from "framer-motion";
-import { IoClose } from "react-icons/io5";
-import { GiHamburgerMenu } from "react-icons/gi";
+import { motion } from "framer-motion"
+import { IoClose } from "react-icons/io5"
+import { GiHamburgerMenu } from "react-icons/gi"
 
 //config
-import api_client from "@/config/api_client";
+import api_client from "@/config/api_client"
 
 //assets
-import horizontalLogo from "@/assets/horizontal_logo.png";
+import horizontalLogo from "@/assets/horizontal_logo.png"
 
 //mocks
-import contacts from "@/mocks/contacts";
+import contacts from "@/mocks/contacts"
 
 //interfaces
-import { ICategory } from "@/interfaces/category";
+import { ICategory } from "@/interfaces/category"
 
 export default function Header({ fixed = false }) {
-  const { pathname } = useRouter();
-  const [isOpen, setIsOpen] = useState(false);
-  const isHomePage = pathname === "/";
-  const [categories, setCategories] = useState<ICategory[]>([]);
+  const { pathname } = useRouter()
+  const [isOpen, setIsOpen] = useState(false)
+  const isHomePage = pathname === "/"
+  const [categories, setCategories] = useState<ICategory[]>([])
 
   useEffect(() => {
-    getCategories();
-  }, []);
+    getCategories()
+  }, [])
 
   const routes = [
     {
@@ -48,7 +48,7 @@ export default function Header({ fixed = false }) {
       name: "Contato",
       path: "/#contato",
     },
-  ];
+  ]
 
   const container = {
     hidden: { opacity: 1, scale: 0 },
@@ -57,36 +57,40 @@ export default function Header({ fixed = false }) {
       scale: 1,
       transition: { delayChildren: 0.3, staggerChildren: 0.2 },
     },
-  };
+  }
 
-  const item = { hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1 } };
+  const item = { hidden: { y: 20, opacity: 0 }, visible: { y: 0, opacity: 1 } }
 
   async function getCategories() {
     return await api_client
       .get("/categories?sortBy=name")
       .then(({ data }) => setCategories(data))
-      .catch(console.error);
+      .catch(console.error)
   }
 
   return (
     <>
       {/* Mobile Header */}
-      {fixed ? <CategoriesBar categories={categories} /> : null}
+      {fixed ? (
+        <div className="md:hidden sm:fixed z-[99] w-screen">
+          <CategoriesBar categories={categories} />
+        </div>
+      ) : null}
       <motion.header
         variants={container}
         initial="hidden"
         animate="visible"
-        className="w-full top-12 fixed sm:flex z-[300] md:hidden justify-between p-4 h-[90px] items-center"
+        className="fixed top-12 z-[300] h-[90px] w-full items-center justify-between p-4 sm:flex md:hidden"
       >
         <motion.button
           whileTap={{ scale: 0.8 }}
           onClick={() => setIsOpen(!isOpen)}
-          className="text-2xl p-3 text-typography-100 bg-typography-primary text-white flex items-center justify-center rounded-full z-[101]"
+          className="text-typography-100 z-[101] flex items-center justify-center rounded-full bg-typography-primary p-3 text-2xl text-white"
         >
           {isOpen ? <IoClose size={40} /> : <GiHamburgerMenu />}
         </motion.button>
         <motion.article
-          className="flex flex-col items-center top-0 left-0 fixed bg-white justify-center gap-4 text-4xl z-[100] overflow-hidden"
+          className="fixed left-0 top-0 z-[100] flex flex-col items-center justify-center gap-4 overflow-hidden bg-white text-4xl"
           initial={{
             width: "0px",
             height: "0px",
@@ -121,14 +125,14 @@ export default function Header({ fixed = false }) {
               </motion.div>
               <motion.div
                 variants={container}
-                className="flex w-full h-fit absolute bottom-0 text-white bg-typography-primary items-center justify-between py-12 px-4"
+                className="absolute bottom-0 flex h-fit w-full items-center justify-between bg-typography-primary px-4 py-12 text-white"
               >
                 <motion.p variants={item} className="text-md">
                   Fale conosco:
                 </motion.p>
                 <motion.div
                   variants={container}
-                  className="flex items-center gap-4 justify-center"
+                  className="flex items-center justify-center gap-4"
                 >
                   {contacts.map((contact: any, index: number) => (
                     <motion.a
@@ -148,22 +152,23 @@ export default function Header({ fixed = false }) {
 
       {/* Desktop Header */}
       <header
-        className={`flex flex-col bg-background-primary items-center justify-center w-screen md:flex sm:hidden ${fixed ? (isHomePage ? "fixed" : "sticky") : ""
-          } z-[999] top-0`}
+        className={`flex w-screen flex-col items-center justify-center bg-background-primary sm:hidden md:flex ${
+          fixed ? (isHomePage ? "fixed" : "sticky") : ""
+        } top-0 z-[999]`}
       >
-        <section className="flex max-w-[94rem] w-full md:px-24 py-4">
-          <nav className="flex items-center justify-between w-full">
+        <section className="flex w-full max-w-[94rem] py-4 md:px-24">
+          <nav className="flex w-full items-center justify-between">
             {routes.map((route, index) => (
               <Link
                 key={index}
                 href={route.path}
-                className="flex items-center w-[142px] justify-center py-3 hover:text-typography-primary hover:bg-typography-primary/20 duration-200 rounded-full"
+                className="flex w-[142px] items-center justify-center rounded-full py-3 duration-200 hover:bg-typography-primary/20 hover:text-typography-primary"
               >
                 <p>{route.name}</p>
               </Link>
             ))}
           </nav>
-          <nav className="flex items-center justify-center w-full">
+          <nav className="flex w-full items-center justify-center">
             <Image
               src={horizontalLogo}
               alt="logo"
@@ -172,12 +177,12 @@ export default function Header({ fixed = false }) {
               className="w-[120px]"
             />
           </nav>
-          <nav className="flex items-center text-3xl justify-end gap-6 w-full">
+          <nav className="flex w-full items-center justify-end gap-6 text-3xl">
             {contacts.map((contact: any, index: number) => (
               <Link
                 href={contact.url}
                 key={index}
-                className="h-[30px] w-[30px] flex justify-center items-center"
+                className="flex h-[30px] w-[30px] items-center justify-center"
               >
                 <contact.Icon />
               </Link>
@@ -187,5 +192,5 @@ export default function Header({ fixed = false }) {
         <CategoriesBar categories={categories} />
       </header>
     </>
-  );
+  )
 }
