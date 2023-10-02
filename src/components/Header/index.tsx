@@ -63,7 +63,7 @@ export default function Header({ fixed = false }) {
 
   async function getCategories() {
     return await api_client
-      .get("/categories?sortBy=name")
+      .get(`websites/${process.env.NEXT_PRIVATE_WEBSITE_ID}/categories?sortBy=name`)
       .then(({ data }) => setCategories(data))
       .catch(console.error)
   }

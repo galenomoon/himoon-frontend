@@ -49,7 +49,7 @@ export default function ProductPage() {
     if (!product_slug) return;
 
     return await api_client
-      .get(`/products/${product_slug}`)
+      .get(`websites/${process.env.NEXT_PRIVATE_WEBSITE_ID}/products/${product_slug}`)
       .then(({ data }) => setProduct(data))
       .catch(console.error);
   }
@@ -58,7 +58,7 @@ export default function ProductPage() {
     if (!product_slug) return;
 
     return await api_client
-      .get(`/products/category/${category_slug}`)
+      .get(`websites/${process.env.NEXT_PRIVATE_WEBSITE_ID}/products/category/${category_slug}`)
       .then(({ data }) => setProductsByCategory(data))
       .catch(console.error);
   }

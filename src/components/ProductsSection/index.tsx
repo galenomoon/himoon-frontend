@@ -32,7 +32,7 @@ export default function ProductsSection() {
 
   async function getProducts() {
     return await api_client
-      .get("/products?quantity=9")
+      .get(`websites/${process.env.NEXT_PRIVATE_WEBSITE_ID}/products?quantity=9`)
       .then(({ data }) => setProducts(data))
       .catch(console.error);
   }

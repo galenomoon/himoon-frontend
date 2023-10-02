@@ -38,11 +38,11 @@ export default function ProductsPage() {
     const nameQuery = debouncedSearch ? `&q=${debouncedSearch}` : "";
 
     const endpoint = categorySlug
-      ? `/products/category/${categorySlug}?page=${page}${nameQuery}`
-      : `/products?page=${page}${nameQuery}`;
+      ? `products/category/${categorySlug}?page=${page}${nameQuery}`
+      : `products?page=${page}${nameQuery}`;
 
     return await api_client
-      .get(endpoint)
+      .get(`websites/${process.env.NEXT_PRIVATE_WEBSITE_ID}/` + endpoint)
       .then(({ data }) => setProducts(data))
       .catch(console.error);
   }
