@@ -25,30 +25,30 @@ import { IProduct } from "@/interfaces/product"
 //assets
 import imageNotFound from "@/assets/image-not-found.jpg"
 
-export async function getServerSideProps(ctx: { query: any }) {
-  const productNotFound = {
-    name: "Produto não encontrado",
-    description: "Produto não encontrado",
-    price: 0,
-    images: [{ url: imageNotFound }],
-  }
-  try {
-    const { product_slug } = ctx.query
-    const endpoint = `websites/${process.env.NEXT_PRIVATE_WEBSITE_ID}/products/${product_slug}`
-    const currentProduct = await api_client.get(endpoint).then(({ data }) => data)
-    return {
-      props: { currentProduct: currentProduct || null as unknown as IProduct },
-    }
-  } catch (error) {
-    return {
-      props: { currentProduct: productNotFound },
-    }
-  } finally {
-    return {
-      props: { currentProduct: productNotFound },
-    }
-  }
-}
+// export async function getServerSideProps(ctx: { query: any }) {
+//   const productNotFound = {
+//     name: "Produto não encontrado",
+//     description: "Produto não encontrado",
+//     price: 0,
+//     images: [{ url: imageNotFound }],
+//   }
+//   try {
+//     const { product_slug } = ctx.query
+//     const endpoint = `websites/${process.env.NEXT_PRIVATE_WEBSITE_ID}/products/${product_slug}`
+//     const currentProduct = await api_client.get(endpoint).then(({ data }) => data)
+//     return {
+//       props: { currentProduct: currentProduct || null as unknown as IProduct },
+//     }
+//   } catch (error) {
+//     return {
+//       props: { currentProduct: productNotFound },
+//     }
+//   } finally {
+//     return {
+//       props: { currentProduct: productNotFound },
+//     }
+//   }
+// }
 
 export default function ProductPage({
   currentProduct,
@@ -101,10 +101,13 @@ export default function ProductPage({
   return (
     <main className="relative flex min-h-screen flex-col items-center bg-background-primary text-typography-primary">
       <NextHeader
-        image={currentProduct?.images?.[1]?.url}
-        title={`${currentProduct?.name || "Produto"} | Hi, Moon Store 🌙💖`}
+        image={currentProduct?.images?.[1]?.url || product?.images?.[1]?.url}
+        title={`${
+          currentProduct?.name || product?.name || "Produto"
+        } | Hi, Moon Store 🌙💖`}
         description={
           currentProduct?.description ||
+          product?.description ||
           "Descubra uma ampla seleção de produtos de papelaria de alta qualidade, perfeitos para suas necessidades criativas, educacionais e profissionais."
         }
       />
