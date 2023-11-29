@@ -25,39 +25,27 @@ import { IProduct } from "@/interfaces/product"
 //assets
 import imageNotFound from "@/assets/image-not-found.jpg"
 
-export const fetcher = async (url: string) => {
-  try {
-    const response = await fetch(url)
-    if (!response.ok) {
-      throw new Error(`Failed to retrieve data ${url}}`)
-    }
-
-    const data = await response.json()
-
-    return data
-  } catch (error) {
-    console.error(error)
-  }
-}
-
 export async function getServerSideProps(ctx: { query: any }) {
+  const productNotFound = {
+    name: "Produto não encontrado",
+    description: "Produto não encontrado",
+    price: 0,
+    images: [{ url: imageNotFound }],
+  }
   try {
     const { product_slug } = ctx.query
-    const endpoint = `${process.env.NEXT_PUBLIC_API_URL}/websites/${process.env.NEXT_PRIVATE_WEBSITE_ID}/products/${product_slug}`
-    const currentProduct = await fetcher(endpoint) as IProduct
+    const endpoint = `websites/${process.env.NEXT_PRIVATE_WEBSITE_ID}/products/${product_slug}`
+    const currentProduct = await api_client.get(endpoint).then(({ data }) => data)
     return {
       props: { currentProduct: currentProduct || null as unknown as IProduct },
     }
   } catch (error) {
     return {
-      props: {
-        currentProduct: {
-          name: "Produto não encontrado",
-          description: "Produto não encontrado",
-          price: 0,
-          images: [{ url: imageNotFound }],
-        },
-      },
+      props: { currentProduct: productNotFound },
+    }
+  } finally {
+    return {
+      props: { currentProduct: productNotFound },
     }
   }
 }
