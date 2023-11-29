@@ -1,94 +1,120 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"
 
 //config
-import api_client from "@/config/api_client";
+import api_client from "@/config/api_client"
 
 //next
-import Image from "next/image";
-import { useRouter } from "next/router";
+import Image from "next/image"
+import { useRouter } from "next/router"
 
 //components
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
-import NextHeader from "@/components/NextHeader";
-import Breadcrump from "@/components/Breadcrump";
-import { ProductCard } from "@/components/ProductCard";
-import ProductImageCarousel from "@/components/ProductImagesCarousel";
+import Footer from "@/components/Footer"
+import Header from "@/components/Header"
+import NextHeader from "@/components/NextHeader"
+import Breadcrump from "@/components/Breadcrump"
+import { ProductCard } from "@/components/ProductCard"
+import ProductImageCarousel from "@/components/ProductImagesCarousel"
 
 //styles
-import {
-  CaretLeft,
-  CaretRight,
-  Minus,
-  Plus,
-  Star,
-} from "@phosphor-icons/react";
-import { FaWhatsapp } from "react-icons/fa";
+import { Minus, Plus, Star } from "@phosphor-icons/react"
+import { FaWhatsapp } from "react-icons/fa"
 
 //interfaces
-import { IProduct } from "@/interfaces/product";
+import { IProduct } from "@/interfaces/product"
 
 //assets
-import imageNotFound from "@/assets/image-not-found.jpg";
+import imageNotFound from "@/assets/image-not-found.jpg"
 
-export default function ProductPage() {
-  const { query } = useRouter();
-  const { product_slug, category_slug } = query;
-  const [currentImage, setCurrentImage] = useState({ index: 0, url: "" });
-  const [product, setProduct] = useState<IProduct>({} as unknown as IProduct);
-  const [quantity, setQuantity] = useState<number>(1);
-  const [productsByCategory, setProductsByCategory] = useState<IProduct[]>();
+export async function getServerSideProps(ctx: { query: any }) {
+  const { product_slug } = ctx.query
+  const endpoint = `websites/${process.env.NEXT_PRIVATE_WEBSITE_ID}/products/${product_slug}`
+  try {
+    const response = await api_client.get(endpoint)
+    const currentProduct = response?.data as IProduct
+    return {
+      props: { currentProduct },
+    }
+  } catch (error) {
+    return {
+      props: {},
+    }
+  }
+}
+
+export default function ProductPage({
+  currentProduct,
+}: {
+  currentProduct: IProduct
+}) {
+  const { query } = useRouter()
+  const { product_slug, category_slug } = query
+  const [currentImage, setCurrentImage] = useState({ index: 0, url: "" })
+  const [product, setProduct] = useState<IProduct>(
+    currentProduct as unknown as IProduct,
+  )
+  const [quantity, setQuantity] = useState<number>(1)
+  const [productsByCategory, setProductsByCategory] = useState<IProduct[]>()
 
   useEffect(() => {
-    getProduct();
-    getProductsByCategory();
+    getProduct()
+    getProductsByCategory()
     //eslint-disable-next-line
-  }, [product_slug]);
+  }, [product_slug])
 
   async function getProduct() {
-    if (!product_slug) return;
+    if (!product_slug) return
 
     return await api_client
-      .get(`websites/${process.env.NEXT_PRIVATE_WEBSITE_ID}/products/${product_slug}`)
+      .get(
+        `websites/${process.env.NEXT_PRIVATE_WEBSITE_ID}/products/${product_slug}`,
+      )
       .then(({ data }) => setProduct(data))
-      .catch(console.error);
+      .catch(console.error)
   }
 
   async function getProductsByCategory() {
-    if (!product_slug) return;
+    if (!product_slug) return
 
     return await api_client
-      .get(`websites/${process.env.NEXT_PRIVATE_WEBSITE_ID}/products/category/${category_slug}`)
+      .get(
+        `websites/${process.env.NEXT_PRIVATE_WEBSITE_ID}/products/category/${category_slug}`,
+      )
       .then(({ data }) => setProductsByCategory(data))
-      .catch(console.error);
+      .catch(console.error)
   }
 
   function openWhatsApp(product: IProduct) {
-    const message = `Hi, Moon! Eu gostaria de ${quantity} unidade(s) do produto ${product.name}`;
-    const link = `https://api.whatsapp.com/send?phone=${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}&text=${message}`;
-    return window.open(link, "_blank");
+    const message = `Hi, Moon! Eu gostaria de ${quantity} unidade(s) do produto ${product.name}`
+    const link = `https://api.whatsapp.com/send?phone=${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}&text=${message}`
+    return window.open(link, "_blank")
   }
 
   return (
-    <main className="flex min-h-screen flex-col text-typography-primary bg-background-primary items-center relative">
+    <main className="relative flex min-h-screen flex-col items-center bg-background-primary text-typography-primary">
       <NextHeader
-        title={`${product?.name || "Produto"} | Hi, Moon Store 🌙💖`}
-        description="Descubra uma ampla seleção de produtos de papelaria de alta qualidade, perfeitos para suas necessidades criativas, educacionais e profissionais."
+        image={currentProduct?.images?.[1]?.url}
+        title={`${currentProduct?.name || "Produto"} | Hi, Moon Store 🌙💖`}
+        description={
+          currentProduct?.description ||
+          "Descubra uma ampla seleção de produtos de papelaria de alta qualidade, perfeitos para suas necessidades criativas, educacionais e profissionais."
+        }
       />
       <Header />
-      <section className="flex flex-col w-full pb-28 max-w-screen-xl px-4 sm:px-6 lg:px-8">
+      <section className="flex w-full max-w-screen-xl flex-col px-4 pb-28 sm:px-6 lg:px-8">
         <Breadcrump />
-        <div className="flex flex-col mt-8 rounded-xl bg-white text-typography-black h-fit shadow-lg">
-          <section className="flex md:flex-row sm:flex-col">
-            <figure className="relative flex flex-col flex-shrink-0 justify-center items-center gap-2 p-2 md:w-[400px]">
+        <div className="mt-8 flex h-fit flex-col rounded-xl bg-white text-typography-black shadow-lg">
+          <section className="flex sm:flex-col md:flex-row">
+            <figure className="relative flex flex-shrink-0 flex-col items-center justify-center gap-2 p-2 md:w-[400px]">
               <div className="relative flex h-[364px] flex-shrink-0">
                 <Image
-                  src={product?.images?.[currentImage?.index]?.url || imageNotFound}
+                  src={
+                    product?.images?.[currentImage?.index]?.url || imageNotFound
+                  }
                   alt={product?.name || ""}
                   width={400}
                   height={400}
                   objectFit="cover"
-                  className="rounded-lg flex-shrink-0 object-cover"
+                  className="flex-shrink-0 rounded-lg object-cover"
                 />
               </div>
               <ProductImageCarousel
@@ -115,10 +141,10 @@ export default function ProductPage() {
                     (0 avaliações)
                   </p>
                 </div>
-                <p className="text-2xl font-satoshi-black text-typography-primary">
+                <p className="font-satoshi-black text-2xl text-typography-primary">
                   R$ {Number(product?.price)?.toFixed(2)}
                 </p>
-                <article className="flex pt-2 pb-8 border-y-[1px] max-h-[100px]">
+                <article className="flex max-h-[100px] border-y-[1px] pb-8 pt-2">
                   <p className="font-satoshi-regular text-typography-black/60">
                     {product?.description}
                   </p>
@@ -133,7 +159,7 @@ export default function ProductPage() {
                 </div>
                 <button
                   onClick={() => openWhatsApp(product as IProduct)}
-                  className="flex items-center flex-shrink-0 sm:text-xl md:text-base gap-2 justify-center bg-typography-primary hover:bg-opacity-90 duration-200 text-white font-satoshi-regular whitespace-nowrap rounded-full md:w-80 sm:w-full px-6 py-3"
+                  className="font-satoshi-regular flex flex-shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-full bg-typography-primary px-6 py-3 text-white duration-200 hover:bg-opacity-90 sm:w-full sm:text-xl md:w-80 md:text-base"
                 >
                   <FaWhatsapp size={16} />
                   <p>Fazer pedido</p>
@@ -143,12 +169,12 @@ export default function ProductPage() {
           </section>
         </div>
         {productsByCategory?.length && (
-          <section className="bg-white rounded-2xl shadow-lg flex flex-col px-4 pb-3 pt-4 mt-8">
+          <section className="mt-8 flex flex-col rounded-2xl bg-white px-4 pb-3 pt-4 shadow-lg">
             <h2 className="text-2xl font-bold text-typography-black">
               Produtos relacionados
             </h2>
-            <span className="bg-typography-black/5 w-full mb-2 my-4 h-[1.2px]" />
-            <div className="flex sm:flex-col md:flex-row w-full md:overflow-x-auto max-w-screen-xl py-4 scrollbar-hide gap-6">
+            <span className="my-4 mb-2 h-[1.2px] w-full bg-typography-black/5" />
+            <div className="scrollbar-hide flex w-full max-w-screen-xl gap-6 py-4 sm:flex-col md:flex-row md:overflow-x-auto">
               {productsByCategory?.map((product, index) => (
                 <ProductCard key={index} product={product} />
               ))}
@@ -158,12 +184,12 @@ export default function ProductPage() {
       </section>
       <Footer />
     </main>
-  );
+  )
 }
 
 interface ICounter {
-  quantity: number;
-  setQuantity: React.Dispatch<React.SetStateAction<number>>;
+  quantity: number
+  setQuantity: React.Dispatch<React.SetStateAction<number>>
 }
 
 export function Counter({ quantity, setQuantity }: ICounter) {
@@ -180,7 +206,7 @@ export function Counter({ quantity, setQuantity }: ICounter) {
         onChange={({ target }) =>
           setQuantity(/^[0-9]*$/g.test(target.value) ? Number(target.value) : 1)
         }
-        className="font-satoshi-regular text-typography-black/60 w-16 py-1 border-x-[1px] border-x-typography-black/20 flex items-center text-center justify-center"
+        className="font-satoshi-regular flex w-16 items-center justify-center border-x-[1px] border-x-typography-black/20 py-1 text-center text-typography-black/60"
       />
       <button
         onClick={(e) => setQuantity(quantity + 1)}
@@ -189,5 +215,5 @@ export function Counter({ quantity, setQuantity }: ICounter) {
         <Plus size={12} weight="bold" />
       </button>
     </section>
-  );
+  )
 }
