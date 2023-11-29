@@ -36,7 +36,14 @@ export async function getServerSideProps(ctx: { query: any }) {
     }
   } catch (error) {
     return {
-      props: {},
+      props: {
+        currentProduct: {
+          name: "Produto não encontrado",
+          description: "Produto não encontrado",
+          price: 0,
+          images: [{ url: imageNotFound }],
+        },
+      },
     }
   }
 }
