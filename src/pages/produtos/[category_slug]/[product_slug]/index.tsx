@@ -26,9 +26,9 @@ import { IProduct } from "@/interfaces/product"
 import imageNotFound from "@/assets/image-not-found.jpg"
 
 export async function getServerSideProps(ctx: { query: any }) {
-  const { product_slug } = ctx.query
-  const endpoint = `websites/${process.env.NEXT_PRIVATE_WEBSITE_ID}/products/${product_slug}`
   try {
+    const { product_slug } = ctx.query
+    const endpoint = `websites/${process.env.NEXT_PRIVATE_WEBSITE_ID}/products/${product_slug}`
     const response = await api_client.get(endpoint)
     const currentProduct = response?.data as IProduct
     return {
