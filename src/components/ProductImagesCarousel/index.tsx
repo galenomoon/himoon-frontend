@@ -34,7 +34,7 @@ export default function ProductImageCarousel({
   const [startIndex, setStartIndex] = useState(0)
 
   const imagesToDisplay =
-    product.images?.slice(startIndex, startIndex + 5) || []
+    product?.images?.slice(startIndex, startIndex + 5) || []
 
   const handlePreviousClick = () => {
     if (startIndex > 0) {
