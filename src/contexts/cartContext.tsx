@@ -118,7 +118,6 @@ export default function CartContextProvider({
   }
 
   function saveOnCookie(cart: ICartItem[] = cartItems) {
-    console.log("Saving on cookie", JSON.stringify(cart))
     setCookie(null, "cartItems", JSON.stringify(cart), {
       maxAge: 30 * 24 * 60 * 60,
       path: "/",
