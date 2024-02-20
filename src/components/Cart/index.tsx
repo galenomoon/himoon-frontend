@@ -41,8 +41,7 @@ export default function Cart() {
     *🛒💗 Seu Carrinho 🛒💗:*
     
     ${message.join("")}
-    *🎀 Total: R$ ${total.toFixed(2)} 🎀*
-    ${cartItems.length} itens selecionados
+    *🎀 Total: R$ ${totalPrice} 🎀*
       `
 
     const encodedMessage = encodeURIComponent(formattedMessage)
