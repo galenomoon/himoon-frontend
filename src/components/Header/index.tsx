@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 
 //next
 import Link from "next/link"
@@ -6,18 +6,23 @@ import Image from "next/image"
 import { useRouter } from "next/router"
 
 //components
+import Cart from "../Cart"
 import CategoriesBar from "../CategoriesBar"
 
 //styles
 import { motion } from "framer-motion"
 import { IoClose } from "react-icons/io5"
 import { GiHamburgerMenu } from "react-icons/gi"
+import { FaCartShopping } from "react-icons/fa6"
 
 //config
 import api_client from "@/config/api_client"
 
 //assets
 import horizontalLogo from "@/assets/horizontal_logo.png"
+
+//context
+import { CartContext } from "@/contexts/cartContext"
 
 //mocks
 import contacts from "@/mocks/contacts"
@@ -27,8 +32,9 @@ import { ICategory } from "@/interfaces/category"
 
 export default function Header({ fixed = false }) {
   const { pathname } = useRouter()
-  const [isOpen, setIsOpen] = useState(false)
   const isHomePage = pathname === "/"
+  const { openCart = () => {}, totalCartQuantity } = useContext(CartContext)
+  const [isOpen, setIsOpen] = useState(false)
   const [categories, setCategories] = useState<ICategory[]>([])
 
   useEffect(() => {
@@ -63,7 +69,9 @@ export default function Header({ fixed = false }) {
 
   async function getCategories() {
     return await api_client
-      .get(`websites/${process.env.NEXT_PRIVATE_WEBSITE_ID}/categories?sortBy=name`)
+      .get(
+        `websites/${process.env.NEXT_PRIVATE_WEBSITE_ID}/categories?sortBy=name`,
+      )
       .then(({ data }) => setCategories(data))
       .catch(console.error)
   }
@@ -72,7 +80,7 @@ export default function Header({ fixed = false }) {
     <>
       {/* Mobile Header */}
       {fixed ? (
-        <div className="md:hidden sm:fixed z-[99] w-screen">
+        <div className="z-[99] w-screen sm:fixed md:hidden">
           <CategoriesBar categories={categories} />
         </div>
       ) : null}
@@ -88,6 +96,17 @@ export default function Header({ fixed = false }) {
           className="text-typography-100 z-[101] flex items-center justify-center rounded-full bg-typography-primary p-3 text-2xl text-white"
         >
           {isOpen ? <IoClose size={40} /> : <GiHamburgerMenu />}
+        </motion.button>
+        <motion.button
+          onClick={() => openCart()}
+          className="text-typography-100 relative z-[101] flex items-center justify-center rounded-full bg-typography-primary p-3 text-2xl text-white"
+        >
+          <FaCartShopping />
+          {totalCartQuantity ? (
+            <article className="absolute -right-2 top-0 flex h-5 w-5 items-center justify-center rounded-full bg-red-600 p-1 text-sm text-white">
+              {totalCartQuantity}
+            </article>
+          ) : null}
         </motion.button>
         <motion.article
           className="fixed left-0 top-0 z-[100] flex flex-col items-center justify-center gap-4 overflow-hidden bg-white text-4xl"
@@ -177,7 +196,7 @@ export default function Header({ fixed = false }) {
               className="w-[120px]"
             />
           </nav>
-          <nav className="flex w-full items-center justify-end gap-6 text-3xl">
+          <nav className="flex w-full items-center justify-center gap-6 text-3xl">
             {contacts.map((contact: any, index: number) => (
               <Link
                 href={contact.url}
@@ -188,9 +207,23 @@ export default function Header({ fixed = false }) {
               </Link>
             ))}
           </nav>
+          <nav>
+            <button
+              onClick={() => openCart()}
+              className="relative flex items-center justify-center p-3 text-3xl"
+            >
+              <FaCartShopping />
+              {totalCartQuantity ? (
+                <article className="absolute -right-1 top-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-600 p-1 text-sm text-white">
+                  {totalCartQuantity}
+                </article>
+              ) : null}
+            </button>
+          </nav>
         </section>
         <CategoriesBar categories={categories} />
       </header>
+      <Cart />
     </>
   )
 }
