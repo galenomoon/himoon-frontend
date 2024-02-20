@@ -1,5 +1,5 @@
-import axios from "axios";
-import { parseCookies } from "nookies";
+import axios from "axios"
+import { parseCookies } from "nookies"
 
 const api_client = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -7,19 +7,19 @@ const api_client = axios.create({
     "Content-Type": "application/json",
     Accept: "application/json",
   },
-});
+})
 
 api_client.interceptors.request.use(
   (config) => {
     const { token } = parseCookies()
     if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`;
+      config.headers["Authorization"] = `Bearer ${token}`
     }
-    return config;
+    return config
   },
   (error) => {
     Promise.reject(error)
-  }
-);
+  },
+)
 
-export default api_client;
+export default api_client

@@ -1,14 +1,14 @@
-import React from 'react'
+import React from "react"
 
 //next
-import Link from 'next/link'
-import Image from 'next/image'
+import Link from "next/link"
+import Image from "next/image"
 
 //assets
-import galenomoon_logo from '@/assets/galenomoon_logo.svg'
+import galenomoon_logo from "@/assets/galenomoon_logo.svg"
 
 //mocks
-import contacts from '@/mocks/contacts'
+import contacts from "@/mocks/contacts"
 
 export default function Footer() {
   const date = new Date()
@@ -17,85 +17,86 @@ export default function Footer() {
   return (
     <>
       {/* Mobile Footer */}
-      <footer className='md:hidden w-screen py-2 text-white bg-background-secondary flex flex-col justify-center text-center'>
-        <span className='dashed-border h-1' />
-        <article className='flex flex-col w-full pt-12 pb-16 text-typography-primary h-full items-center justify-center self-center max-w-[1300px]'>
-          <nav className='flex w-full gap-4 items-center justify-center'>
-            {contacts.map((contact: any, index: number) =>
-              <Link href={contact.url || '#'} key={index}>
+      <footer className="flex w-screen flex-col justify-center bg-background-secondary py-2 text-center text-white md:hidden">
+        <span className="dashed-border h-1" />
+        <article className="flex h-full w-full max-w-[1300px] flex-col items-center justify-center self-center pb-16 pt-12 text-typography-primary">
+          <nav className="flex w-full items-center justify-center gap-4">
+            {contacts.map((contact: any, index: number) => (
+              <Link href={contact.url || "#"} key={index}>
                 <contact.Icon size={28} />
               </Link>
-            )}
+            ))}
           </nav>
-          <aside className='flex flex-col w-full items-center mt-8'>
+          <aside className="mt-8 flex w-full flex-col items-center">
+            <p>© {year} - Todos os direitos reservados</p>
             <p>
-              © {year} - Todos os direitos reservados
-            </p>
-            <p>
-              Desenvolvido por <a href="https://www.galenomoon.com" target="_blank" rel="noopener noreferrer" className='text-primary'>Guilherme Galeno</a>
+              Desenvolvido por{" "}
+              <a
+                href="https://www.galenomoon.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary"
+              >
+                Guilherme Galeno
+              </a>
             </p>
             <Image
-              alt='Logo'
+              alt="Logo"
               height={40}
               src={galenomoon_logo}
-              className='mt-4'
+              className="mt-4"
             />
           </aside>
         </article>
-        <span className='dashed-border h-1' />
+        <span className="dashed-border h-1" />
       </footer>
       {/* Desktop Footer */}
-      <footer className='md:flex sm:hidden w-screen py-2 text-white bg-background-secondary flex flex-col justify-center text-center'>
-        <span className='dashed-border h-1' />
-        <article className='flex w-full pt-14 px-10 pb-24 text-typography-primary h-full self-center max-w-[1300px]'>
-          <nav className='flex flex-col w-full gap-4 text-start'>
-            <Link href="/">
-              Início
-            </Link>
-            <Link href="">
-              Produtos
-            </Link>
-            <Link href="">
-              Contato
-            </Link>
+      <footer className="flex w-screen flex-col justify-center bg-background-secondary py-2 text-center text-white sm:hidden md:flex">
+        <span className="dashed-border h-1" />
+        <article className="flex h-full w-full max-w-[1300px] self-center px-10 pb-24 pt-14 text-typography-primary">
+          <nav className="flex w-full flex-col gap-4 text-start">
+            <Link href="/">Início</Link>
+            <Link href="">Produtos</Link>
+            <Link href="">Contato</Link>
           </nav>
-          <nav className='flex flex-col w-full gap-4 text-start'>
-            <Link href="">
-              Informações
-            </Link>
-            <Link href="">
-              Termos de uso
-            </Link>
-            <Link href="">
-              Política de privacidade
-            </Link>
+          <nav className="flex w-full flex-col gap-4 text-start">
+            <Link href="">Informações</Link>
+            <Link href="">Termos de uso</Link>
+            <Link href="">Política de privacidade</Link>
           </nav>
-          <nav className='flex flex-col w-full gap-4 text-start'>
-            {contacts.map((contact: any, index: number) =>
-              <Link href={contact.url} key={index} className='flex gap-2 items-center'>
+          <nav className="flex w-full flex-col gap-4 text-start">
+            {contacts.map((contact: any, index: number) => (
+              <Link
+                href={contact.url}
+                key={index}
+                className="flex items-center gap-2"
+              >
                 <contact.Icon size={22} />
-                <p>
-                  {contact.title}
-                </p>
+                <p>{contact.title}</p>
               </Link>
-            )}
+            ))}
           </nav>
-          <aside className='flex flex-col w-full whitespace-nowrap text-end items-end'>
+          <aside className="flex w-full flex-col items-end whitespace-nowrap text-end">
+            <p>© {year} - Todos os direitos reservados</p>
             <p>
-              © {year} - Todos os direitos reservados
-            </p>
-            <p>
-              Desenvolvido por <a href="https://www.galenomoon.com" target="_blank" rel="noopener noreferrer">Guilherme Galeno</a>
+              Desenvolvido por{" "}
+              <a
+                href="https://www.galenomoon.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Guilherme Galeno
+              </a>
             </p>
             <Image
-              alt='Logo'
+              alt="Logo"
               height={40}
-              className='mt-6'
+              className="mt-6"
               src={galenomoon_logo}
             />
           </aside>
         </article>
-        <span className='dashed-border h-1' />
+        <span className="dashed-border h-1" />
       </footer>
     </>
   )

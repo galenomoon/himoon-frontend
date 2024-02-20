@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 
 //config
 import api_client from "@/config/api_client"
@@ -17,13 +17,19 @@ import ProductImageCarousel from "@/components/ProductImagesCarousel"
 
 //styles
 import { Minus, Plus, Star } from "@phosphor-icons/react"
-import { FaWhatsapp } from "react-icons/fa"
+import { FaPlus, FaWhatsapp } from "react-icons/fa"
 
 //interfaces
 import { IProduct } from "@/interfaces/product"
 
 //assets
 import imageNotFound from "@/assets/image-not-found.jpg"
+
+//utils
+import { openWhatsApp } from "@/utils/openWhatsApp"
+
+//contexts
+import { CartContext } from "@/contexts/cartContext"
 
 // export async function getServerSideProps(ctx: { query: any }) {
 //   const productNotFound = {
@@ -57,6 +63,7 @@ export default function ProductPage({
 }) {
   const { query } = useRouter()
   const { product_slug, category_slug } = query
+  const { addCartItem } = useContext(CartContext)
   const [currentImage, setCurrentImage] = useState({ index: 0, url: "" })
   const [product, setProduct] = useState<IProduct>(
     currentProduct as unknown as IProduct,
@@ -90,12 +97,6 @@ export default function ProductPage({
       )
       .then(({ data }) => setProductsByCategory(data))
       .catch(console.error)
-  }
-
-  function openWhatsApp(product: IProduct) {
-    const message = `Hi, Moon! Eu gostaria de ${quantity} unidade(s) do produto ${product.name}`
-    const link = `https://api.whatsapp.com/send?phone=${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}&text=${message}`
-    return window.open(link, "_blank")
   }
 
   return (
@@ -167,11 +168,23 @@ export default function ProductPage({
                   <span className="font-satoshi-regular text-typography-black/60">
                     Quantidade:
                   </span>{" "}
-                  <Counter quantity={quantity} setQuantity={setQuantity} />
+                  <Counter
+                    quantity={quantity}
+                    setQuantity={setQuantity}
+                    decrement={() => setQuantity(quantity - 1)}
+                    increment={() => setQuantity(quantity + 1)}
+                  />
                 </div>
                 <button
-                  onClick={() => openWhatsApp(product as IProduct)}
+                  onClick={() => addCartItem(product as IProduct, quantity)}
                   className="font-satoshi-regular flex flex-shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-full bg-typography-primary px-6 py-3 text-white duration-200 hover:bg-opacity-90 sm:w-full sm:text-xl md:w-80 md:text-base"
+                >
+                  <FaPlus size={16} />
+                  <p>Adicionar ao carrinho</p>
+                </button>
+                <button
+                  onClick={() => openWhatsApp(product as IProduct, quantity)}
+                  className="font-satoshi-regular flex flex-shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-full bg-typography-primary/20 px-6 py-3 text-typography-primary duration-200 hover:bg-opacity-90 sm:w-full sm:text-xl md:w-80 md:text-base"
                 >
                   <FaWhatsapp size={16} />
                   <p>Fazer pedido</p>
@@ -201,27 +214,44 @@ export default function ProductPage({
 
 interface ICounter {
   quantity: number
-  setQuantity: React.Dispatch<React.SetStateAction<number>>
+  increment?: () => void
+  decrement?: () => void
+  setQuantity?: (quantity: number) => void
+  className?: string
 }
 
-export function Counter({ quantity, setQuantity }: ICounter) {
+export function Counter({
+  quantity,
+  increment,
+  decrement,
+  setQuantity,
+  className,
+}: ICounter) {
   return (
-    <section className="flex gap-2 rounded-sm border border-typography-black/20 px-2">
+    <section
+      className={
+        "flex w-fit gap-2 rounded-sm border border-typography-black/20 px-2 " +
+        className
+      }
+    >
       <button
-        onClick={(e) => quantity > 1 && setQuantity(quantity - 1)}
+        onClick={(e) => quantity > 1 && decrement && decrement()}
         className="flex items-center justify-center px-1"
       >
         <Minus size={12} weight="bold" />
       </button>
       <input
         value={quantity}
+        disabled={!setQuantity}
         onChange={({ target }) =>
-          setQuantity(/^[0-9]*$/g.test(target.value) ? Number(target.value) : 1)
+          setQuantity?.(
+            /^[0-9]*$/g.test(target.value) ? Number(target.value) : 1,
+          )
         }
         className="font-satoshi-regular flex w-16 items-center justify-center border-x-[1px] border-x-typography-black/20 py-1 text-center text-typography-black/60"
       />
       <button
-        onClick={(e) => setQuantity(quantity + 1)}
+        onClick={(e) => increment && increment()}
         className="flex items-center justify-center px-1"
       >
         <Plus size={12} weight="bold" />

@@ -1,18 +1,16 @@
-import Head from 'next/head'
-import React from 'react'
+import Head from "next/head"
+import React from "react"
 
 export default function NextHeader({
-  title = 'Hi, Moon Store 🌙💖 - Sua papelaria criativa!',
-  description = 'A Moon Store é uma papelaria criativa que tem como objetivo trazer produtos de qualidade e com um preço acessível para você!',
-  image = '/complete_logo.png',
+  title = "Hi, Moon Store 🌙💖 - Sua papelaria criativa!",
+  description = "A Moon Store é uma papelaria criativa que tem como objetivo trazer produtos de qualidade e com um preço acessível para você!",
+  image = "/complete_logo.png",
 }) {
   return (
     <Head>
       <meta charSet="utf-8" />
       <link rel="icon" href="/moon.png" />
-      <title>
-        {title}
-      </title>
+      <title>{title}</title>
       <meta name="description" content={description} />
       <meta name="og:title" content={title} />
       <meta property="og:image" content={image} />

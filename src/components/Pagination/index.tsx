@@ -1,13 +1,13 @@
-import React from "react";
+import React from "react"
 
 //styles
-import { CaretLeft, CaretRight } from "@phosphor-icons/react";
+import { CaretLeft, CaretRight } from "@phosphor-icons/react"
 
 interface IPaginationProps {
-  totalPages: number;
-  currentPage: number;
-  nextPage: (page: number) => void;
-  previousPage: (page: number) => void;
+  totalPages: number
+  currentPage: number
+  nextPage: (page: number) => void
+  previousPage: (page: number) => void
 }
 
 export default function Pagination({
@@ -17,8 +17,8 @@ export default function Pagination({
   previousPage,
 }: IPaginationProps) {
   return (
-    <section className="flex items-center justify-center rounded-full p-2 gap-1 bg-background-light !w-[220px]">
-      <p className="whitespace-nowrap w-[70px] gap-1 flex items-center justify-center">
+    <section className="flex !w-[220px] items-center justify-center gap-1 rounded-full bg-background-light p-2">
+      <p className="flex w-[70px] items-center justify-center gap-1 whitespace-nowrap">
         <span className="font-satoshi-bold">
           {currentPage < 10 ? `0${currentPage}` : currentPage}
         </span>
@@ -31,19 +31,18 @@ export default function Pagination({
         <button
           onClick={() => previousPage(currentPage - 1)}
           disabled={currentPage === 1}
-          className="disabled:opacity-20 rounded-full w-6 h-6 flex items-center justify-center duration-200 hover:bg-black/10"
+          className="flex h-6 w-6 items-center justify-center rounded-full duration-200 hover:bg-black/10 disabled:opacity-20"
         >
           <CaretLeft size={18} weight="bold" />
         </button>
         <button
           onClick={() => nextPage(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className="disabled:opacity-20 rounded-full w-6 h-6 flex items-center justify-center duration-200 hover:bg-black/10"
+          className="flex h-6 w-6 items-center justify-center rounded-full duration-200 hover:bg-black/10 disabled:opacity-20"
         >
           <CaretRight size={18} weight="bold" />
         </button>
       </aside>
     </section>
-  );
+  )
 }
-
