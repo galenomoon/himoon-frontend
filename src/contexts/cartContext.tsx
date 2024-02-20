@@ -143,7 +143,7 @@ export default function CartContextProvider({
         isCartOpened,
         totalPrice: cartItems
           .reduce(
-            (acc, cartItem) => acc + cartItem.total * cartItem.quantity,
+            (acc, cartItem) => acc + (cartItem.total * cartItem.quantity),
             0,
           )
           .toFixed(2) as unknown as number,
