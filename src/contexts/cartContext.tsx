@@ -140,17 +140,8 @@ export default function CartContextProvider({
         incrementCartItem,
         decrementCartItem,
         isCartOpened,
-        totalPrice: cartItems
-          .reduce(
-            (acc, cartItem) => acc + (cartItem.total * cartItem.quantity),
-            0,
-          )
-          .toFixed(2) as unknown as number,
-
-        totalCartQuantity: cartItems.reduce(
-          (acc, cartItem) => acc + cartItem.quantity,
-          0,
-        ),
+        totalPrice: cartItems.reduce((acc, cartItem) => acc + (cartItem.total),0).toFixed(2) as unknown as number,
+        totalCartQuantity: cartItems.reduce((acc, cartItem) => acc + cartItem.quantity, 0),
         openCart: () => setIsCartOpen(true),
         closeCart: () => setIsCartOpen(false),
       }}
